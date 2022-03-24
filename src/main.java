@@ -1,7 +1,8 @@
 public class main {
     public static void main(String[] args)
     {
-        System.out.println("hello worlde");
+        System.out.println("wachugetmiinthesamar");
+        System.out.println("hello world");
     }
 
 }
