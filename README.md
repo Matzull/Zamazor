@@ -1,0 +1,2 @@
+# Zamazor
+Amazon ripoff
