@@ -139,6 +139,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Zamazor.iml" filepath="$PROJECT_DIR$/Zamazor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/images/images.iml" filepath="$PROJECT_DIR$/images/images.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="openjdk-18" project-jdk-type="JavaSDK">
