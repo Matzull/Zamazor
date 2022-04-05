@@ -4,10 +4,12 @@ public class ArticlesController {
 
     private Articles a;
 
+    //Constructor vacion. Valores por defecto
     public ArticlesController(){
         this.a = new Articles();
     }
-
+    
+    //Constructor con parametros. Contectar con BBDD
     public ArticlesController(Integer id, Integer rating, Integer sellerId, String name, String description,
                               String department, Boolean stock){
         this.a = new Articles(id, rating, sellerId, name, description, department, stock);
