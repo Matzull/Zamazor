@@ -46,9 +46,7 @@ public class Articles implements Observable<ArticlesObserver>{
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name;}
 
     public Boolean getStock() {
         return stock;
