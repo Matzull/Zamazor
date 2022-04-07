@@ -96,6 +96,12 @@ public class Articulos implements Observable<ArticulosObserver>{
     }
     //endregion
 
+    public Articulos esIgual(Articulos a){      //No deberia ser necesaria
+        if(a.equals(this)) return this;
+        else return null;
+    }
+
+
     public void addObserver(ArticulosObserver o) {
         if(!observers.contains(o)) this.observers.add(o);
     }
