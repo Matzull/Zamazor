@@ -1,4 +1,4 @@
-package Articles;
+package Articulos;
 
 public interface Observable<T> {        //Interfaz necesaria para el patron observer. MVC
 
