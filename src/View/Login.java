@@ -19,25 +19,6 @@ public class Login extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField passwordField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,8 +53,7 @@ public class Login extends JFrame {
 		panel_1.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JButton iniciarSesionBoton = new JButton("Iniciar sesion");
-		
+		JButton iniciarSesionBoton = new JButton("Iniciar sesion");		
 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
 		iniciarSesionBoton.setIcon(iconLogo);
 		

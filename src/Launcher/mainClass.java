@@ -1,16 +1,21 @@
 package Launcher;
 
-import View.MainWindowAdministrador;
-
+import View.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class mainClass {     //El main sera la clase Amazon del diagrama de clases?
     public static void main(String[] args)
     {
-        SwingUtilities.invokeLater(new Runnable() {             //Thread para la GUI de articulo
-            @Override
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainWindowAdministrador();
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    MainWindowAdministrador frame = new MainWindowAdministrador();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

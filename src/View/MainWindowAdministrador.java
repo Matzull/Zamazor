@@ -21,6 +21,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindowAdministrador extends JFrame {
 
@@ -31,25 +33,14 @@ public class MainWindowAdministrador extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindowAdministrador frame = new MainWindowAdministrador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public MainWindowAdministrador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 639, 498);
+		setBounds(100, 100, 769, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -80,13 +71,20 @@ public class MainWindowAdministrador extends JFrame {
 		panel.add(barraBusqueda);
 		barraBusqueda.setColumns(10);
 		
-		JLabel lupaIcon = new JLabel("");
-		lupaIcon.setForeground(Color.WHITE);
-		lupaIcon.setBackground(Color.WHITE);
+		
+	
+		
+		JButton buscarButton = new JButton("");
+		buscarButton.setBorderPainted(false);
+		buscarButton.setBackground(Color.GRAY);
+		iconLogo = new ImageIcon("resources/search.png");
+		buscarButton.setIcon(iconLogo);
+		buscarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		panel.add(buscarButton);
 
-		iconLogo = new ImageIcon("resources/IconoLupa.png");
-		lupaIcon.setIcon(iconLogo);
-		panel.add(lupaIcon);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
@@ -107,13 +105,25 @@ public class MainWindowAdministrador extends JFrame {
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		
 		JButton modificarButton = new JButton("Modificar Articulo");
+		modificarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarArticulo prueba = new ModificarArticulo();
+				prueba.setVisible(true);
+			}
+		});
 		panel_2.add(modificarButton);
 		
-		JButton btnNewButton = new JButton("Eliminar Articulo");
-		panel_2.add(btnNewButton);
+		JButton eliminarButton = new JButton("Eliminar Articulo");
+		panel_2.add(eliminarButton);
 		
-		JButton btnNewButton_1 = new JButton("A\u00F1adir Articulo");
-		panel_2.add(btnNewButton_1);
+		JButton anadirArticulo = new JButton("A\u00F1adir Articulo");
+		anadirArticulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ModificarArticulo prueba = new ModificarArticulo();
+				prueba.setVisible(true);
+			}
+		});
+		panel_2.add(anadirArticulo);
 	}
 	
 	private void crearModeloTabla() {
