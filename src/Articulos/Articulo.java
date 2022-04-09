@@ -3,19 +3,20 @@ package Articulos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Articulos implements Observable<ArticulosObserver>{
+public class Articulo implements Observable<ArticulosObserver>{
     //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
     private Integer id;                 //
     private String nombre;              //
+    private int precio;                 //
     private Boolean stock;              //
     private String descripcion;         // Quiza tb seria mejor static, pero mismo problema que en el rating
-    private static Integer valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
+    private double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
     private String tipo;                //
     private Integer idVendedor;         //
     private List<ArticulosObserver> observers;   //Lista de observadores para el MVC
 
     //Constructor vacio para valores por defecto
-    public Articulos(){
+    public Articulo(){
         id = 0;
         nombre = "";
         stock = false;
@@ -27,8 +28,8 @@ public class Articulos implements Observable<ArticulosObserver>{
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
-    public Articulos(Integer id, Integer valoracion, Integer idVendedor, String name, String descripcion,
-                     String tipo, Boolean stock){
+    public Articulo(Integer id, Integer valoracion, Integer idVendedor, String name, String descripcion,
+                    String tipo, Boolean stock){
         this.id = id;
         this.nombre = name;
         this.stock = stock;
@@ -55,13 +56,17 @@ public class Articulos implements Observable<ArticulosObserver>{
         return descripcion;
     }
 
-    public static Integer getValoracion() {
+    public double getValoracion() {
         return valoracion;
     }
+
+    public int getVendedor_id(){return idVendedor;}
 
     public String getTipo() {
         return tipo;
     }
+
+    public double getPrecio(){return this.precio;}
 
     public Integer getIdVendedor() {
         return idVendedor;
@@ -83,24 +88,23 @@ public class Articulos implements Observable<ArticulosObserver>{
         this.descripcion = descripcion;
     }
 
-    public static void setValoracion(Integer valoracion) {
-        Articulos.valoracion = valoracion;
+    public void setValoracion(Double valoracion) {
+        this.valoracion =  valoracion;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public void setIdVendedor(Integer idVendedor) {
+    public void setVendedor_id(Integer idVendedor) {
         this.idVendedor = idVendedor;
     }
-    //endregion
+    //end region
 
-    public Articulos esIgual(Articulos a){      //No deberia ser necesaria
+    public Articulo esIgual(Articulo a){      //No deberia ser necesaria
         if(a.equals(this)) return this;
         else return null;
     }
-
 
     public void addObserver(ArticulosObserver o) {
         if(!observers.contains(o)) this.observers.add(o);

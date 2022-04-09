@@ -1,13 +1,14 @@
 package Articulos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FachadaArticulos {                     //Fachada articulo
 
-    boolean altaArticulo(Articulos a);
-    boolean modificarArticulo(Articulos a);
-    boolean bajaArticulo(Articulos a);
-    ArrayList<Articulos> buscarArticulo(String nombre);
-    Articulos consultarArticulo(int id);
+    boolean altaArticulo(Articulo a);
+    boolean modificarArticulo(Articulo a);
+    boolean bajaArticulo(Articulo a);
+    List<Articulo> buscarArticulo(String nombre);
+    Articulo consultarArticulo(int id);
 
 }

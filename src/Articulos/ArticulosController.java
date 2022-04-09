@@ -2,17 +2,17 @@ package Articulos;
 
 public class ArticulosController {
 
-    private Articulos a;
+    private Articulo a;
 
     //Constructor vacio. Valores por defecto
     public ArticulosController(){
-        this.a = new Articulos();
+        this.a = new Articulo();
     }
     
     //Constructor con parametros. Contectar con BBDD
     public ArticulosController(Integer id, Integer rating, Integer sellerId, String name, String description,
                                String department, Boolean stock){
-        this.a = new Articulos(id, rating, sellerId, name, description, department, stock);
+        this.a = new Articulo(id, rating, sellerId, name, description, department, stock);
     }
 
     public void addObserver(ArticulosObserver o){
