@@ -64,8 +64,6 @@ public class MainWindowAdministrador extends JFrame {
 		barraBusqueda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				String texto = barraBusqueda.getText().toLowerCase();
-				filter(texto);
 			}
 		});
 		panel.add(barraBusqueda);
@@ -81,6 +79,8 @@ public class MainWindowAdministrador extends JFrame {
 		buscarButton.setIcon(iconLogo);
 		buscarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String texto = barraBusqueda.getText().toLowerCase();
+				filter(texto);
 			}
 		});
 		panel.add(buscarButton);
