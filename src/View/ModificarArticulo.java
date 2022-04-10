@@ -144,6 +144,7 @@ public class ModificarArticulo extends JFrame {
 	public boolean aceptar(){		
 		Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()), 
 		Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+		this.setVisible(false);
 		return mainWindowAdministrador.modificarArticulo(a);
 	}
 }

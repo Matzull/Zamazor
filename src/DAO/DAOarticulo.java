@@ -85,7 +85,7 @@ public class DAOarticulo implements IFachadaDao
         }
         else
         {
-            QUERY = "SELECT * FROM Articulos WHERE _Nombre = " + "'" + nombre + "'";
+            QUERY = "SELECT * FROM Articulos WHERE _Nombre LIKE " + "'%" + nombre + "%'";
         }
 
         try {
