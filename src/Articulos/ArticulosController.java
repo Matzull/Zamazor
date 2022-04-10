@@ -57,7 +57,7 @@ public class ArticulosController {
 
     public Articulo consultarArticulo(int id)
     {
-        return consultarArticulo(id);
+        return fachadaArticulos.consultarArticulo(id);
     }
 
 

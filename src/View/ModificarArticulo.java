@@ -20,6 +20,8 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JCheckBox;
 
 public class ModificarArticulo extends JFrame {
@@ -33,11 +35,13 @@ public class ModificarArticulo extends JFrame {
 	private JTextField idVendTextField;
 	private JCheckBox stockCheckBox;
 	private MainWindowAdministrador mainWindowAdministrador;
+	private boolean modif;
 
-	public ModificarArticulo(MainWindowAdministrador mainWindow) {
+	public ModificarArticulo(MainWindowAdministrador mainWindow, boolean ismodif) {
 		
 		this.mainWindowAdministrador = mainWindow;
-		
+
+		modif = ismodif;
 		
 		setBounds(100, 100, 289, 333);
 		contentPane = new JPanel();
@@ -56,6 +60,12 @@ public class ModificarArticulo extends JFrame {
 		idTxtField = new JTextField();
 		panel.add(idTxtField);
 		idTxtField.setColumns(10);
+		idTxtField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				fillFields();
+			}
+		});
 		
 		JLabel nombrelbl = new JLabel("Nombre:");
 		nombrelbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -138,13 +148,42 @@ public class ModificarArticulo extends JFrame {
 		
 		panel_2.add(aceptarButton);
 	}
+
 	public void cancelar() {
 		this.setVisible(false);
 	}
-	public boolean aceptar(){		
-		Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()), 
-		Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
-		this.setVisible(false);
-		return mainWindowAdministrador.modificarArticulo(a);
+
+	public boolean aceptar(){
+		if (modif)
+		{
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()),
+			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+			this.setVisible(false);
+			return mainWindowAdministrador.modificarArticulo(a);
+		}
+		else
+		{
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()),
+					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+			this.setVisible(false);
+			return mainWindowAdministrador.altaArticulo(a);
+		}
+
 	}
+
+	public void fillFields()
+	{
+		Articulo art = mainWindowAdministrador.consultarArticulo(Integer.parseInt(idTxtField.getText()));
+		if (art != null)
+		{
+			nombreTextField.setText(art.getNombre());
+			descTextField.setText(art.getDescripcion());
+			valTextField.setText(Double.toString(art.getValoracion()));
+			tipoTextField.setText(art.getTipo());
+			idVendTextField.setText(Integer.toString(art.getVendedor_id()));
+			stockCheckBox.setSelected(art.getStock());
+		}
+
+	}
+
 }

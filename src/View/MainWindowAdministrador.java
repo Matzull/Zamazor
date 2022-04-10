@@ -45,7 +45,7 @@ public class MainWindowAdministrador extends JFrame {
 		this._ctrl = ctrl;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 769, 500);
+		setBounds(200, 200, 769, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -110,7 +110,7 @@ public class MainWindowAdministrador extends JFrame {
 		JButton modificarButton = new JButton("Modificar Articulo");
 		modificarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar();
+				crearBotonModificar(true);
 			}
 		});
 		panel_2.add(modificarButton);
@@ -121,14 +121,14 @@ public class MainWindowAdministrador extends JFrame {
 		JButton anadirArticulo = new JButton("A\u00F1adir Articulo");
 		anadirArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar();
+				crearBotonModificar(false);
 			}
 		});
 		panel_2.add(anadirArticulo);
 	}
 
-	private void crearBotonModificar() {
-		ModificarArticulo prueba = new ModificarArticulo(this);
+	private void crearBotonModificar(boolean modificar) {
+		ModificarArticulo prueba = new ModificarArticulo(this, modificar);
 		prueba.setVisible(true);
 	}
 
@@ -140,8 +140,17 @@ public class MainWindowAdministrador extends JFrame {
 		crearModeloTabla(_ctrl.buscarArticulo(texto));
 	}
 
+	public Articulo consultarArticulo(int id)
+	{
+		return _ctrl.consultarArticulo(id);
+	}
+
 	public boolean modificarArticulo(Articulo a) {
 		return _ctrl.modificarArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
+	}
+
+	public boolean altaArticulo(Articulo a) {
+		return _ctrl.altaArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
 	}
 
 	public void crearModeloTabla(List<Articulo> arts) {
