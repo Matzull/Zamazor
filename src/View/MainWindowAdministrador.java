@@ -132,10 +132,10 @@ public class MainWindowAdministrador extends JFrame {
 	private void crearBotonModificar() {
 		ModificarArticulo prueba = new ModificarArticulo(this);
 		prueba.setVisible(true);		
-	}	
+	}
 
-	private void crearModeloTabla() {
-		_ctrl.fullTable();
+	private List<Articulo> fullTable() {
+		return _ctrl.fullTable();
 	}
 
 	private void filter(String texto) {
@@ -145,5 +145,24 @@ public class MainWindowAdministrador extends JFrame {
 	}
 	public boolean modificarArticulo(Articulo a) {
 		return _ctrl.modificarArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
+	}
+
+	public void crearModeloTabla()
+	{
+		interiorTabla = (DefaultTableModel) table.getModel();
+		interiorTabla.addColumn("ID");
+		interiorTabla.addColumn("Nombre");
+		interiorTabla.addColumn( "Stock");
+		interiorTabla.addColumn("Descripcion");
+		interiorTabla.addColumn("Valoracion");
+		interiorTabla.addColumn("Tipo");
+		interiorTabla.addColumn("Vendedor_ID");
+
+		List<Articulo> arts = fullTable();
+
+		for(Articulo ar : arts) {
+			Object[] interior = {ar.getId(), ar.getNombre(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};
+			interiorTabla.addRow(interior);
+		}
 	}
 }

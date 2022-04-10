@@ -7,6 +7,11 @@ public class ImplFachadaArticulos implements FachadaArticulos {           //Impl
 
     private SAArticulos sa;
 
+    public ImplFachadaArticulos()
+    {
+        sa = new SAArticulos();
+    }
+
     @Override
     public boolean altaArticulo(Articulo a) {
         return sa.altaArticulo(a);
@@ -18,8 +23,8 @@ public class ImplFachadaArticulos implements FachadaArticulos {           //Impl
     }
 
     @Override
-    public boolean bajaArticulo(Articulo a) {
-        return sa.bajaArticulo(a);
+    public boolean bajaArticulo(int id) {
+        return sa.bajaArticulo(id);
     }
 
     @Override

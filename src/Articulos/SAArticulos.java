@@ -24,8 +24,8 @@ public class SAArticulos {  //Servicio de aplicacion
         return DAO.modificarArticulo(a);
     }
 
-    public boolean bajaArticulo(Articulo a) {
-        return DAO.bajaArticulo(a.getId());
+    public boolean bajaArticulo(int id) {
+        return DAO.bajaArticulo(id);
     }
 
     public List<Articulo> buscarArticulo(String nombre) {

@@ -40,4 +40,25 @@ public class ArticulosController {
         return fachadaArticulos.buscarArticulo("");
     }
 
+    public boolean altaArticulo(Articulo a)
+    {
+        return fachadaArticulos.altaArticulo(a);
+    }
+
+    public boolean bajaArticulo(Integer id)
+    {
+        return fachadaArticulos.bajaArticulo(id);
+    }
+
+    public List<Articulo> buscarArticulo(String nombre)
+    {
+        return fachadaArticulos.buscarArticulo(nombre);
+    }
+
+    public Articulo consultarArticulo(int id)
+    {
+        return consultarArticulo(id);
+    }
+
+
 }
