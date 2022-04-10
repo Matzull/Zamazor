@@ -16,11 +16,18 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+
+import Articulos.Articulo;
+import Articulos.ArticulosController;
+import DAO.DAOarticulo;
+
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -30,15 +37,13 @@ public class MainWindowAdministrador extends JFrame {
 	private JTextField barraBusqueda;
 	private JTable table;
 	private DefaultTableModel interiorTabla;
-	/**
-	 * Launch the application.
-	 */
+	private ArticulosController _ctrl;
 	
+	
+	public MainWindowAdministrador(ArticulosController ctrl) {
+		
+		this._ctrl = ctrl;
 
-	/**
-	 * Create the frame.
-	 */
-	public MainWindowAdministrador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 769, 500);
 		contentPane = new JPanel();
@@ -68,7 +73,10 @@ public class MainWindowAdministrador extends JFrame {
 		});
 		panel.add(barraBusqueda);
 		barraBusqueda.setColumns(10);
-
+		
+		
+	
+		
 		JButton buscarButton = new JButton("");
 		buscarButton.setBorderPainted(false);
 		buscarButton.setBackground(Color.GRAY);
@@ -104,8 +112,7 @@ public class MainWindowAdministrador extends JFrame {
 		JButton modificarButton = new JButton("Modificar Articulo");
 		modificarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModificarArticulo prueba = new ModificarArticulo();
-				prueba.setVisible(true);
+				crearBotonModificar();
 			}
 		});
 		panel_2.add(modificarButton);
@@ -116,32 +123,27 @@ public class MainWindowAdministrador extends JFrame {
 		JButton anadirArticulo = new JButton("A\u00F1adir Articulo");
 		anadirArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ModificarArticulo prueba = new ModificarArticulo();
-				prueba.setVisible(true);
+				crearBotonModificar();
 			}
 		});
 		panel_2.add(anadirArticulo);
 	}
 	
+	private void crearBotonModificar() {
+		ModificarArticulo prueba = new ModificarArticulo(this);
+		prueba.setVisible(true);		
+	}	
+
 	private void crearModeloTabla() {
-		interiorTabla = (DefaultTableModel) table.getModel();
-		interiorTabla.addColumn("ID");
-		interiorTabla.addColumn("Nombre");
-		interiorTabla.addColumn( "Stock");
-		interiorTabla.addColumn("Descripcion");
-		interiorTabla.addColumn("Valoracion");
-		interiorTabla.addColumn("Tipo");
-		interiorTabla.addColumn("Vendedor_ID");
-		
-		Object[] interior ={
-				"prueba", "prueba", "Stoprueback", "prueba", "Valopruebaracion", "prueba", "Vepruebandedor_ID"
-			};
-		interiorTabla.addRow(interior);
+		_ctrl.fullTable();
 	}
 
 	private void filter(String texto) {
 		TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(interiorTabla);
 		table.setRowSorter(tr);
 		tr.setRowFilter(RowFilter.regexFilter(texto));
+	}
+	public boolean modificarArticulo(Articulo a) {
+		return _ctrl.modificarArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
 	}
 }

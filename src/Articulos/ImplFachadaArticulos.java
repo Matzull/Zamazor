@@ -31,4 +31,5 @@ public class ImplFachadaArticulos implements FachadaArticulos {           //Impl
     public Articulo consultarArticulo(int id) {
         return sa.consultarArticulo(id);
     }
+
 }

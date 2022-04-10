@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Articulos.Articulo;
+
 import javax.swing.JTextField;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -17,19 +20,25 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class ModificarArticulo extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField idTxtField;
 	private JTextField nombreTextField;
-	private JTextField stockTextField;
 	private JTextField descTextField;
 	private JTextField valTextField;
 	private JTextField tipoTextField;
-	private JTextField idTextField;
+	private JTextField idVendTextField;
+	private JCheckBox stockCheckBox;
+	private MainWindowAdministrador mainWindowAdministrador;
 
-	public ModificarArticulo() {
+	public ModificarArticulo(MainWindowAdministrador mainWindow) {
+		
+		this.mainWindowAdministrador = mainWindow;
+		
+		
 		setBounds(100, 100, 289, 333);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,9 +69,9 @@ public class ModificarArticulo extends JFrame {
 		stocklbl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(stocklbl);
 		
-		stockTextField = new JTextField();
-		stockTextField.setColumns(10);
-		panel.add(stockTextField);
+		stockCheckBox = new JCheckBox("");
+		stockCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(stockCheckBox);
 		
 		JLabel desclabel = new JLabel("Descripcion:");
 		desclabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -92,9 +101,9 @@ public class ModificarArticulo extends JFrame {
 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblVendedor);
 		
-		idTextField = new JTextField();
-		panel.add(idTextField);
-		idTextField.setColumns(10);
+		idVendTextField = new JTextField();
+		panel.add(idVendTextField);
+		idVendTextField.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.GRAY);
@@ -119,6 +128,11 @@ public class ModificarArticulo extends JFrame {
 		panel_2.add(cancelarButton);
 		
 		JButton aceptarButton = new JButton("Aceptar");
+		aceptarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				aceptar();
+			}
+		});
 		iconLogo = new ImageIcon("resources/IconoOkey.png");
 		aceptarButton.setIcon(iconLogo);
 		
@@ -126,5 +140,10 @@ public class ModificarArticulo extends JFrame {
 	}
 	public void cancelar() {
 		this.setVisible(false);
+	}
+	public boolean aceptar(){		
+		Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()), 
+		Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+		return mainWindowAdministrador.modificarArticulo(a);
 	}
 }
