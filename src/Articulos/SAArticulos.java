@@ -21,7 +21,7 @@ public class SAArticulos {  //Servicio de aplicacion
     }
 
     public boolean modificarArticulo(Articulo a) {
-        return modificarArticulo(a);
+        return DAO.modificarArticulo(a);
     }
 
     public boolean bajaArticulo(Articulo a) {
@@ -35,6 +35,5 @@ public class SAArticulos {  //Servicio de aplicacion
     public Articulo consultarArticulo(int id) {
         return DAO.consultarArticulo(id);
     }
-
 
 }

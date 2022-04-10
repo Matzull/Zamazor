@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DAOarticulo implements IFachadaDao
 {
-    static final String DB_URL = "jdbc:sqlite:src/Zamazor.db";
+    static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
 
     private String QUERY;
     private Connection conn;
@@ -79,7 +79,14 @@ public class DAOarticulo implements IFachadaDao
         List<Articulo> l = new ArrayList<Articulo>();
         boolean correct = false;
 
-        QUERY = "SELECT * FROM Articulos WHERE _Nombre = " + "'" + nombre + "'";
+        if (nombre == "")
+        {
+            QUERY = "SELECT * FROM Articulos";
+        }
+        else
+        {
+            QUERY = "SELECT * FROM Articulos WHERE _Nombre = " + "'" + nombre + "'";
+        }
 
         try {
             rs = stmt.executeQuery(QUERY);
