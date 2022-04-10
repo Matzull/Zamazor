@@ -101,6 +101,7 @@ public class DAOarticulo implements IFachadaDao
                     ar.setId(rs.getInt("_ID"));
                     ar.setDescripcion(rs.getString("_Description"));
                     ar.setNombre(rs.getString("_Nombre"));
+                    ar.setPrecio(rs.getDouble("_Precio"));
                     ar.setStock(rs.getBoolean("_Stock"));
                     ar.setTipo(rs.getString("_Tipo"));
                     ar.setVendedor_id(rs.getInt("_Vendedor_id"));
@@ -128,6 +129,7 @@ public class DAOarticulo implements IFachadaDao
             ar.setId(rs.getInt("_ID"));
             ar.setDescripcion(rs.getString("_Description"));
             ar.setNombre(rs.getString("_Nombre"));
+            ar.setPrecio(rs.getDouble("_Precio"));
             ar.setStock(rs.getBoolean("_Stock"));
             ar.setTipo(rs.getString("_Tipo"));
             ar.setVendedor_id(rs.getInt("_Vendedor_id"));

@@ -7,10 +7,10 @@ public class Articulo implements Observable<ArticulosObserver>{
     //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
     private Integer id;                 //
     private String nombre;              //
-    private double precio;                 //
+    private Double precio;                 //
     private Boolean stock;              //
     private String descripcion;         // Quiza tb seria mejor static, pero mismo problema que en el rating
-    private double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
+    private Double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
     private String tipo;                //
     private Integer idVendedor;         //
     private List<ArticulosObserver> observers;   //Lista de observadores para el MVC
@@ -20,15 +20,16 @@ public class Articulo implements Observable<ArticulosObserver>{
         id = 0;
         nombre = "";
         stock = false;
+        precio = 0.0;
         descripcion = "";
-        valoracion = 0;
+        valoracion = 0.0;
         tipo = "";
         idVendedor = 0;
         this.observers = new ArrayList<ArticulosObserver>();
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
-    public Articulo(Integer id, Double valoracion, double precio, Integer idVendedor, String name, String descripcion,
+    public Articulo(Integer id, Double valoracion, Double precio, Integer idVendedor, String name, String descripcion,
                     String tipo, Boolean stock){
         this.id = id;
         this.nombre = name;
@@ -113,5 +114,9 @@ public class Articulo implements Observable<ArticulosObserver>{
 
     public void removeObserver(ArticulosObserver o) {
         if(observers.contains(o)) this.observers.remove(o);
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 }

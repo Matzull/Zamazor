@@ -74,6 +74,14 @@ public class AuxWindow extends JFrame {
 		nombreTextField = new JTextField();
 		nombreTextField.setColumns(10);
 		panel.add(nombreTextField);
+
+		JLabel precioLbl = new JLabel("Precio:");
+		precioLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(precioLbl);
+
+		precioTxtField = new JTextField();
+		panel.add(precioTxtField);
+		precioTxtField.setColumns(10);
 		
 		JLabel stocklbl = new JLabel("Stock:");
 		stocklbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,13 +119,7 @@ public class AuxWindow extends JFrame {
 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblVendedor);
 
-		JLabel precioLbl = new JLabel("Precio:");
-		precioLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(precioLbl);
 
-		precioTxtField = new JTextField();
-		panel.add(precioTxtField);
-		precioTxtField.setColumns(10);
 		
 		idVendTextField = new JTextField();
 		panel.add(idVendTextField);
@@ -196,6 +198,7 @@ public class AuxWindow extends JFrame {
 		{
 			nombreTextField.setText(art.getNombre());
 			descTextField.setText(art.getDescripcion());
+			precioTxtField.setText(Double.toString(art.getPrecio()));
 			valTextField.setText(Double.toString(art.getValoracion()));
 			tipoTextField.setText(art.getTipo());
 			idVendTextField.setText(Integer.toString(art.getVendedor_id()));
