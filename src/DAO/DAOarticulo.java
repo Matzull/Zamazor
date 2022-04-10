@@ -5,6 +5,7 @@ import Articulos.Articulo;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DAOarticulo implements IFachadaDao
 {
     static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
@@ -60,11 +61,15 @@ public class DAOarticulo implements IFachadaDao
 
     public boolean modificarArticulo (Articulo a) {
         boolean correct = true;
-        QUERY = "UPDATE Articulos SET  _Nombre = " + "'" + a.getNombre() + "'" + ",_Precio= " +a.getPrecio() +
-            ",_Stock = " + a.getStock() + ",_Description = " + "'" + a.getDescripcion() + "'" +
-            ",_Valoracion = " +a.getValoracion()+ ",_Tipo = " + "'" + a.getTipo() + "'"+ ",_Vendedor_id = "+a.getVendedor_id() +  " WHERE _ID = " + a.getId();
         try
         {
+            if (consultarArticulo(a.getId()).getNombre() == "")
+            {
+                throw new Exception("");
+            }
+            QUERY = "UPDATE Articulos SET  _Nombre = " + "'" + a.getNombre() + "'" + ",_Precio= " +a.getPrecio() +
+                    ",_Stock = " + a.getStock() + ",_Description = " + "'" + a.getDescripcion() + "'" +
+                    ",_Valoracion = " +a.getValoracion()+ ",_Tipo = " + "'" + a.getTipo() + "'"+ ",_Vendedor_id = "+a.getVendedor_id() +  " WHERE _ID = " + a.getId();
             stmt.executeUpdate(QUERY);
             correct = true;
         }

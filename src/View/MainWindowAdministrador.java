@@ -1,32 +1,18 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import Articulos.Articulo;
 import Articulos.ArticulosController;
-import DAO.DAOarticulo;
 
-import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,12 +26,13 @@ public class MainWindowAdministrador extends JFrame {
 	private ArticulosController _ctrl;
 
 
+
 	public MainWindowAdministrador(ArticulosController ctrl) {
 
 		this._ctrl = ctrl;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 769, 500);
+		setBounds(200, 200, 1000, 720);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -110,27 +97,42 @@ public class MainWindowAdministrador extends JFrame {
 		JButton modificarButton = new JButton("Modificar Articulo");
 		modificarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar(true);
+				crearBotonModificar(AuxWindow.Emode.Modificar);
 			}
 		});
 		panel_2.add(modificarButton);
 
 		JButton eliminarButton = new JButton("Eliminar Articulo");
+
+		eliminarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminar();
+			}
+		});
 		panel_2.add(eliminarButton);
 
 		JButton anadirArticulo = new JButton("A\u00F1adir Articulo");
 		anadirArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar(false);
+				crearBotonModificar(AuxWindow.Emode.Anadir);
 			}
 		});
 		panel_2.add(anadirArticulo);
+
+		JButton consultarArticulo = new JButton("Consultar Articulo");
+		consultarArticulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crearBotonModificar(AuxWindow.Emode.Consultar);
+			}
+		});
+		panel_2.add(consultarArticulo);
 	}
 
-	private void crearBotonModificar(boolean modificar) {
-		ModificarArticulo prueba = new ModificarArticulo(this, modificar);
+	private void crearBotonModificar(AuxWindow.Emode modificar) {
+		AuxWindow prueba = new AuxWindow(this, modificar);
 		prueba.setVisible(true);
 	}
+
 
 	private List<Articulo> fullTable() {
 		return _ctrl.fullTable();
@@ -142,21 +144,35 @@ public class MainWindowAdministrador extends JFrame {
 
 	public Articulo consultarArticulo(int id)
 	{
-		return _ctrl.consultarArticulo(id);
+		Articulo ret = _ctrl.consultarArticulo(id);
+		if(ret == null)
+		{
+			JOptionPane.showMessageDialog(this, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		crearModeloTabla(fullTable());
+		return ret;
 	}
 
-	public boolean modificarArticulo(Articulo a) {
-		return _ctrl.modificarArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
+	public void modificarArticulo(Articulo a) {
+		if(!_ctrl.modificarArticulo(a))
+		{
+			JOptionPane.showMessageDialog(this, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		crearModeloTabla(fullTable());
 	}
 
-	public boolean altaArticulo(Articulo a) {
-		return _ctrl.altaArticulo(a); //Añadir aqui el articulo creado a partir de los datos de los textField
+	public void altaArticulo(Articulo a) {
+		if(!_ctrl.altaArticulo(a))
+		{
+			JOptionPane.showMessageDialog(this, "Id already exists", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		crearModeloTabla(fullTable());
 	}
 
 	public void crearModeloTabla(List<Articulo> arts) {
 		interiorTabla.setRowCount(0);
 		for (Articulo ar : arts) {
-			Object[] interior = {ar.getId(), ar.getNombre(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};
+			Object[] interior = {ar.getId(), ar.getNombre(), ar.getPrecio(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};
 			interiorTabla.addRow(interior);
 		}
 	}
@@ -165,10 +181,19 @@ public class MainWindowAdministrador extends JFrame {
 		interiorTabla = (DefaultTableModel) table.getModel();
 		interiorTabla.addColumn("ID");
 		interiorTabla.addColumn("Nombre");
+		interiorTabla.addColumn("Precio");
 		interiorTabla.addColumn("Stock");
 		interiorTabla.addColumn("Descripcion");
 		interiorTabla.addColumn("Valoracion");
 		interiorTabla.addColumn("Tipo");
 		interiorTabla.addColumn("Vendedor_ID");
+	}
+
+	private void eliminar() {
+		if (!_ctrl.bajaArticulo((Integer) table.getValueAt(table.getSelectedRow(), 0)))
+		{
+			JOptionPane.showMessageDialog(this, "Cannot delete record", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		crearModeloTabla(fullTable());
 	}
 }

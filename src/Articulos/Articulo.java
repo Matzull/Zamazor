@@ -7,7 +7,7 @@ public class Articulo implements Observable<ArticulosObserver>{
     //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
     private Integer id;                 //
     private String nombre;              //
-    private int precio;                 //
+    private double precio;                 //
     private Boolean stock;              //
     private String descripcion;         // Quiza tb seria mejor static, pero mismo problema que en el rating
     private double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
@@ -28,11 +28,12 @@ public class Articulo implements Observable<ArticulosObserver>{
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
-    public Articulo(Integer id, Integer valoracion, Integer idVendedor, String name, String descripcion,
+    public Articulo(Integer id, Double valoracion, double precio, Integer idVendedor, String name, String descripcion,
                     String tipo, Boolean stock){
         this.id = id;
         this.nombre = name;
         this.stock = stock;
+        this.precio = precio;
         this.descripcion = descripcion;
         this.valoracion = valoracion;
         this.tipo = tipo;

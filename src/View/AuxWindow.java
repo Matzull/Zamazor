@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +10,6 @@ import Articulos.Articulo;
 
 import javax.swing.JTextField;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
 
@@ -24,24 +22,26 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JCheckBox;
 
-public class ModificarArticulo extends JFrame {
+public class AuxWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField idTxtField;
 	private JTextField nombreTextField;
 	private JTextField descTextField;
 	private JTextField valTextField;
+	private JTextField precioTxtField;
 	private JTextField tipoTextField;
 	private JTextField idVendTextField;
 	private JCheckBox stockCheckBox;
 	private MainWindowAdministrador mainWindowAdministrador;
-	private boolean modif;
+	public static enum Emode {Modificar, Anadir, Consultar};
+	public Emode mode;
 
-	public ModificarArticulo(MainWindowAdministrador mainWindow, boolean ismodif) {
+	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode) {
 		
 		this.mainWindowAdministrador = mainWindow;
 
-		modif = ismodif;
+		this.mode = mode;
 		
 		setBounds(100, 100, 289, 333);
 		contentPane = new JPanel();
@@ -110,6 +110,14 @@ public class ModificarArticulo extends JFrame {
 		JLabel lblVendedor = new JLabel("Id vendedor:");
 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblVendedor);
+
+		JLabel precioLbl = new JLabel("Precio:");
+		precioLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(precioLbl);
+
+		precioTxtField = new JTextField();
+		panel.add(precioTxtField);
+		precioTxtField.setColumns(10);
 		
 		idVendTextField = new JTextField();
 		panel.add(idVendTextField);
@@ -145,7 +153,17 @@ public class ModificarArticulo extends JFrame {
 		});
 		iconLogo = new ImageIcon("resources/IconoOkey.png");
 		aceptarButton.setIcon(iconLogo);
-		
+
+		if(mode == Emode.Consultar)
+		{
+			aceptarButton.setVisible(false);
+			nombreTextField.setEditable(false);
+			descTextField.setEditable(false);
+			valTextField.setEditable(false);
+			tipoTextField.setEditable(false);
+			idVendTextField.setEditable(false);
+			stockCheckBox.setEnabled(false);
+		}
 		panel_2.add(aceptarButton);
 	}
 
@@ -153,20 +171,20 @@ public class ModificarArticulo extends JFrame {
 		this.setVisible(false);
 	}
 
-	public boolean aceptar(){
-		if (modif)
+	public void aceptar(){
+		if (mode == Emode.Modificar)
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()),
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
 			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
 			this.setVisible(false);
-			return mainWindowAdministrador.modificarArticulo(a);
+			mainWindowAdministrador.modificarArticulo(a);
 		}
 		else
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Integer.parseInt(valTextField.getText()),
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()),  Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
 					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
 			this.setVisible(false);
-			return mainWindowAdministrador.altaArticulo(a);
+			 mainWindowAdministrador.altaArticulo(a);
 		}
 
 	}

@@ -14,9 +14,9 @@ public class ArticulosController {
     }
     
     //Constructor con parametros. Contectar con BBDD
-    public ArticulosController(Integer id, Integer rating, Integer sellerId, String name, String description,
+    public ArticulosController(Integer id, Double rating, Double precio, Integer sellerId, String name, String description,
                                String department, Boolean stock){
-        this.a = new Articulo(id, rating, sellerId, name, description, department, stock);
+        this.a = new Articulo(id, rating, precio, sellerId, name, description, department, stock);
     }
 
     public void addObserver(ArticulosObserver o){
