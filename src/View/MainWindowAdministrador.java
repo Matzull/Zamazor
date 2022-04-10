@@ -68,10 +68,7 @@ public class MainWindowAdministrador extends JFrame {
 		});
 		panel.add(barraBusqueda);
 		barraBusqueda.setColumns(10);
-		
-		
-	
-		
+
 		JButton buscarButton = new JButton("");
 		buscarButton.setBorderPainted(false);
 		buscarButton.setBackground(Color.GRAY);
