@@ -7,7 +7,7 @@ import java.util.List;
 
 public class FachadaDaoArticuloImpl implements IFachadaDaoArticulo {
 
-    private IFachadaDao Dao;
+    private IDAOArticulo Dao;
 
     public FachadaDaoArticuloImpl(){Dao = new DAOarticulo();}
 

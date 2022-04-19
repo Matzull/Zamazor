@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DAOarticulo implements IFachadaDao
+public class DAOarticulo implements IDAOArticulo
 {
     static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
 
