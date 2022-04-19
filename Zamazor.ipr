@@ -5,7 +5,7 @@
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/resources/Zamazor.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:/Users/usuario_local/IdeaProjects/Zamazor/resources/Zamazor.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
@@ -170,15 +170,6 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-  </component>
-  <component name="libraryTable">
-    <library name="sqlite-jdbc-3.36.0.3">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../sqlite-jdbc-3.36.0.3.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
   </component>
   <component name="uidesigner-configuration">
     <option name="DEFAULT_LAYOUT_MANAGER" value="BorderLayout" />

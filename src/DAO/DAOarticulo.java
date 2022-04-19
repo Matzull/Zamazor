@@ -18,10 +18,11 @@ public class DAOarticulo implements IFachadaDao
     public DAOarticulo(){
         try
         {
-             conn = DriverManager.getConnection(DB_URL);
-             stmt = conn.createStatement();
+            //Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection(DB_URL);
+            stmt = conn.createStatement();
         }
-        catch (SQLException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
