@@ -1,18 +1,18 @@
 package Articulos;
 
-import DAO.DAOarticulo;
-import DAO.IFachadaDao;
+import DAO.FachadaDaoArticuloImpl;
+import DAO.IFachadaDaoArticulo;
 import ModeloDominio.Articulo;
 
 import java.util.List;
 
 public class SAArticulos implements ISAArticulos{  //Servicio de aplicacion
 
-    IFachadaDao DAO;
+    FachadaDaoArticuloImpl DAO;
 
     public SAArticulos()
     {
-        DAO = new DAOarticulo();
+        DAO = new FachadaDaoArticuloImpl();
     }
 
     public boolean altaArticulo(Articulo a) {
@@ -27,7 +27,7 @@ public class SAArticulos implements ISAArticulos{  //Servicio de aplicacion
         return DAO.bajaArticulo(id);
     }
 
-    public List<Articulo> buscarArticulo(String nombre) {
+    public List<Articulo> buscarArticulos(String nombre) {
         return DAO.buscarArticulos(nombre);
     }
 

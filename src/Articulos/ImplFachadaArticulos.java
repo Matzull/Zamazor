@@ -30,7 +30,7 @@ public class ImplFachadaArticulos implements FachadaArticulos {           //Impl
 
     @Override
     public List<Articulo> buscarArticulo(String nombre) {
-        return sa.buscarArticulo(nombre);
+        return sa.buscarArticulos(nombre);
     }
 
     @Override
