@@ -4,7 +4,7 @@ import View.MainWindowAdministrador;
 
 import java.awt.EventQueue;
 
-import Articulos.ArticulosController;
+import View.ArticulosController;
 
 import javax.swing.*;
 

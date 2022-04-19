@@ -1,11 +1,12 @@
 package Articulos;
 
-import java.util.ArrayList;
+import ModeloDominio.Articulo;
+
 import java.util.List;
 
 public class ImplFachadaArticulos implements FachadaArticulos {           //Implementacion de la fachada del articulo
 
-    private SAArticulos sa;
+    private ISAArticulos sa;
 
     public ImplFachadaArticulos()
     {
@@ -29,7 +30,7 @@ public class ImplFachadaArticulos implements FachadaArticulos {           //Impl
 
     @Override
     public List<Articulo> buscarArticulo(String nombre) {
-        return sa.buscarArticulo(nombre);
+        return sa.buscarArticulos(nombre);
     }
 
     @Override

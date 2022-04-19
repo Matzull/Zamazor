@@ -1,9 +1,11 @@
-package Articulos;
+package View;
+
+import Articulos.ImplFachadaArticulos;
+import ModeloDominio.Articulo;
 
 import java.util.List;
 
 public class ArticulosController {
-
     private Articulo a;
     private ImplFachadaArticulos fachadaArticulos;
 
@@ -17,14 +19,6 @@ public class ArticulosController {
     public ArticulosController(Integer id, Double rating, Double precio, Integer sellerId, String name, String description,
                                String department, Boolean stock){
         this.a = new Articulo(id, rating, precio, sellerId, name, description, department, stock);
-    }
-
-    public void addObserver(ArticulosObserver o){
-        a.addObserver(o);
-    }
-
-    public void removeObserver(ArticulosObserver o){
-        a.removeObserver(o);
     }
 
     public Articulo getArticulo() {
