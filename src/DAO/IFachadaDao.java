@@ -1,6 +1,6 @@
 package DAO;
 import java.util.List;
-import Articulos.Articulo;
+import ModeloDominio.Articulo;
 public interface IFachadaDao {
 
     boolean altaArticulo(Articulo art);

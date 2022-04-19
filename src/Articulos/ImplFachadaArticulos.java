@@ -1,11 +1,12 @@
 package Articulos;
 
-import java.util.ArrayList;
+import ModeloDominio.Articulo;
+
 import java.util.List;
 
 public class ImplFachadaArticulos implements FachadaArticulos {           //Implementacion de la fachada del articulo
 
-    private SAArticulos sa;
+    private ISAArticulos sa;
 
     public ImplFachadaArticulos()
     {

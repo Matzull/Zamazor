@@ -2,11 +2,11 @@ package Articulos;
 
 import DAO.DAOarticulo;
 import DAO.IFachadaDao;
+import ModeloDominio.Articulo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SAArticulos {  //Servicio de aplicacion
+public class SAArticulos implements ISAArticulos{  //Servicio de aplicacion
 
     IFachadaDao DAO;
 
@@ -14,7 +14,6 @@ public class SAArticulos {  //Servicio de aplicacion
     {
         DAO = new DAOarticulo();
     }
-
 
     public boolean altaArticulo(Articulo a) {
         return DAO.altaArticulo(a);

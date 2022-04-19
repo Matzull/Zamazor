@@ -8,8 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
-import Articulos.Articulo;
-import Articulos.ArticulosController;
+import ModeloDominio.Articulo;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

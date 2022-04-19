@@ -1,6 +1,7 @@
 package Articulos;
 
-import java.util.ArrayList;
+import ModeloDominio.Articulo;
+
 import java.util.List;
 
 public interface FachadaArticulos {                     //Fachada articulo

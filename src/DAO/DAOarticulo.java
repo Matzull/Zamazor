@@ -1,7 +1,7 @@
 package DAO;
 
 import java.sql.*;
-import Articulos.Articulo;
+import ModeloDominio.Articulo;
 import java.util.ArrayList;
 import java.util.List;
 

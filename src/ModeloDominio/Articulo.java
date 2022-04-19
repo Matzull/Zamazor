@@ -1,9 +1,6 @@
-package Articulos;
+package ModeloDominio;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Articulo implements Observable<ArticulosObserver>{
+public class Articulo{
     //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
     private Integer id;                 //
     private String nombre;              //
@@ -13,7 +10,6 @@ public class Articulo implements Observable<ArticulosObserver>{
     private Double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
     private String tipo;                //
     private Integer idVendedor;         //
-    private List<ArticulosObserver> observers;   //Lista de observadores para el MVC
 
     //Constructor vacio para valores por defecto
     public Articulo(){
@@ -25,7 +21,6 @@ public class Articulo implements Observable<ArticulosObserver>{
         valoracion = 0.0;
         tipo = "";
         idVendedor = 0;
-        this.observers = new ArrayList<ArticulosObserver>();
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
@@ -39,7 +34,6 @@ public class Articulo implements Observable<ArticulosObserver>{
         this.valoracion = valoracion;
         this.tipo = tipo;
         this.idVendedor = idVendedor;
-        this.observers = new ArrayList<ArticulosObserver>();
     }
 
     //Agrupa varias funciones en IntelliJ, para eclipse hace falta un plug in
@@ -106,14 +100,6 @@ public class Articulo implements Observable<ArticulosObserver>{
     public Articulo esIgual(Articulo a){      //No deberia ser necesaria
         if(a.equals(this)) return this;
         else return null;
-    }
-
-    public void addObserver(ArticulosObserver o) {
-        if(!observers.contains(o)) this.observers.add(o);
-    }
-
-    public void removeObserver(ArticulosObserver o) {
-        if(observers.contains(o)) this.observers.remove(o);
     }
 
     public void setPrecio(Double precio) {
