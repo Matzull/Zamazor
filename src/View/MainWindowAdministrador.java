@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import ModeloDominio.Articulo;
 
@@ -196,6 +197,8 @@ public class MainWindowAdministrador extends JFrame {
 		interiorTabla.addColumn("Valoracion");
 		interiorTabla.addColumn("Tipo");
 		interiorTabla.addColumn("Vendedor_ID");
+
+		table.removeColumn(table.getColumnModel().getColumn(0));
 	}
 
 	private void eliminar() {
