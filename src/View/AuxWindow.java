@@ -2,25 +2,18 @@ package View;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import ModeloDominio.Articulo;
 
-import javax.swing.JTextField;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JCheckBox;
 
 public class AuxWindow extends JFrame {
 
@@ -37,12 +30,16 @@ public class AuxWindow extends JFrame {
 	public static enum Emode {Modificar, Anadir, Consultar};
 	public Emode mode;
 
-	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode) {
+	private JTable table;
+
+	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode,JTable table) {
 		
 		this.mainWindowAdministrador = mainWindow;
 
 		this.mode = mode;
-		
+
+		this.table = table;
+
 		setBounds(100, 100, 289, 333);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,7 +60,7 @@ public class AuxWindow extends JFrame {
 		idTxtField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				fillFields();
+				//fillFields();
 			}
 		});
 		
@@ -159,14 +156,24 @@ public class AuxWindow extends JFrame {
 		if(mode == Emode.Consultar)
 		{
 			aceptarButton.setVisible(false);
+			idTxtField.setEditable(false);
 			nombreTextField.setEditable(false);
 			descTextField.setEditable(false);
 			valTextField.setEditable(false);
+			precioTxtField.setEditable(false);
 			tipoTextField.setEditable(false);
 			idVendTextField.setEditable(false);
 			stockCheckBox.setEnabled(false);
 		}
+		if(mode == Emode.Modificar)
+		{
+			idTxtField.setEditable(false);
+		}
 		panel_2.add(aceptarButton);
+		if(mode != Emode.Anadir) {
+			fillFields();
+		}
+
 	}
 
 	public void cancelar() {
@@ -193,9 +200,10 @@ public class AuxWindow extends JFrame {
 
 	public void fillFields()
 	{
-		Articulo art = mainWindowAdministrador.consultarArticulo(Integer.parseInt(idTxtField.getText()));
+		Articulo art = mainWindowAdministrador.consultarArticulo((Integer)table.getModel().getValueAt(table.convertRowIndexToModel(table.getSelectedRow()),0));
 		if (art != null)
 		{
+			idTxtField.setText(art.getId().toString());
 			nombreTextField.setText(art.getNombre());
 			descTextField.setText(art.getDescripcion());
 			precioTxtField.setText(Double.toString(art.getPrecio()));
