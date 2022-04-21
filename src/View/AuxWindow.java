@@ -156,11 +156,10 @@ public class AuxWindow extends JFrame {
 
 
 
-
+		idTxtField.setEditable(false);
 		if(mode == Emode.Consultar)
 		{
 			aceptarButton.setVisible(false);
-			idTxtField.setEditable(false);
 			nombreTextField.setEditable(false);
 			descTextField.setEditable(false);
 			valTextField.setEditable(false);
@@ -168,10 +167,6 @@ public class AuxWindow extends JFrame {
 			tipoTextField.setEditable(false);
 			idVendTextField.setEditable(false);
 			stockCheckBox.setEnabled(false);
-		}
-		if(mode == Emode.Modificar)
-		{
-			idTxtField.setEditable(false);
 		}
 		panel_2.add(aceptarButton);
 		if(mode != Emode.Anadir) {
@@ -195,15 +190,15 @@ public class AuxWindow extends JFrame {
 	public void aceptar(){
 		if (mode == Emode.Modificar)
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble((valTextField.getText() == "" ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == "" ? "0" : precioTxtField.getText())),
 			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			mainWindowAdministrador.modificarArticulo(a);
 		}
 		else
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()),  Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
-					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
+			Articulo a = new Articulo(null,  Double.parseDouble((valTextField.getText().equals("") ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText().equals("") ? "0" : precioTxtField.getText())),
+					Integer.parseInt(idVendTextField.getText().equals("") ? "0" : idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			 mainWindowAdministrador.altaArticulo(a);
 		}

@@ -165,7 +165,7 @@ public class DAOarticulo implements IDAOArticulo
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            System.out.println("Cannot load image");
         }
         return ret;
     }

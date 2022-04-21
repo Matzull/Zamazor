@@ -202,7 +202,7 @@ public class MainWindowAdministrador extends JFrame {
 	}
 
 	private void eliminar() {
-		if (!_ctrl.bajaArticulo((Integer) table.getValueAt(table.getSelectedRow(), 0)))
+		if (!_ctrl.bajaArticulo((Integer) interiorTabla.getValueAt(table.getSelectedRow(), 0)))
 		{
 			JOptionPane.showMessageDialog(this, "Cannot delete record", "error", JOptionPane.ERROR_MESSAGE);
 		}
