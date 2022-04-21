@@ -1,5 +1,8 @@
 package ModeloDominio;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Articulo{
     //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
     private Integer id;                 //
@@ -10,6 +13,7 @@ public class Articulo{
     private Double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
     private String tipo;                //
     private Integer idVendedor;         //
+    private ImageIcon _image;
 
     //Constructor vacio para valores por defecto
     public Articulo(){
@@ -21,11 +25,12 @@ public class Articulo{
         valoracion = 0.0;
         tipo = "";
         idVendedor = 0;
+        _image = null;
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
     public Articulo(Integer id, Double valoracion, Double precio, Integer idVendedor, String name, String descripcion,
-                    String tipo, Boolean stock){
+                    String tipo, Boolean stock, ImageIcon image){
         this.id = id;
         this.nombre = name;
         this.stock = stock;
@@ -34,6 +39,7 @@ public class Articulo{
         this.valoracion = valoracion;
         this.tipo = tipo;
         this.idVendedor = idVendedor;
+        this._image = image;
     }
 
     //Agrupa varias funciones en IntelliJ, para eclipse hace falta un plug in
@@ -68,9 +74,13 @@ public class Articulo{
         return idVendedor;
     }
 
+    public ImageIcon getImage(){return _image;}
+
     public void setId(Integer id) {     //Al ser atributo unico seria realmente necesario el setter?
         this.id = id;
     }
+
+    public void setImage(ImageIcon img){this._image = img;}
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

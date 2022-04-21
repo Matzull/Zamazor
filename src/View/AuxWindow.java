@@ -1,19 +1,19 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import ModeloDominio.Articulo;
 
-import java.awt.GridLayout;
-import java.awt.Color;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class AuxWindow extends JFrame {
 
@@ -28,19 +28,20 @@ public class AuxWindow extends JFrame {
 	private JCheckBox stockCheckBox;
 	private MainWindowAdministrador mainWindowAdministrador;
 	public static enum Emode {Modificar, Anadir, Consultar};
-	public Emode mode;
+	private Emode mode;
+	private ImageIcon _image;
 
 	private JTable table;
 
 	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode,JTable table) {
-		
+
 		this.mainWindowAdministrador = mainWindow;
 
 		this.mode = mode;
 
 		this.table = table;
 
-		setBounds(100, 100, 289, 333);
+		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -153,6 +154,9 @@ public class AuxWindow extends JFrame {
 		iconLogo = new ImageIcon("resources/IconoOkey.png");
 		aceptarButton.setIcon(iconLogo);
 
+
+
+
 		if(mode == Emode.Consultar)
 		{
 			aceptarButton.setVisible(false);
@@ -174,6 +178,14 @@ public class AuxWindow extends JFrame {
 			fillFields();
 		}
 
+		JPanel panelImage = new JPanel();
+		panelImage.setLayout(new BorderLayout());
+		contentPane.add(panelImage, BorderLayout.EAST);
+		JLabel imageLabel = new JLabel(_image);
+		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);
+		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);
+		panelImage.add(imageLabel, BorderLayout.CENTER);
+
 	}
 
 	public void cancelar() {
@@ -184,14 +196,14 @@ public class AuxWindow extends JFrame {
 		if (mode == Emode.Modificar)
 		{
 			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
-			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			mainWindowAdministrador.modificarArticulo(a);
 		}
 		else
 		{
 			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()),  Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
-					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			 mainWindowAdministrador.altaArticulo(a);
 		}
@@ -203,6 +215,7 @@ public class AuxWindow extends JFrame {
 		Articulo art = mainWindowAdministrador.consultarArticulo((Integer)table.getModel().getValueAt(table.convertRowIndexToModel(table.getSelectedRow()),0));
 		if (art != null)
 		{
+			_image = art.getImage();
 			idTxtField.setText(art.getId().toString());
 			nombreTextField.setText(art.getNombre());
 			descTextField.setText(art.getDescripcion());

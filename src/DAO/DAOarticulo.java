@@ -1,7 +1,14 @@
 package DAO;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.*;
 import ModeloDominio.Articulo;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,13 +142,32 @@ public class DAOarticulo implements IDAOArticulo
             ar.setTipo(rs.getString("_Tipo"));
             ar.setVendedor_id(rs.getInt("_Vendedor_id"));
             ar.setValoracion(rs.getDouble("_Valoracion"));
-
+            byte[] b = rs.getBytes("_Imagen");
+            ar.setImage(Blob_to_Image(b));
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage() + " No se ha identificado el id");
+            //System.out.println(e.getMessage() + " No se ha identificado el id");
+            e.printStackTrace();
         }
         return ar;
+    }
+
+    public static ImageIcon Blob_to_Image(byte[] img)
+    {
+        ImageIcon ret = null;
+
+        try{
+            ByteArrayInputStream inStreambj = new ByteArrayInputStream(img);
+            BufferedImage image = ImageIO.read(inStreambj);
+
+            ret = new ImageIcon(image.getScaledInstance(202, (int)((202.0 / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH));
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
 }
