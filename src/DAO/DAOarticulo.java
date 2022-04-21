@@ -147,8 +147,7 @@ public class DAOarticulo implements IDAOArticulo
         }
         catch (Exception e)
         {
-            //System.out.println(e.getMessage() + " No se ha identificado el id");
-            e.printStackTrace();
+            System.out.println(e.getMessage() + " No se ha identificado el id");
         }
         return ar;
     }
