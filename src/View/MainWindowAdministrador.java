@@ -1,11 +1,9 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -40,6 +38,7 @@ public class MainWindowAdministrador extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
+
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 

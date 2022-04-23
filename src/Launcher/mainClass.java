@@ -1,5 +1,6 @@
 package Launcher;
 
+import View.MainWindow;
 import View.MainWindowAdministrador;
 
 import java.awt.EventQueue;
@@ -16,6 +17,8 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					MainWindowAdministrador frame = new MainWindowAdministrador(new ArticulosController());
 					frame.setVisible(true);
+					//MainWindow Wnd = new MainWindow();
+					//Wnd.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
