@@ -1,4 +1,4 @@
-package Articulos;
+package Subsistemas.Articulos.PatronFachada;
 
 import ModeloDominio.Articulo;
 

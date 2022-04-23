@@ -1,6 +1,6 @@
 package View;
 
-import Articulos.ImplFachadaArticulos;
+import Subsistemas.Articulos.PatronFachada.ImplFachadaArticulos;
 import ModeloDominio.Articulo;
 
 import javax.swing.*;

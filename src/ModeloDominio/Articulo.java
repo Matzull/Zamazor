@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Articulo{
-    //Quiza estaria bien que todos los objetos hereden de uno general, solo son = 2 atributos asi que igual no es muy interesante
+
     private Integer id;                 //
     private String nombre;              //
-    private Double precio;                 //
+    private Double precio;              //
     private Boolean stock;              //
-    private String descripcion;         // Quiza tb seria mejor static, pero mismo problema que en el rating
-    private Double valoracion;  // No todos los articulos son iguales, asi que el static seria mejor de objetos que hereden de este
+    private String descripcion;         //
+    private Double valoracion;          //
     private String tipo;                //
     private Integer idVendedor;         //
     private ImageIcon _image;
@@ -42,7 +42,6 @@ public class Articulo{
         this._image = image;
     }
 
-    //Agrupa varias funciones en IntelliJ, para eclipse hace falta un plug in
     //region Getters y setters
     public Integer getId() {
         return id;
@@ -105,14 +104,15 @@ public class Articulo{
     public void setVendedor_id(Integer idVendedor) {
         this.idVendedor = idVendedor;
     }
-    //end region
-
-    public Articulo esIgual(Articulo a){      //No deberia ser necesaria
-        if(a.equals(this)) return this;
-        else return null;
-    }
 
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+    //endregion
+
+    public Articulo esIgual(Articulo a){
+        if(a.equals(this)) return this;
+        else return null;
+    }
+
 }
