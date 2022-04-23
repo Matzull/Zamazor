@@ -1,6 +1,7 @@
 package DAO.Articulo;
 import java.util.List;
 import ModeloDominio.Articulo;
+
 public interface IDAOArticulo {
 
     boolean altaArticulo(Articulo art);

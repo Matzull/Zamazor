@@ -1,15 +1,15 @@
 package Subsistemas.Comprador;
 
-import Subsistemas.Comprador.DAO.FachadaDAOCompradorImpl;
+import DAO.Comprador.FachadaDaoCompradorImpl;
 import ModeloDominio.Comprador;
 
 import java.util.List;
 
 public class SAComprador implements ISAComprador {
 
-    private FachadaDAOCompradorImpl DAO;
+    private FachadaDaoCompradorImpl DAO;
 
-    public SAComprador(){DAO = new FachadaDAOCompradorImpl();}
+    public SAComprador(){DAO = new FachadaDaoCompradorImpl();}
 
     @Override
     public boolean altaComprador(Comprador c) {

@@ -1,15 +1,15 @@
 package Subsistemas.Vendedor;
 
+import DAO.Vendedor.FachadaDaoVendedorImpl;
 import ModeloDominio.Vendedor;
-import Subsistemas.Vendedor.DAO.FachadaDAOVendedorImpl;
 
 import java.util.List;
 
 public class SAVendedor implements ISAVendedor{
 
-    private FachadaDAOVendedorImpl DAO;
+    private FachadaDaoVendedorImpl DAO;
 
-    public SAVendedor(){DAO = new FachadaDAOVendedorImpl();}
+    public SAVendedor(){DAO = new FachadaDaoVendedorImpl();}
 
     @Override
     public boolean altaVendedor(Vendedor v) {
