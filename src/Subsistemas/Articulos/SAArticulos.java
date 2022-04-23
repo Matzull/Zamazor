@@ -1,13 +1,14 @@
 package Subsistemas.Articulos;
 
 import DAO.Articulo.FachadaDaoArticuloImpl;
+import DAO.Articulo.IFachadaDaoArticulo;
 import ModeloDominio.Articulo;
 
 import java.util.List;
 
 public class SAArticulos implements ISAArticulos{  //Servicio de aplicacion
 
-    private FachadaDaoArticuloImpl DAO;
+    private IFachadaDaoArticulo DAO;
 
     public SAArticulos()
     {

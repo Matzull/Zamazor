@@ -1,5 +1,6 @@
 package Launcher;
 
+import View.Login;
 import View.MainWindow;
 import View.MainWindowAdministrador;
 
@@ -15,10 +16,12 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					MainWindowAdministrador frame = new MainWindowAdministrador(new ArticulosController());
-					frame.setVisible(true);
-					//MainWindow Wnd = new MainWindow();
-					//Wnd.setVisible(true);
+					//MainWindowAdministrador frame = new MainWindowAdministrador(new ArticulosController());
+					//frame.setVisible(true);
+					MainWindow Wnd = new MainWindow();
+					Wnd.setVisible(true);
+					//Login log = new Login();
+					//log.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

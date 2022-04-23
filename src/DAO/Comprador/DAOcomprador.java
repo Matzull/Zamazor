@@ -1,5 +1,9 @@
 package DAO.Comprador;
 
+import DAO.Articulo.FachadaDaoArticuloImpl;
+import DAO.Articulo.IFachadaDaoArticulo;
+import DAO.Pedido.FachadaDaoPedidoImpl;
+import DAO.Pedido.IFachadaDaoPedido;
 import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
@@ -156,12 +160,13 @@ public class DAOcomprador implements IDAOAComprador
 
     public List<Pedido> compParser(String pedidos)
     {
+        IFachadaDaoPedido PedidosDao = new FachadaDaoPedidoImpl();
         List <Pedido> ret = new ArrayList<Pedido>();
         String pedidos_id[] = pedidos.split(",");
 
         for (String id : pedidos_id)
         {
-            //TODO llamar a dao pedido y consultar por id
+            ret.add(PedidosDao.consultarPedido(Integer.parseInt(id)));
         }
 
         return ret;
