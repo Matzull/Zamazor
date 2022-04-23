@@ -1,4 +1,4 @@
-package Subsistemas.Comprador.PatronFachada;
+package Subsistemas.Comprador;
 
 import Subsistemas.Comprador.DAO.FachadaDAOCompradorImpl;
 import ModeloDominio.Comprador;

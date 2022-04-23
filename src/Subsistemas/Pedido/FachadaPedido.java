@@ -1,4 +1,4 @@
-package Subsistemas.Pedido.PatronFachada;
+package Subsistemas.Pedido;
 
 import ModeloDominio.Pedido;
 

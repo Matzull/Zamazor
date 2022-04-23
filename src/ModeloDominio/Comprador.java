@@ -1,36 +1,49 @@
 package ModeloDominio;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Comprador {
     private Integer id;
     private String nombre;
     private String email;
-    private String puntoDeEntrega;
     private String cuenta;
+    private String direccion;
+    private List<Pedido> pedidos;
+    private String password;
 
     //Constructor vacio para valores por defecto
     public Comprador(){
         id = 0;
         nombre = "";
         email = "";
-        puntoDeEntrega = "";
-        cuenta = "";
+        direccion = "";
+        pedidos = new ArrayList<Pedido>();
+        password = "";
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
-    public Comprador(Integer id, String name, String nombre, String email, String puntoDeEntrega){
+    public Comprador(Integer id, String name, String nombre, String email, String cuenta, String direccion, List<Pedido> pedidos, String password){
         this.id = id;
         this.nombre = name;
         this.email = email;
-        this.puntoDeEntrega = puntoDeEntrega;
+        this.cuenta = cuenta;
+        this.direccion = direccion;
+        this.pedidos = pedidos;
+        this.password = password;
     }
 
-    //region Getters y setters
-    public Integer getId() { return id;}
-
-    public String getNombre() { return nombre;}
+    public Integer getId() {
+        return id;
+    }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -45,14 +58,6 @@ public class Comprador {
         this.email = email;
     }
 
-    public String getPuntoDeEntrega() {
-        return puntoDeEntrega;
-    }
-
-    public void setPuntoDeEntrega(String puntoDeEntrega) {
-        this.puntoDeEntrega = puntoDeEntrega;
-    }
-
     public String getCuenta() {
         return cuenta;
     }
@@ -60,5 +65,29 @@ public class Comprador {
     public void setCuenta(String cuenta) {
         this.cuenta = cuenta;
     }
-    //endregion
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

@@ -1,4 +1,4 @@
-package Subsistemas.Vendedor.PatronFachada;
+package Subsistemas.Vendedor;
 
 import ModeloDominio.Vendedor;
 import Subsistemas.Vendedor.DAO.FachadaDAOVendedorImpl;

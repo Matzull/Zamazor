@@ -1,10 +1,10 @@
-package Subsistemas.Vendedor.DAO;
+package Subsistemas.Vendedor;
 
 import ModeloDominio.Vendedor;
 
 import java.util.List;
 
-public interface IFachadaDAOVendedor {
+public interface ISAVendedor {
 
     public boolean altaVendedor(Vendedor v);
     public boolean modificarVendedor(Vendedor v);

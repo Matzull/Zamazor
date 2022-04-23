@@ -1,10 +1,10 @@
-package Subsistemas.Vendedor.PatronFachada;
+package Subsistemas.Vendedor;
 
 import ModeloDominio.Vendedor;
 
 import java.util.List;
 
-public interface ISAVendedor {
+public interface FachadaVendedor {
 
     public boolean altaVendedor(Vendedor v);
     public boolean modificarVendedor(Vendedor v);

@@ -1,4 +1,4 @@
-package Subsistemas.Articulos.PatronFachada;
+package Subsistemas.Articulos;
 
 import DAO.Articulo.FachadaDaoArticuloImpl;
 import ModeloDominio.Articulo;

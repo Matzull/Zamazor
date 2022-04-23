@@ -1,32 +1,37 @@
-package Subsistemas.Vendedor.DAO;
+package Subsistemas.Vendedor;
 
 import ModeloDominio.Vendedor;
 
 import java.util.List;
 
-public class FachadaDAOVendedorImpl implements IFachadaDAOVendedor{
+public class ImplFachadaVendedor implements FachadaVendedor{
+
+    private ISAVendedor sa;
+
+    public ImplFachadaVendedor(){sa = new SAVendedor();}
+
     @Override
     public boolean altaVendedor(Vendedor v) {
-        return false;
+        return sa.altaVendedor(v);
     }
 
     @Override
     public boolean modificarVendedor(Vendedor v) {
-        return false;
+        return sa.modificarVendedor(v);
     }
 
     @Override
     public boolean bajaVendedor(int id) {
-        return false;
+        return sa.bajaVendedor(id);
     }
 
     @Override
     public List<Vendedor> buscarVendedor(String nombre) {
-        return null;
+        return sa.buscarVendedor(nombre);
     }
 
     @Override
     public Vendedor consultarVendedor(int id) {
-        return null;
+        return sa.consultarVendedor(id);
     }
 }
