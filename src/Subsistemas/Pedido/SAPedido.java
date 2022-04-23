@@ -1,15 +1,15 @@
 package Subsistemas.Pedido;
 
+import DAO.Pedido.*;
 import ModeloDominio.Pedido;
-import Subsistemas.Pedido.DAO.FachadaDAOPedidoImpl;
 
 import java.util.List;
 
 public class SAPedido implements ISAPedido {
 
-    private FachadaDAOPedidoImpl DAO;
+    private FachadaDaoPedidoImpl DAO;
 
-    public SAPedido(){DAO = new FachadaDAOPedidoImpl();}
+    public SAPedido(){DAO = new FachadaDaoPedidoImpl();}
 
 
     @Override
