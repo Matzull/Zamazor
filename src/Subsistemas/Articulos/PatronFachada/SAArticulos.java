@@ -1,6 +1,6 @@
 package Subsistemas.Articulos.PatronFachada;
 
-import DAO.FachadaDaoArticuloImpl;
+import DAO.Articulo.FachadaDaoArticuloImpl;
 import ModeloDominio.Articulo;
 
 import java.util.List;
