@@ -1,7 +1,6 @@
 package Articulos;
 
-import DAO.FachadaDaoArticuloImpl;
-import DAO.IFachadaDaoArticulo;
+import DAO.Articulo.FachadaDaoArticuloImpl;
 import ModeloDominio.Articulo;
 
 import java.util.List;

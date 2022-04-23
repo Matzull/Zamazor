@@ -1,6 +1,5 @@
-package DAO;
+package DAO.Articulo;
 
-import Articulos.SAArticulos;
 import ModeloDominio.Articulo;
 
 import java.util.List;
