@@ -1,4 +1,4 @@
-package DAO;
+package DAO.Articulo;
 import java.util.List;
 import ModeloDominio.Articulo;
 public interface IDAOArticulo {

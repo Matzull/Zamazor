@@ -1,9 +1,8 @@
-package DAO;
+package DAO.Articulo;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.sql.*;
 import ModeloDominio.Articulo;
 
