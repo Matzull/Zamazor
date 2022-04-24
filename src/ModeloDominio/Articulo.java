@@ -115,4 +115,10 @@ public class Articulo{
         else return null;
     }
 
+
+    public String toString()
+    {
+        return "Funciono, nombre: " + this.nombre;
+    }
+
 }

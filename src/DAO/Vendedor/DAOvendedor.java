@@ -1,5 +1,8 @@
 package DAO.Vendedor;
 
+import DAO.Articulo.FachadaDaoArticuloImpl;
+import DAO.Articulo.IFachadaDaoArticulo;
+import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 
@@ -33,9 +36,9 @@ public class DAOvendedor implements IDAOAVendedor
     public boolean altaVendedor(Vendedor a) {
         boolean correct = false;
 
-        QUERY = "INSERT INTO Articulos (_ID,_Nombre,_Email,_telefono,_listaVenderdores)" +
+        QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos)" +
                 " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ ","  + a.getEmail() + ","+ a.getTelefono() +
-                ","+ "'" + a.getListaVendedores() + "'" + ")";
+                ","+ "'" + a.getArticulos() + "'" + ")";
 
         try {
             stmt.executeUpdate(QUERY);
@@ -51,7 +54,7 @@ public class DAOvendedor implements IDAOAVendedor
     public boolean bajaVendedor(int id) {
         boolean correct = false;
 
-        QUERY = "delete from Vendedor where _Id = " + id;
+        QUERY = "delete from Vendedores where _Id = " + id;
         try
         {
             stmt.executeUpdate(QUERY);
@@ -73,10 +76,10 @@ public class DAOvendedor implements IDAOAVendedor
             {
                 throw new Exception("");
             }
-            QUERY = "UPDATE Vendedor SET   _Nombre = " + "'" + v.getNombre() + "'" +
+            QUERY = "UPDATE Vendedores SET   _Nombre = " + "'" + v.getNombre() + "'" +
                     ", _Email = " + "'" + v.getEmail() + "'" +
                     ", _Telefono = " + "'" + v.getTelefono() + "'" +
-                    ", _ListaVendedores = " + "'" + v.getListaVendedores() + "'" +
+                    ", _Articulos = " + "'" + v.getArticulos() + "'" +
                     " WHERE _ID = " + v.getId();
 
             stmt.executeUpdate(QUERY);
@@ -98,24 +101,24 @@ public class DAOvendedor implements IDAOAVendedor
 
         if (username == "")
         {
-            QUERY = "SELECT * FROM Vendedor";
+            QUERY = "SELECT * FROM Vendedores";
         }
         else
         {
-            QUERY = "SELECT * FROM Vendedor WHERE _Nombre LIKE " + "'%" + username + "%'";
+            QUERY = "SELECT * FROM Vendedores WHERE _Nombre LIKE " + "'%" + username + "%'";
         }
 
         try {
             rs = stmt.executeQuery(QUERY);
             try {
                 while (rs.next()) {
-                    Vendedor comp = new Vendedor();
-                    comp.setId(rs.getInt("_ID"));
-                    comp.setNombre(rs.getString("_Nombre"));
-                    comp.setEmail(rs.getString("_Email"));
-                    comp.setTelefono(rs.getLong("_Telefono"));
-                    comp.setListaVendedores(compParser(rs.getString("_ListaVendedores")));
-                    c.add(comp);
+                    Vendedor vend = new Vendedor();
+                    vend.setId(rs.getInt("_ID"));
+                    vend.setNombre(rs.getString("_Nombre"));
+                    vend.setEmail(rs.getString("_Email"));
+                    vend.setTelefono(rs.getLong("_Telefono"));
+                    vend.setArticulos(vendedorParser(rs.getString("_Articulos")));
+                    c.add(vend);
                 }
             } catch (NullPointerException e) {
                 throw new NullPointerException("No existen compradores en la base de datos");
@@ -130,31 +133,34 @@ public class DAOvendedor implements IDAOAVendedor
 
     @Override
     public Vendedor consultarVendedor(int id) {
-        Vendedor comp = new Vendedor();
-        QUERY = "SELECT * FROM Comprador WHERE _ID = " + id;
+        Vendedor vend = new Vendedor();
+        QUERY = "SELECT * FROM Vendedores WHERE _ID = " + id;
 
         try {
             rs = stmt.executeQuery(QUERY);
-            comp.setId(rs.getInt("_ID"));
-            comp.setNombre(rs.getString("_Nombre"));
-            comp.setEmail(rs.getString("_Email"));
-            comp.setTelefono(rs.getLong("_Telefono"));
-            comp.setListaVendedores(compParser(rs.getString("_ListaVendedores")));
+            vend.setId(rs.getInt("_ID"));
+            vend.setNombre(rs.getString("_Nombre"));
+            vend.setEmail(rs.getString("_Email"));
+            vend.setTelefono(rs.getLong("_Telefono"));
+            vend.setArticulos(vendedorParser(rs.getString("_Articulo")));
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage() + " No se ha identificado el id");
         }
-        return comp;
+        return vend;
     }
-    public List<Vendedor> compParser(String vendedor)
-    {
-        List <Vendedor> ret = new ArrayList<Vendedor>();
-        String pedidos_id[] = vendedor.split(",");
 
-        for (String id : pedidos_id)
+    public List<Articulo> vendedorParser(String articulos)
+    {
+        IFachadaDaoArticulo ArticulosDao = new FachadaDaoArticuloImpl();
+
+        List <Articulo> ret = new ArrayList<Articulo>();
+        String articulos_id[] = articulos.split(",");
+
+        for (String id : articulos_id)
         {
-            //TODO llamar a dao pedido y consultar por id
+            ret.add(ArticulosDao.consultarArticulo(Integer.parseInt(id)));
         }
 
         return ret;

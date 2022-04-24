@@ -12,6 +12,7 @@ public class MainWindow extends JFrame {
 
     private JPanel contentPane;
     private JTextField barraBusqueda;
+    private JToolBar _toolbar;
 
     static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
@@ -20,6 +21,9 @@ public class MainWindow extends JFrame {
         setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        _toolbar = new JToolBar();
+        //_toolbar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        _toolbar.setLayout(new BorderLayout());
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
@@ -28,16 +32,20 @@ public class MainWindow extends JFrame {
 
         topPanel.setBackground(new Color(64, 23, 156)); //new Color(252, 135, 80)
         contentPane.add(topPanel, BorderLayout.NORTH);
-        topPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        _toolbar.setOpaque(false);
+        topPanel.add(_toolbar, BorderLayout.PAGE_START);
+
 
         JLabel zamazorIcon = new JLabel("");
         zamazorIcon.setVerticalAlignment(SwingConstants.TOP);
         ImageIcon iconLogo = new ImageIcon(new ImageIcon("resources/zamazor.png").getImage().getScaledInstance(175, 50, Image.SCALE_SMOOTH));
         zamazorIcon.setIcon(iconLogo);
-        topPanel.add(zamazorIcon);
+        _toolbar.add(zamazorIcon);
 
-        topPanel.add(Box.createRigidArea(new Dimension(115, 0)));
-        barraBusqueda = new JTextField(40);
+        _toolbar.addSeparator(new Dimension(115, 0));
+
+        barraBusqueda = new JTextField(45);
         barraBusqueda.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
@@ -48,9 +56,10 @@ public class MainWindow extends JFrame {
                 }
             }
         });
-        barraBusqueda.setFont(new Font("Serif", Font.PLAIN, 20));
-        topPanel.add(barraBusqueda);
+        barraBusqueda.setFont(new Font("Serif", Font.PLAIN, 25));
 
+        _toolbar.add(barraBusqueda);
+        _toolbar.addSeparator(new Dimension(40, 0));
         JButton search = new JButton("");
         search.setBorderPainted(false);
         search.setBackground(new Color(252, 135, 80));
@@ -62,10 +71,12 @@ public class MainWindow extends JFrame {
                 //filter(texto);
             }
         });
-        topPanel.add(search);
+        _toolbar.add(search);
 
-        topPanel.add(Box.createGlue());
-        topPanel.add(Box.createRigidArea(new Dimension(10,10)));
+
+        //_toolbar.add(Box.createHorizontalGlue());
+        _toolbar.addSeparator();
+
 
         JButton user = new JButton("");
         user.setBorderPainted(false);
@@ -78,7 +89,7 @@ public class MainWindow extends JFrame {
                 //filter(texto);
             }
         });
-        topPanel.add(user);
+        _toolbar.add(user);
 
     }
 

@@ -90,4 +90,9 @@ public class Comprador {
         this.password = password;
     }
 
+    public String toString()
+    {
+        return "Funciono, nombre: " + this.nombre;
+    }
+
 }

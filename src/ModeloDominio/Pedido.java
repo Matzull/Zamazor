@@ -101,7 +101,9 @@ public class Pedido {
         this.articulos = articulos;
     }
 
-
-
+    public String toString()
+    {
+        return "Funciono, Direccion: " + this.direccion;
+    }
 
 }

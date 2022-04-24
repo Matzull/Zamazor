@@ -74,8 +74,8 @@ public class DAOpedido implements IDAOPedido
         boolean correct = true;
         try
         {
-            QUERY = "UPDATE Pedido SET  _Comprador_id= " +p.getComprador_id() +
-                    ",_Repartidor_id = " + p.getRepartidor_id() + ",_Direccion = " + "'" + p.getDireccion() + "'" +
+            QUERY = "UPDATE Pedido SET  _Comprador_Id= " +p.getComprador_id() +
+                    ",_Repartidor_Id = " + p.getRepartidor_id() + ",_Direccion = " + "'" + p.getDireccion() + "'" +
                     ",_Entregado= " + p.getEntregado()+ ",_Entrega = " + "'" + p.getEntrega() + "'"+ ",_Pedido = "+"'" +p.getPedido() +"'" +",_Articulos = "+"'" +p.getArticulos().toString()  +"'" + " WHERE _ID = " + p.getId();
             stmt.executeUpdate(QUERY);
             correct = true;
@@ -97,7 +97,7 @@ public class DAOpedido implements IDAOPedido
         }
         else
         {
-            QUERY = "SELECT * FROM Pedido WHERE _Comprador_id LIKE " + "'%" + id + "%'";
+            QUERY = "SELECT * FROM Pedido WHERE _Comprador_Id LIKE " + "'%" + id + "%'";
         }
 
         try {
@@ -106,8 +106,8 @@ public class DAOpedido implements IDAOPedido
                 while (rs.next()) {
                     Pedido pe = new Pedido();
                     pe.setId(rs.getInt("_ID"));
-                    pe.setComprador_id(rs.getInt("_Comprador_id"));
-                    pe.setRepartidor_id(rs.getInt("_Vendedor_id"));
+                    pe.setComprador_id(rs.getInt("_Comprador_Id"));
+                    pe.setRepartidor_id(rs.getInt("_Repartidor_Id"));
                     pe.setDireccion(rs.getString("_Direccion"));
                     pe.setEntregado(rs.getBoolean("_Entregado"));
                     pe.setEntrega(rs.getString("_Entrega"));
@@ -116,7 +116,7 @@ public class DAOpedido implements IDAOPedido
                     l.add(pe);
                 }
             } catch (NullPointerException e) {
-                throw new NullPointerException("los articulos no estan en la base de datos");
+                throw new NullPointerException("Los pedidos no estan en la base de datos");
             }
         }
         catch (SQLException e)
@@ -134,8 +134,8 @@ public class DAOpedido implements IDAOPedido
         try {
             rs = stmt.executeQuery(QUERY);
             pe.setId(rs.getInt("_ID"));
-            pe.setComprador_id(rs.getInt("_Comprador_id"));
-            pe.setRepartidor_id(rs.getInt("_Vendedor_id"));
+            pe.setComprador_id(rs.getInt("_Comprador_Id"));
+            pe.setRepartidor_id(rs.getInt("_Repartidor_Id"));
             pe.setDireccion(rs.getString("_Direccion"));
             pe.setEntregado(rs.getBoolean("_Entregado"));
             pe.setEntrega(rs.getString("_Entrega"));
