@@ -24,9 +24,9 @@ public class Comprador {
     }
 
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
-    public Comprador(Integer id, String name, String nombre, String email, String cuenta, String direccion, List<Pedido> pedidos, String password){
+    public Comprador(Integer id, String nombre, String email, String cuenta, String direccion, List<Pedido> pedidos, String password){
         this.id = id;
-        this.nombre = name;
+        this.nombre = nombre;
         this.email = email;
         this.cuenta = cuenta;
         this.direccion = direccion;

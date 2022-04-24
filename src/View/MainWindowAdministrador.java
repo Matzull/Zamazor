@@ -5,9 +5,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 import ModeloDominio.Articulo;
+import View.Controllers.ArticulosController;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package View;
+package View.Controllers;
 
 import Subsistemas.Articulos.ImplFachadaArticulos;
 import ModeloDominio.Articulo;
