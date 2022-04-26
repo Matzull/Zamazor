@@ -11,6 +11,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta es la clase DAOarticulo que se encarga de recopilar
+ * los datos de la tabla Articulo de la base de datos y conectarlos con la logica del programa
+ *
+ * @author Marcos Alonso, Andres Espejo, Sergio Dominguez, Juan Jerez, Alex, Norberto, Miguel
+ */
 
 public class DAOarticulo implements IDAOArticulo
 {
@@ -21,6 +27,12 @@ public class DAOarticulo implements IDAOArticulo
     private Statement stmt;
     private ResultSet rs;
 
+    /**
+     * En la constructora inicializamos la conexion a la base de datos para no llamarla cada vez que
+     * se llame a una funcion y tener el codigo redundante
+     *
+     * conectamos con la base de datos con conn y creamos una consulta con stmt
+     */
     public DAOarticulo(){
         try
         {
@@ -34,6 +46,15 @@ public class DAOarticulo implements IDAOArticulo
         }
     }
 
+    /**
+     * esta funcion se encarga de insertar un articulo en la base de datos, para ello hacemos
+     * una consulta INSERT para insertar todos los atributos de la clase articulo, y actualizamos esa consulta
+     * en la base de datos.
+     *
+     * @param a es el articulo a insertar, con el cogemos cada uno de los atributos de
+     *          su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha insertado correctamente en la base de datos(true) o si no
+     */
     public boolean altaArticulo(Articulo a) {
         boolean correct = false;
 
@@ -50,6 +71,14 @@ public class DAOarticulo implements IDAOArticulo
             return correct;
     }
 
+    /**
+     * esta funcion se encarga de eliminar un articulo de la base de datos, para ello hacemos
+     *      una consulta DELETE para eliminar el artuculo de la base de datos cuyo id sea el mismo que el
+     *      de la consulta, y actualizamos esa consulta en la base de datos.
+     *      en la base de datos.
+     * @param id es el id del articulo a eliminar ya que es el identificador unico de este
+     * @return devuelve un booleano que indica si se ha borrado correctamente de la base de datos(true) o si no
+     */
     public boolean bajaArticulo (int id){
         boolean correct = false;
 
@@ -66,6 +95,12 @@ public class DAOarticulo implements IDAOArticulo
         return correct;
     }
 
+    /**
+     * esta funcion se encarga de modificar un articulo en la base de datos
+     * @param a es el articulo a modificar, con el cogemos cada uno de los parametros de
+     *          su clase y los registramos en la base de datos,
+     * @return devuelve un booleano que indica si se ha modificado correctamente en la base de datos(true) o si no
+     */
     public boolean modificarArticulo (Articulo a) {
         boolean correct = true;
         try
@@ -87,6 +122,13 @@ public class DAOarticulo implements IDAOArticulo
         return correct;
     }
 
+    /**
+     * esta funcion se encarga de buscar un articulo en la base de datos
+     * @param nombre es el nombre del articulo a modificar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha realizado la busqueda correctamente
+     *         en la base de datos(true) o si no
+     */
     public List<Articulo> buscarArticulos (String nombre){
         List<Articulo> l = new ArrayList<Articulo>();
         boolean correct = false;
@@ -125,7 +167,13 @@ public class DAOarticulo implements IDAOArticulo
         }
         return l;
     }
-
+    /**
+     * esta funcion se encarga de consultar un articulo en la base de datos
+     * @param id es el id del articulo a consultar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha realizado la consulta correctamente
+     *         en la base de datos(true) o si no
+     */
     public Articulo consultarArticulo(int id)
     {
         Articulo ar = new Articulo();
