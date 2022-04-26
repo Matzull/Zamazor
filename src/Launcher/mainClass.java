@@ -5,35 +5,36 @@ import Subsistemas.Articulos.SAArticulos;
 import Subsistemas.Comprador.SAComprador;
 import Subsistemas.Pedido.SAPedido;
 import Subsistemas.Vendedor.SAVendedor;
+import View.Controllers.ArticulosController;
 import View.Login;
 import View.MainWindow;
 import View.MainWindowAdministrador;
 
 import java.awt.EventQueue;
 
-import View.ArticulosController;
+
 
 import javax.swing.*;
 
-public class mainClass {     //El main sera la clase Amazon del diagrama de clases?
+public class mainClass {     //El main sera la clase Amazon del diagrama de clases? si
 	public static void main(String[] args) {
 
-		/*EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					MainWindowAdministrador frame = new MainWindowAdministrador(new ArticulosController());
 					frame.setVisible(true);
-					MainWindow Wnd = new MainWindow();
-					Wnd.setVisible(true);
+					//MainWindow Wnd = new MainWindow();
+					//Wnd.setVisible(true);
 					//Login log = new Login();
 					//log.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		});*/
-		debug();
+		});
+		//debug();
 
 	}
 	private static void debug()
