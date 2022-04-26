@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Zamazor.db" uuid="9847445d-62a8-4b0a-a1a1-bf51edb6da32">
+    <data-source source="LOCAL" name="SQLite - prueba.db" uuid="f22aa8c9-6669-454f-9221-926b926e909d">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/resources/Zamazor.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Desktop/Universidad/prueba.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-  </component>
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/src/View/MainWindowAdministrador.java" charset="windows-1252" />
   </component>
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
@@ -157,28 +154,10 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="dataSourceStorageLocal" created-in="IU-213.7172.25">
-    <data-source name="Zamazor.db" uuid="9847445d-62a8-4b0a-a1a1-bf51edb6da32">
-      <database-info product="SQLite" version="3.36.0" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.36.0.3" dbms="SQLITE" exact-version="3.36.0" exact-driver-version="3.36">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
-      <secret-storage>master_key</secret-storage>
-      <auth-provider>no-auth</auth-provider>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
+    <data-source name="SQLite - prueba.db" uuid="f22aa8c9-6669-454f-9221-926b926e909d">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
+      <schema-mapping />
     </data-source>
-  </component>
-  <component name="libraryTable">
-    <library name="sqlite-jdbc-3.36.0.3">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/../sqlite-jdbc-3.36.0.3.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
   </component>
   <component name="uidesigner-configuration">
     <option name="DEFAULT_LAYOUT_MANAGER" value="BorderLayout" />

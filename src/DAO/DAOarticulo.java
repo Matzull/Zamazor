@@ -138,7 +138,7 @@ public class DAOarticulo implements IFachadaDao
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage() + " No se ha identificado el id");
+            System.out.println(e.getMessage() + " No se ha  identificado el id");
         }
         return ar;
     }
