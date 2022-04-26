@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class AuxWindow extends JFrame {
@@ -135,6 +136,7 @@ public class AuxWindow extends JFrame {
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		
+		
 		JButton cancelarButton = new JButton("Cancelar");
 		iconLogo = new ImageIcon("resources/IconoCancel.png");
 		cancelarButton.setIcon(iconLogo);
@@ -144,7 +146,32 @@ public class AuxWindow extends JFrame {
 			}
 		});
 		panel_2.add(cancelarButton);
-		
+
+		JButton botonArchivo = new JButton();
+		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/IconoZamazor.png")));
+		botonArchivo.setToolTipText("boton para abrir");
+
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("resources/examples/"));
+
+		botonArchivo.addActionListener((e)->{
+			int i = fc.showOpenDialog(this);
+			if (i == fc.APPROVE_OPTION) {
+
+				File archivo = fc.getSelectedFile();
+				try {
+					_image = new ImageIcon(ImageIO.read(archivo));
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(this, "Cannot load file", "error", JOptionPane.ERROR_MESSAGE);
+				}
+
+
+			}
+		});
+		//botonArchivo.addActionListener(this);
+		panel_2.add(botonArchivo);
+
+
 		JButton aceptarButton = new JButton("Aceptar");
 		aceptarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
