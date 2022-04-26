@@ -1,26 +1,19 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import Articulos.Articulo;
+import ModeloDominio.Articulo;
 
-import javax.swing.JTextField;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.Color;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JCheckBox;
+import java.io.File;
+import java.io.IOException;
 
 public class AuxWindow extends JFrame {
 
@@ -35,15 +28,20 @@ public class AuxWindow extends JFrame {
 	private JCheckBox stockCheckBox;
 	private MainWindowAdministrador mainWindowAdministrador;
 	public static enum Emode {Modificar, Anadir, Consultar};
-	public Emode mode;
+	private Emode mode;
+	private ImageIcon _image;
 
-	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode) {
-		
+	private JTable table;
+
+	public AuxWindow(MainWindowAdministrador mainWindow, Emode mode,JTable table) {
+
 		this.mainWindowAdministrador = mainWindow;
 
 		this.mode = mode;
-		
-		setBounds(100, 100, 289, 333);
+
+		this.table = table;
+
+		setBounds(100, 100, 500, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -63,7 +61,7 @@ public class AuxWindow extends JFrame {
 		idTxtField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				fillFields();
+				//fillFields();
 			}
 		});
 		
@@ -156,17 +154,33 @@ public class AuxWindow extends JFrame {
 		iconLogo = new ImageIcon("resources/IconoOkey.png");
 		aceptarButton.setIcon(iconLogo);
 
+
+
+		idTxtField.setEditable(false);
 		if(mode == Emode.Consultar)
 		{
 			aceptarButton.setVisible(false);
 			nombreTextField.setEditable(false);
 			descTextField.setEditable(false);
 			valTextField.setEditable(false);
+			precioTxtField.setEditable(false);
 			tipoTextField.setEditable(false);
 			idVendTextField.setEditable(false);
 			stockCheckBox.setEnabled(false);
 		}
 		panel_2.add(aceptarButton);
+		if(mode != Emode.Anadir) {
+			fillFields();
+		}
+
+		JPanel panelImage = new JPanel();
+		panelImage.setLayout(new BorderLayout());
+		contentPane.add(panelImage, BorderLayout.EAST);
+		JLabel imageLabel = new JLabel(_image);
+		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);
+		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);
+		panelImage.add(imageLabel, BorderLayout.CENTER);
+
 	}
 
 	public void cancelar() {
@@ -176,15 +190,15 @@ public class AuxWindow extends JFrame {
 	public void aceptar(){
 		if (mode == Emode.Modificar)
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
-			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble((valTextField.getText() == "" ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == "" ? "0" : precioTxtField.getText())),
+			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			mainWindowAdministrador.modificarArticulo(a);
 		}
 		else
 		{
-			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()),  Double.parseDouble(valTextField.getText()), Double.parseDouble(precioTxtField.getText()),
-					Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected());
+			Articulo a = new Articulo(null,  Double.parseDouble((valTextField.getText().equals("") ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText().equals("") ? "0" : precioTxtField.getText())),
+					Integer.parseInt(idVendTextField.getText().equals("") ? "0" : idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
 			this.setVisible(false);
 			 mainWindowAdministrador.altaArticulo(a);
 		}
@@ -193,9 +207,11 @@ public class AuxWindow extends JFrame {
 
 	public void fillFields()
 	{
-		Articulo art = mainWindowAdministrador.consultarArticulo(Integer.parseInt(idTxtField.getText()));
+		Articulo art = mainWindowAdministrador.consultarArticulo((Integer)table.getModel().getValueAt(table.convertRowIndexToModel(table.getSelectedRow()),0));
 		if (art != null)
 		{
+			_image = art.getImage();
+			idTxtField.setText(art.getId().toString());
 			nombreTextField.setText(art.getNombre());
 			descTextField.setText(art.getDescripcion());
 			precioTxtField.setText(Double.toString(art.getPrecio()));

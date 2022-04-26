@@ -1,15 +1,13 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.FlowLayout;
-import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
-import Articulos.Articulo;
-import Articulos.ArticulosController;
+import ModeloDominio.Articulo;
+import View.Controllers.ArticulosController;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -40,6 +38,7 @@ public class MainWindowAdministrador extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
+
 		contentPane.add(panel, BorderLayout.NORTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
@@ -97,7 +96,11 @@ public class MainWindowAdministrador extends JFrame {
 		JButton modificarButton = new JButton("Modificar Articulo");
 		modificarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar(AuxWindow.Emode.Modificar);
+
+				//el if es para si no hay ninguna fila seleccionada no lanza excepcion al no crear la auxWindow
+				if(table.getSelectedRow() != -1){
+					crearAuxWindow(AuxWindow.Emode.Modificar);
+				}
 			}
 		});
 		panel_2.add(modificarButton);
@@ -106,7 +109,9 @@ public class MainWindowAdministrador extends JFrame {
 
 		eliminarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				eliminar();
+				if(table.getSelectedRow() != -1) {
+					eliminar();
+				}
 			}
 		});
 		panel_2.add(eliminarButton);
@@ -114,7 +119,7 @@ public class MainWindowAdministrador extends JFrame {
 		JButton anadirArticulo = new JButton("A\u00F1adir Articulo");
 		anadirArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar(AuxWindow.Emode.Anadir);
+				crearAuxWindow(AuxWindow.Emode.Anadir);
 			}
 		});
 		panel_2.add(anadirArticulo);
@@ -122,14 +127,18 @@ public class MainWindowAdministrador extends JFrame {
 		JButton consultarArticulo = new JButton("Consultar Articulo");
 		consultarArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearBotonModificar(AuxWindow.Emode.Consultar);
+				//el if es para si no hay ninguna fila seleccionada no lanza excepcion al no crear la auxWindow
+				if(table.getSelectedRow() != -1){
+					crearAuxWindow(AuxWindow.Emode.Consultar);
+				}
 			}
 		});
 		panel_2.add(consultarArticulo);
 	}
 
-	private void crearBotonModificar(AuxWindow.Emode modificar) {
-		AuxWindow prueba = new AuxWindow(this, modificar);
+	private void crearAuxWindow(AuxWindow.Emode modificar) {
+
+		AuxWindow prueba = new AuxWindow(this, modificar,table);
 		prueba.setVisible(true);
 	}
 
@@ -187,10 +196,12 @@ public class MainWindowAdministrador extends JFrame {
 		interiorTabla.addColumn("Valoracion");
 		interiorTabla.addColumn("Tipo");
 		interiorTabla.addColumn("Vendedor_ID");
+
+		table.removeColumn(table.getColumnModel().getColumn(0));
 	}
 
 	private void eliminar() {
-		if (!_ctrl.bajaArticulo((Integer) table.getValueAt(table.getSelectedRow(), 0)))
+		if (!_ctrl.bajaArticulo((Integer) interiorTabla.getValueAt(table.getSelectedRow(), 0)))
 		{
 			JOptionPane.showMessageDialog(this, "Cannot delete record", "error", JOptionPane.ERROR_MESSAGE);
 		}
