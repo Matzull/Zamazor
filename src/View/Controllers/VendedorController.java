@@ -1,5 +1,6 @@
 package View.Controllers;
 
+import ModeloDominio.Articulo;
 import ModeloDominio.Vendedor;
 import Subsistemas.Vendedor.ImplFachadaVendedor;
 
@@ -14,8 +15,8 @@ public class VendedorController {
         this.v = new Vendedor();
     }
 
-    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Vendedor> listaVendedores){
-        this.v = new Vendedor(id,nombre,email,telefono,listaVendedores);
+    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos){
+        this.v = new Vendedor(id,nombre,email,telefono,Articulos);
     }
 
     public Vendedor getVendedor(){return this.v;}
