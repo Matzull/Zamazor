@@ -1,8 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,12 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
-import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import javax.swing.JCheckBox;
 
 public class Register extends JFrame {
 
@@ -88,6 +85,11 @@ public class Register extends JFrame {
 		textField_2.setBounds(107, 194, 105, 20);
 		panel.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Vendedor");
+		chckbxNewCheckBox.setBackground(new Color(250, 235, 215));
+		chckbxNewCheckBox.setBounds(23, 225, 97, 23);
+		panel.add(chckbxNewCheckBox);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(148, 0, 211));

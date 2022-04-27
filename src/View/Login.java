@@ -19,6 +19,7 @@ import javax.swing.JSeparator;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 public class Login extends JFrame {
 
@@ -63,6 +64,11 @@ public class Login extends JFrame {
 		regbtn.setForeground(new Color(0, 0, 0));
 		regbtn.setBounds(117, 112, 86, 23);
 		panel.add(regbtn);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Vendedor");
+		chckbxNewCheckBox.setBackground(new Color(250, 235, 215));
+		chckbxNewCheckBox.setBounds(14, 112, 97, 23);
+		panel.add(chckbxNewCheckBox);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(148, 0, 211));
