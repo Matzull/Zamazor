@@ -73,7 +73,7 @@ public class DAOarticulo implements IDAOArticulo
 
     /**
      * esta funcion se encarga de eliminar un articulo de la base de datos, para ello hacemos
-     *      una consulta DELETE para eliminar el artuculo de la base de datos cuyo id sea el mismo que el
+     *      una consulta DELETE para eliminar el articulo de la base de datos cuyo id sea el mismo que el
      *      de la consulta, y actualizamos esa consulta en la base de datos.
      *      en la base de datos.
      * @param id es el id del articulo a eliminar ya que es el identificador unico de este
@@ -96,7 +96,9 @@ public class DAOarticulo implements IDAOArticulo
     }
 
     /**
-     * esta funcion se encarga de modificar un articulo en la base de datos
+     * esta funcion se encarga de modificar un articulo en la base de datos, para ello hacemos
+     *      una consulta UPDATE para modificar el articulo de la base de datos con el del parametro,
+     *      y actualizamos esa consulta en la base de datos.
      * @param a es el articulo a modificar, con el cogemos cada uno de los parametros de
      *          su clase y los registramos en la base de datos,
      * @return devuelve un booleano que indica si se ha modificado correctamente en la base de datos(true) o si no
@@ -123,7 +125,9 @@ public class DAOarticulo implements IDAOArticulo
     }
 
     /**
-     * esta funcion se encarga de buscar un articulo en la base de datos
+     * esta funcion se encarga de buscar un articulo en la base de datos, para ello hacemos
+     *      una consulta SELECT y usamos como condicion LIKE para que recoga nombres que
+     *      empiezen por los caracteres insertados para modificar el articulo de la base de datos con el del parametro.
      * @param nombre es el nombre del articulo a modificar, con el cogemos cada uno
      *               de los parametros de su clase y los registramos en la base de datos
      * @return devuelve un booleano que indica si se ha realizado la busqueda correctamente
@@ -168,7 +172,9 @@ public class DAOarticulo implements IDAOArticulo
         return l;
     }
     /**
-     * esta funcion se encarga de consultar un articulo en la base de datos
+     * esta funcion se encarga de consultar un articulo en la base de datos, para ello hacemos
+     *      *      una consulta SELECT para consultar el articulo de la base de datos cuyo id sea el mismo que el
+     *      *      de la consulta.
      * @param id es el id del articulo a consultar, con el cogemos cada uno
      *               de los parametros de su clase y los registramos en la base de datos
      * @return devuelve un booleano que indica si se ha realizado la consulta correctamente

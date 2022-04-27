@@ -3,19 +3,29 @@ package ModeloDominio;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * esta clase representa un articulo seleccionable de la lista de articulos
+ */
 public class Articulo{
 
-    private Integer id;                 //
-    private String nombre;              //
-    private Double precio;              //
-    private Boolean stock;              //
-    private String descripcion;         //
-    private Double valoracion;          //
-    private String tipo;                //
-    private Integer idVendedor;         //
+    /**
+     * dicho articulo tiene como atributos un identificador id, un nombre, un precio, un booleano para
+     * ver si hay stock, una breve descripcion de sus funciones, la valoracion del producto, la familia a la que pertenece
+     * ese producto, el id del vendedor que vende su producto y una imagen del producto.
+     */
+    private Integer id;
+    private String nombre;
+    private Double precio;
+    private Boolean stock;
+    private String descripcion;
+    private Double valoracion;
+    private String tipo;
+    private Integer idVendedor;
     private ImageIcon _image;
 
-    //Constructor vacio para valores por defecto
+    /**
+     * este constructor vacio se usa para valores por defecto
+     */
     public Articulo(){
         id = 0;
         nombre = "";
@@ -28,6 +38,9 @@ public class Articulo{
         _image = null;
     }
 
+    /**
+     * este constructor se usa para coger los valores de la base de datos
+     */
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
     public Articulo(Integer id, Double valoracion, Double precio, Integer idVendedor, String name, String descripcion,
                     String tipo, Boolean stock, ImageIcon image){
@@ -42,6 +55,9 @@ public class Articulo{
         this._image = image;
     }
 
+    /**
+     * creamos todos los getters y los setters de los atributos de la clase
+     */
     //region Getters y setters
     public Integer getId() {
         return id;
