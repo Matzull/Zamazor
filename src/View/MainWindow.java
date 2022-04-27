@@ -1,97 +1,157 @@
 package View;
 
+import Misc.Util;
+import ModeloDominio.Articulo;
+import View.Controllers.ArticulosController;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class MainWindow extends JFrame {
+public class MainWindow {
 
-    private JPanel contentPane;
-    private JTextField barraBusqueda;
-    private JToolBar _toolbar;
-
-    static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
-
-    public MainWindow()
-    {
-        setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        _toolbar = new JToolBar();
-        //_toolbar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        _toolbar.setLayout(new BorderLayout());
-        contentPane = new JPanel();
-        contentPane.setLayout(new BorderLayout(0, 0));
-        setContentPane(contentPane);
-
-        JPanel topPanel = new JPanel();
-
-        topPanel.setBackground(new Color(64, 23, 156)); //new Color(252, 135, 80)
-        contentPane.add(topPanel, BorderLayout.NORTH);
-        topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        _toolbar.setOpaque(false);
-        topPanel.add(_toolbar, BorderLayout.PAGE_START);
+    private JFrame frame;
+    private JTextField buscadorTXT;
+    private ArticulosController _ctrl;
+    private DefaultListModel modeloJLista;
+    JLabel loginIcon;
+    JScrollPane scrollPane;
+    JLabel[] labelsParaImagenes;
+    private Map<String, ImageIcon> imageMap;
 
 
-        JLabel zamazorIcon = new JLabel("");
-        zamazorIcon.setVerticalAlignment(SwingConstants.TOP);
-        ImageIcon iconLogo = new ImageIcon(new ImageIcon("resources/zamazor.png").getImage().getScaledInstance(175, 50, Image.SCALE_SMOOTH));
-        zamazorIcon.setIcon(iconLogo);
-        _toolbar.add(zamazorIcon);
+    public MainWindow(ArticulosController ctrl) {
+        _ctrl = ctrl;
+        initialize();
+    }
 
-        _toolbar.addSeparator(new Dimension(115, 0));
+    private Map<String, ImageIcon> createImageMap(List<Articulo> fullTable) {
 
-        barraBusqueda = new JTextField(45);
-        barraBusqueda.addKeyListener(new KeyAdapter() {
+        Map<String, ImageIcon> map = new HashMap<>();
+        for (Articulo s : fullTable) {
+            map.put(s.getNombre() + s.getDescripcion()+ s.getPrecio(), s.getImage(0.25));
+        }
+        return map;
+    }
+
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 596, 428);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(148, 0, 211));
+        frame.getContentPane().add(panel, BorderLayout.NORTH);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+        JPanel panel_1 = new JPanel();
+        panel_1.setBackground(new Color(147, 112, 219));
+        FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+        flowLayout.setAlignment(FlowLayout.LEFT);
+        panel.add(panel_1);
+
+        JLabel fotoZamazor = new JLabel();
+        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
+        fotoZamazor.setIcon(iconLogo);
+        panel_1.add(fotoZamazor);
+
+        JPanel panel_2 = new JPanel();
+        panel_2.setBackground(new Color(147, 112, 219));
+        panel.add(panel_2);
+
+        buscadorTXT = new JTextField();
+        buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        panel_2.add(buscadorTXT);
+        buscadorTXT.setColumns(40);
+
+        JButton botonBuscar = new JButton("");
+        botonBuscar.setBorderPainted(false);
+        botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        iconLogo = new ImageIcon("resources/search.png");
+        botonBuscar.setIcon(iconLogo);
+        panel_2.add(botonBuscar);
+
+        JPanel panel_3 = new JPanel();
+        panel_3.setBackground(new Color(147, 112, 219));
+        FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
+        flowLayout_1.setAlignment(FlowLayout.RIGHT);
+        panel.add(panel_3);
+
+        loginIcon = new JLabel();
+        loginIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginIcon.addMouseListener(new MouseAdapter() {
             @Override
-            public void keyReleased(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER)
-                {
-                    String texto = barraBusqueda.getText().toLowerCase();
-                    //filter(texto);
-                }
+            public void mouseClicked(MouseEvent e) {
+                Login login = new Login();
+                login.setVisible(true);
             }
         });
-        barraBusqueda.setFont(new Font("Serif", Font.PLAIN, 25));
+        iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
+        loginIcon.setIcon(iconLogo);
+        panel_3.add(loginIcon);
 
-        _toolbar.add(barraBusqueda);
-        _toolbar.addSeparator(new Dimension(40, 0));
-        JButton search = new JButton("");
-        search.setBorderPainted(false);
-        search.setBackground(new Color(252, 135, 80));
-        iconLogo = new ImageIcon("resources/IconoLupa.png");
-        search.setIcon(iconLogo);
-        search.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String texto = barraBusqueda.getText().toLowerCase();
-                //filter(texto);
-            }
-        });
-        _toolbar.add(search);
+        Panel panel_4 = new Panel();
+        panel_4.setBackground(SystemColor.inactiveCaptionBorder);
+        frame.getContentPane().add(panel_4, BorderLayout.CENTER);
+        panel_4.setLayout(new CardLayout(0, 0));
+
+        scrollPane = new JScrollPane();
+        panel_4.add(scrollPane, "name_179239712047600");
 
 
-        //_toolbar.add(Box.createHorizontalGlue());
-        _toolbar.addSeparator();
+        JList list = new JList();
+        imageMap = createImageMap(fullTable());
+        crearModeloJlist(fullTable());
+        list.setModel(modeloJLista);
+        list.setCellRenderer(new metodoMeterFotos());
+        scrollPane.setViewportView(list);
 
 
-        JButton user = new JButton("");
-        user.setBorderPainted(false);
-        user.setBackground(new Color(252, 135, 80));
-        ImageIcon userIcon = new ImageIcon(new ImageIcon("resources/user.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH));
-        user.setIcon(userIcon);
-        user.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String texto = barraBusqueda.getText().toLowerCase();
-                //filter(texto);
-            }
-        });
-        _toolbar.add(user);
+        list.setFixedCellHeight(50);
+        list.setFixedCellWidth(100);
+
+        //JLabel lblNewLabel = new JLabel("New label");
+        //scrollPane.setRowHeaderView(lblNewLabel);
 
     }
 
+    public void crearModeloJlist(List<Articulo> arts) {
+        modeloJLista = new DefaultListModel();
 
+        for (Articulo ar : arts) {
+            Object[] interior = {ar.getId(), ar.getNombre(), ar.getPrecio(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};
+            modeloJLista.addElement(ar.getNombre()+ ar.getDescripcion()+  ar.getPrecio());
+        }
+
+    }
+    private List<Articulo> fullTable() {
+
+        return _ctrl.fullTable();
+    }
+
+    public void setVisible(boolean b) {
+        frame.setVisible(b);
+
+    }
+
+    public class metodoMeterFotos extends DefaultListCellRenderer {
+
+        Font font = new Font("Arial", Font.BOLD, 15);
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
+
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setIcon(imageMap.get((String) value));
+            label.setHorizontalTextPosition(JLabel.RIGHT);
+            label.setFont(font);
+            return label;
+        }
+    }
 }

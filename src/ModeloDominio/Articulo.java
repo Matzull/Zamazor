@@ -1,7 +1,8 @@
 package ModeloDominio;
 
+import Misc.Util;
+
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * esta clase representa un articulo seleccionable de la lista de articulos
@@ -88,6 +89,8 @@ public class Articulo{
     public Integer getIdVendedor() {
         return idVendedor;
     }
+
+    public ImageIcon getImage(double scale){return Util.scaleImage(_image, scale);}
 
     public ImageIcon getImage(){return _image;}
 

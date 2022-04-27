@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.sql.*;
 import ModeloDominio.Articulo;
+import Misc.Util;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -159,6 +160,8 @@ public class DAOarticulo implements IDAOArticulo
                     ar.setTipo(rs.getString("_Tipo"));
                     ar.setVendedor_id(rs.getInt("_Vendedor_id"));
                     ar.setValoracion(rs.getDouble("_Valoracion"));
+                    byte[] b = rs.getBytes("_Imagen");
+                    ar.setImage(Util.Blob_to_Image(b));
                     l.add(ar);
                 }
             } catch (NullPointerException e) {
@@ -196,30 +199,13 @@ public class DAOarticulo implements IDAOArticulo
             ar.setVendedor_id(rs.getInt("_Vendedor_id"));
             ar.setValoracion(rs.getDouble("_Valoracion"));
             byte[] b = rs.getBytes("_Imagen");
-            ar.setImage(Blob_to_Image(b));
+            ar.setImage(Util.Blob_to_Image(b));
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage() + " No se ha  identificado el id");
         }
         return ar;
-    }
-
-    public static ImageIcon Blob_to_Image(byte[] img)
-    {
-        ImageIcon ret = null;
-
-        try{
-            ByteArrayInputStream inStreambj = new ByteArrayInputStream(img);
-            BufferedImage image = ImageIO.read(inStreambj);
-
-            ret = new ImageIcon(image.getScaledInstance(202, (int)((202.0 / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH));
-        }
-        catch (Exception e)
-        {
-            System.out.println("Cannot load image");
-        }
-        return ret;
     }
 
 }

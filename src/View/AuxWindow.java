@@ -47,11 +47,13 @@ public class AuxWindow extends JFrame {
 		setLocation(100, 100);
 		setMinimumSize(new Dimension(500, 500));
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(250, 235, 215));
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(250, 235, 215));
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
 		
@@ -60,6 +62,9 @@ public class AuxWindow extends JFrame {
 		panel.add(idLabel);
 		
 		idTxtField = new JTextField();
+		idTxtField.setHorizontalAlignment(SwingConstants.LEFT);
+		idTxtField.setBackground(new Color(250, 235, 215));
+		idTxtField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(idTxtField);
 		idTxtField.setColumns(10);
 		idTxtField.addKeyListener(new KeyAdapter() {
@@ -74,7 +79,10 @@ public class AuxWindow extends JFrame {
 		panel.add(nombrelbl);
 		
 		nombreTextField = new JTextField();
+		nombreTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		nombreTextField.setBackground(new Color(250, 235, 215));
 		nombreTextField.setColumns(10);
+		nombreTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(nombreTextField);
 
 		JLabel precioLbl = new JLabel("Precio:");
@@ -82,6 +90,9 @@ public class AuxWindow extends JFrame {
 		panel.add(precioLbl);
 
 		precioTxtField = new JTextField();
+		precioTxtField.setHorizontalAlignment(SwingConstants.LEFT);
+		precioTxtField.setBackground(new Color(250, 235, 215));
+		precioTxtField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(precioTxtField);
 		precioTxtField.setColumns(10);
 		
@@ -90,6 +101,7 @@ public class AuxWindow extends JFrame {
 		panel.add(stocklbl);
 		
 		stockCheckBox = new JCheckBox("");
+		stockCheckBox.setBackground(new Color(250, 235, 215));
 		stockCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(stockCheckBox);
 		
@@ -98,7 +110,9 @@ public class AuxWindow extends JFrame {
 		panel.add(desclabel);
 		
 		descTextField = new JTextField();
+		descTextField.setBackground(new Color(250, 235, 215));
 		descTextField.setColumns(10);
+		descTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(descTextField);
 		
 		JLabel valLbl = new JLabel("Valoracion:");
@@ -106,7 +120,9 @@ public class AuxWindow extends JFrame {
 		panel.add(valLbl);
 		
 		valTextField = new JTextField();
+		valTextField.setBackground(new Color(250, 235, 215));
 		valTextField.setColumns(10);
+		valTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(valTextField);
 		
 		JLabel tipoLbl = new JLabel("Tipo:");
@@ -114,7 +130,9 @@ public class AuxWindow extends JFrame {
 		panel.add(tipoLbl);
 		
 		tipoTextField = new JTextField();
+		tipoTextField.setBackground(new Color(250, 235, 215));
 		tipoTextField.setColumns(10);
+		tipoTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(tipoTextField);
 		
 		JLabel lblVendedor = new JLabel("Id vendedor:");
@@ -122,11 +140,13 @@ public class AuxWindow extends JFrame {
 		panel.add(lblVendedor);
 		
 		idVendTextField = new JTextField();
+		idVendTextField.setBackground(new Color(250, 235, 215));
 		panel.add(idVendTextField);
+		idVendTextField.setBorder(new EmptyBorder(0,0,0,0));
 		idVendTextField.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.GRAY);
+		panel_1.setBackground(new Color(148, 0, 211));
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		
 		JLabel zamazorBlancoIcon = new JLabel("");
@@ -135,10 +155,14 @@ public class AuxWindow extends JFrame {
 		panel_1.add(zamazorBlancoIcon);
 		
 		JPanel panel_2 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		panel_2.setBackground(new Color(148, 0, 211));
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		
 		
 		JButton cancelarButton = new JButton("Cancelar");
+		cancelarButton.setBackground(new Color(148, 0, 211));
 		iconLogo = new ImageIcon("resources/IconoCancel.png");
 		cancelarButton.setIcon(iconLogo);
 		cancelarButton.addActionListener(new ActionListener() {
@@ -148,14 +172,11 @@ public class AuxWindow extends JFrame {
 		});
 		panel_2.add(cancelarButton);
 
-		JButton botonArchivo = new JButton();
-		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/IconoZamazor.png")));
-		botonArchivo.setToolTipText("boton para abrir");
-
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new File("resources/examples/"));
 
 		JButton aceptarButton = new JButton("Aceptar");
+		aceptarButton.setBackground(new Color(148, 0, 211));
 		aceptarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				aceptar();
@@ -184,12 +205,27 @@ public class AuxWindow extends JFrame {
 		}
 
 		JPanel panelImage = new JPanel();
+		panelImage.setBackground(new Color(250, 235, 215));
 		panelImage.setLayout(new BorderLayout());
 		contentPane.add(panelImage, BorderLayout.EAST);
 		JLabel imageLabel = new JLabel(_image);
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);
 		panelImage.add(imageLabel, BorderLayout.CENTER);
+		JPanel fcpPanel = new JPanel();
+		FlowLayout flowLayout_1 = (FlowLayout) fcpPanel.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.RIGHT);
+		fcpPanel.setBackground(new Color(250, 235, 215));
+		panelImage.add(fcpPanel, BorderLayout.SOUTH);
+		
+		JButton botonArchivo = new JButton();
+		botonArchivo.setForeground(new Color(250, 235, 215));
+		botonArchivo.setHorizontalAlignment(SwingConstants.RIGHT);
+		botonArchivo.setBackground(new Color(250, 235, 215));
+		fcpPanel.add(botonArchivo, BorderLayout.SOUTH);
+		
+		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/IconoZamazor.png")));
+		botonArchivo.setToolTipText("boton para abrir");
 
 		botonArchivo.addActionListener((e)->{
 			int i = fc.showOpenDialog(this);
@@ -207,7 +243,6 @@ public class AuxWindow extends JFrame {
 
 			}
 		});
-		panel_2.add(botonArchivo);
 
 	}
 
