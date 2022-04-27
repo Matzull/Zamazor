@@ -20,17 +20,21 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login extends JFrame {
+
+public class Register extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField passwordField;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
-	public Login() {
-		setTitle("Log In");
+	public Register() {
+		setTitle("Sign up");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 294, 252);
+		setBounds(100, 100, 300, 361);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -47,22 +51,43 @@ public class Login extends JFrame {
 		txtUsuario.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(23, 41, 60, 14);
+		lblUsuario.setBounds(23, 44, 74, 14);
 		panel.add(lblUsuario);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(107, 76, 105, 20);
+		passwordField.setBounds(107, 77, 105, 20);
 		panel.add(passwordField);
 		
 		JLabel txtPassWord = new JLabel("Contrase\u00F1a:");
-		txtPassWord.setBounds(23, 79, 74, 14);
+		txtPassWord.setBounds(23, 83, 74, 14);
 		panel.add(txtPassWord);
 		
-		JButton regbtn = new JButton("Registro");
-		regbtn.setBackground(new Color(244, 164, 96));
-		regbtn.setForeground(new Color(0, 0, 0));
-		regbtn.setBounds(117, 112, 86, 23);
-		panel.add(regbtn);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(23, 122, 46, 14);
+		panel.add(lblNombre);
+		
+		textField = new JTextField();
+		textField.setBounds(107, 116, 105, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Email:");
+		lblNewLabel_3.setBounds(23, 161, 46, 14);
+		panel.add(lblNewLabel_3);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(107, 155, 105, 20);
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Direcci\u00F3n:");
+		lblNewLabel_4.setBounds(23, 200, 60, 14);
+		panel.add(lblNewLabel_4);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(107, 194, 105, 20);
+		panel.add(textField_2);
+		textField_2.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(148, 0, 211));
@@ -106,7 +131,7 @@ public class Login extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		panel_2.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
+		JLabel lblNewLabel_1 = new JLabel("Resgistro");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		panel_2.add(lblNewLabel_1);
