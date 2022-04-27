@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -42,7 +43,9 @@ public class AuxWindow extends JFrame {
 
 		this.table = table;
 
-		setBounds(100, 100, 500, 400);
+		//setBounds(100, 100, 500, 400);
+		setLocation(100, 100);
+		setMinimumSize(new Dimension(500, 500));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -117,8 +120,6 @@ public class AuxWindow extends JFrame {
 		JLabel lblVendedor = new JLabel("Id vendedor:");
 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblVendedor);
-
-
 		
 		idVendTextField = new JTextField();
 		panel.add(idVendTextField);
@@ -153,24 +154,6 @@ public class AuxWindow extends JFrame {
 
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new File("resources/examples/"));
-
-		botonArchivo.addActionListener((e)->{
-			int i = fc.showOpenDialog(this);
-			if (i == fc.APPROVE_OPTION) {
-
-				File archivo = fc.getSelectedFile();
-				try {
-					_image = new ImageIcon(ImageIO.read(archivo));
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(this, "Cannot load file", "error", JOptionPane.ERROR_MESSAGE);
-				}
-
-
-			}
-		});
-		//botonArchivo.addActionListener(this);
-		panel_2.add(botonArchivo);
-
 
 		JButton aceptarButton = new JButton("Aceptar");
 		aceptarButton.addActionListener(new ActionListener() {
@@ -207,6 +190,24 @@ public class AuxWindow extends JFrame {
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);
 		panelImage.add(imageLabel, BorderLayout.CENTER);
+
+		botonArchivo.addActionListener((e)->{
+			int i = fc.showOpenDialog(this);
+			if (i == fc.APPROVE_OPTION) {
+
+				File archivo = fc.getSelectedFile();
+				try {
+					BufferedImage image = ImageIO.read(archivo);
+					_image = new ImageIcon(image.getScaledInstance(202, (int)((202.0 / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH));
+					imageLabel.setIcon(_image);
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(this, "Cannot load file", "error", JOptionPane.ERROR_MESSAGE);
+				}
+
+
+			}
+		});
+		panel_2.add(botonArchivo);
 
 	}
 

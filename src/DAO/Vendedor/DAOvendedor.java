@@ -121,7 +121,7 @@ public class DAOvendedor implements IDAOAVendedor
                     c.add(vend);
                 }
             } catch (NullPointerException e) {
-                throw new NullPointerException("No existen compradores en la base de datos");
+                throw new NullPointerException("No existen Vendedores en la base de datos");
             }
         }
         catch (SQLException e)

@@ -15,8 +15,8 @@ public class VendedorController {
         this.v = new Vendedor();
     }
 
-    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> listaArticulo){
-        this.v = new Vendedor(id,nombre,email,telefono,listaArticulo);
+    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos){
+        this.v = new Vendedor(id,nombre,email,telefono,Articulos);
     }
 
     public Vendedor getVendedor(){return this.v;}
