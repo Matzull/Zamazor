@@ -1,17 +1,11 @@
 package Launcher;
 
-import ModeloDominio.Articulo;
 import Subsistemas.Articulos.SAArticulos;
-import Subsistemas.Comprador.SAComprador;
 import Subsistemas.Pedido.SAPedido;
-import Subsistemas.Vendedor.SAVendedor;
 import View.Login;
 import View.MainWindow;
-import View.MainWindowAdministrador;
 
 import java.awt.EventQueue;
-
-import View.Controllers.ArticulosController;
 
 import javax.swing.*;
 
@@ -22,13 +16,11 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-					//MainWindowAdministrador frame = new MainWindowAdministrador(new ArticulosController());
+					//MainWindowAdministrador frame = new MainWindowAdministrador(new ArticuloController());
 					//frame.setVisible(true);
 
-					MainWindow Wnd = new MainWindow(new ArticulosController());
+					MainWindow Wnd = new MainWindow();
 					Wnd.setVisible(true);
-					//Login log = new Login();
-					//log.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

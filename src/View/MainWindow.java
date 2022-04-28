@@ -2,9 +2,13 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
-import View.Controllers.ArticulosController;
+import View.Controllers.ArticuloController;
+import View.Controllers.CompradorController;
+import View.Controllers.PedidoController;
+import View.Controllers.VendedorController;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,28 +16,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class MainWindow {
 
     private JFrame frame;
     private JTextField buscadorTXT;
-    private ArticulosController _ctrl;
-    private DefaultListModel modeloJLista;
+    private DefaultListModel<Articulo> modeloJLista;
     JLabel loginIcon;
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
-    private Map<String, ImageIcon> imageMap;
+    private Map<Integer, ImageIcon> imageMap;
+
+    private ArticuloController _actrl = new ArticuloController();
+    private CompradorController _cctrl = new CompradorController();
+    private PedidoController _pctrl = new PedidoController();
+    private VendedorController _vctrl = new VendedorController();
 
 
-    public MainWindow(ArticulosController ctrl) {
-        _ctrl = ctrl;
+    public MainWindow() {
         initialize();
     }
 
-    private Map<String, ImageIcon> createImageMap(List<Articulo> fullTable) {
+    private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {
 
-        Map<String, ImageIcon> map = new HashMap<>();
+        Map<Integer, ImageIcon> map = new HashMap<>();
         for (Articulo s : fullTable) {
-            map.put(s.getNombre() + s.getDescripcion()+ s.getPrecio(), s.getImage(0.25));
+            map.put(s.getId(), s.getImage(1));
         }
         return map;
     }
@@ -54,7 +62,7 @@ public class MainWindow {
         panel_1.setBackground(new Color(147, 112, 219));
         FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
-        panel.add(panel_1);
+        panel.add(panel_1, BorderLayout.CENTER);
 
         JLabel fotoZamazor = new JLabel();
         ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
@@ -88,7 +96,7 @@ public class MainWindow {
         loginIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Login login = new Login();
+                Login login = new Login(_cctrl, _vctrl);
                 login.setVisible(true);
             }
         });
@@ -96,43 +104,42 @@ public class MainWindow {
         loginIcon.setIcon(iconLogo);
         panel_3.add(loginIcon);
 
-        Panel panel_4 = new Panel();
+        JPanel panel_4 = new JPanel();
         panel_4.setBackground(SystemColor.inactiveCaptionBorder);
         frame.getContentPane().add(panel_4, BorderLayout.CENTER);
-        panel_4.setLayout(new CardLayout(0, 0));
+        panel_4.setBorder(null);
+        panel_4.setLayout(new CardLayout());
 
         scrollPane = new JScrollPane();
         panel_4.add(scrollPane, "name_179239712047600");
 
 
-        JList list = new JList();
+        JList<Articulo> list = new JList<Articulo>();
         imageMap = createImageMap(fullTable());
         crearModeloJlist(fullTable());
         list.setModel(modeloJLista);
-        list.setCellRenderer(new metodoMeterFotos());
+        list.setCellRenderer(new CellRenderer());
         scrollPane.setViewportView(list);
 
 
-        list.setFixedCellHeight(50);
-        list.setFixedCellWidth(100);
-
+        list.setFixedCellHeight(250);
+        list.setFixedCellWidth(250);
         //JLabel lblNewLabel = new JLabel("New label");
         //scrollPane.setRowHeaderView(lblNewLabel);
 
     }
 
     public void crearModeloJlist(List<Articulo> arts) {
-        modeloJLista = new DefaultListModel();
+        modeloJLista = new DefaultListModel<>();
 
         for (Articulo ar : arts) {
-            Object[] interior = {ar.getId(), ar.getNombre(), ar.getPrecio(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};
-            modeloJLista.addElement(ar.getNombre()+ ar.getDescripcion()+  ar.getPrecio());
+            modeloJLista.addElement(ar);
         }
 
     }
     private List<Articulo> fullTable() {
 
-        return _ctrl.fullTable();
+        return _actrl.fullTable();
     }
 
     public void setVisible(boolean b) {
@@ -140,18 +147,48 @@ public class MainWindow {
 
     }
 
-    public class metodoMeterFotos extends DefaultListCellRenderer {
+    public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {
 
-        Font font = new Font("Arial", Font.BOLD, 15);
+        Font fontt = new Font("Arial", Font.BOLD, 17);
+        Font font = new Font("Arial", Font.PLAIN, 15);
+        Font fontp = new Font("Arial", Font.BOLD, 23);
+
+        private JLabel lblIcon = new JLabel();
+        private JLabel lblNombre = new JLabel();
+        private JLabel lblPrecio = new JLabel();
+        private JLabel lblDescripcion = new JLabel();
+
+        public CellRenderer()
+        {
+            setLayout(new BorderLayout(50, 10));
+            setBorder(new LineBorder(new Color(120, 120, 120), 1));
+            JPanel panelText = new JPanel(new GridLayout(4, 1));
+            panelText.add(lblNombre);
+            panelText.add(lblPrecio);
+            panelText.add(lblDescripcion);
+            add(Box.createRigidArea(new Dimension(5, 0)), BorderLayout.WEST);
+            add(lblIcon, BorderLayout.WEST);
+            add(panelText, BorderLayout.CENTER);
+        }
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<? extends Articulo> list, Articulo art, int index,boolean isSelected, boolean cellHasFocus) {
 
-            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            label.setIcon(imageMap.get((String) value));
-            label.setHorizontalTextPosition(JLabel.RIGHT);
-            label.setFont(font);
-            return label;
+            lblIcon.setIcon(imageMap.get(art.getId()));
+            lblNombre.setText(art.getNombre());
+            lblPrecio.setText(Double.toString(art.getPrecio()) + "\u20AC");
+            lblDescripcion.setText(art.getDescripcion());
+            lblNombre.setFont(fontt);
+            lblPrecio.setFont(fontp);
+            lblDescripcion.setFont(font);
+            if (isSelected) {
+            	setBorder(new LineBorder(new Color(50, 50, 120), 2));
+			}
+            else
+            {
+                setBorder(new LineBorder(new Color(120, 120, 120), 1));
+            }
+            return this;
         }
     }
 }

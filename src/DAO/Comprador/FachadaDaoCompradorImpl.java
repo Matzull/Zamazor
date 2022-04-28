@@ -30,7 +30,7 @@ public class FachadaDaoCompradorImpl implements IFachadaDaoComprador {
     public List<Comprador> buscarComprador(String nombre) {return Dao.buscarComprador(nombre);}
 
     @Override
-    public Comprador consultarComprador(int id) {
-        return Dao.consultarComprador(id);
+    public Comprador consultarComprador(String username) {
+        return Dao.consultarComprador(username);
     }
 }

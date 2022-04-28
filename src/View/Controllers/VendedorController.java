@@ -2,6 +2,7 @@ package View.Controllers;
 
 import ModeloDominio.Articulo;
 import ModeloDominio.Vendedor;
+import Subsistemas.Vendedor.FachadaVendedor;
 import Subsistemas.Vendedor.ImplFachadaVendedor;
 
 import java.util.List;
@@ -9,10 +10,11 @@ import java.util.List;
 public class VendedorController {
 
     private Vendedor v;
-    private ImplFachadaVendedor fachadaVendedor;
+    private FachadaVendedor fachadaVendedor;
 
     public VendedorController(){
         this.v = new Vendedor();
+        fachadaVendedor = new ImplFachadaVendedor();
     }
 
     public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos){

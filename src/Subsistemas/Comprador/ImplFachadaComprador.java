@@ -29,7 +29,7 @@ public class ImplFachadaComprador implements FachadaComprador{
     }
 
     @Override
-    public Comprador consultarComprador(Integer id) {
-        return sa.consultarComprador(id);
+    public Comprador consultarComprador(String username) {
+        return sa.consultarComprador(username);
     }
 }

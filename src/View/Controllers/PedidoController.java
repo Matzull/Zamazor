@@ -2,6 +2,7 @@ package View.Controllers;
 
 import ModeloDominio.Articulo;
 import ModeloDominio.Pedido;
+import Subsistemas.Pedido.FachadaPedido;
 import Subsistemas.Pedido.ImplFachadaPedido;
 
 import java.util.List;
@@ -9,10 +10,11 @@ import java.util.List;
 public class PedidoController {
 
     private Pedido p;
-    private ImplFachadaPedido fachadaPedido;
+    private FachadaPedido fachadaPedido;
 
     public PedidoController(){
         this.p = new Pedido();
+        fachadaPedido = new ImplFachadaPedido();
     }
 
     public PedidoController(Integer id, Integer comprador_id, Integer vendedor_id, String direccion, Boolean entregado, String entrega, String pedido, List<Articulo> articulos){

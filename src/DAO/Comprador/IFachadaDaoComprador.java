@@ -15,6 +15,6 @@ public interface IFachadaDaoComprador {
 
     public List<Comprador> buscarComprador(String username);
 
-    public Comprador consultarComprador(int id);
+    public Comprador consultarComprador(String username);
 
 }

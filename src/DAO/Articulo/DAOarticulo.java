@@ -1,14 +1,9 @@
 package DAO.Articulo;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.sql.*;
-import ModeloDominio.Articulo;
 import Misc.Util;
+import ModeloDominio.Articulo;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 

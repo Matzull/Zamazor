@@ -77,7 +77,7 @@ public class DAOcomprador implements IDAOAComprador
         boolean correct = true;
         try
         {
-            if (consultarComprador(c.getId()).getNombre() == "")
+            if (consultarComprador(c.getCuenta()).getNombre() == "")
             {
                 throw new Exception("");
             }
@@ -136,10 +136,10 @@ public class DAOcomprador implements IDAOAComprador
         return c;
     }
 
-    public Comprador consultarComprador(int id)
+    public Comprador consultarComprador(String username)
     {
         Comprador comp = new Comprador();
-        QUERY = "SELECT * FROM Comprador WHERE _ID = " + id;
+        QUERY = "SELECT * FROM Comprador WHERE _Cuenta = " +  "'" + username + "'";
 
         try {
             rs = stmt.executeQuery(QUERY);

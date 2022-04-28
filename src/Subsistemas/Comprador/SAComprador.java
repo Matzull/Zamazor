@@ -32,7 +32,7 @@ public class SAComprador implements ISAComprador {
     }
 
     @Override
-    public Comprador consultarComprador(Integer id) {
-        return DAO.consultarComprador(id);
+    public Comprador consultarComprador(String username) {
+        return DAO.consultarComprador(username);
     }
 }

@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ModeloDominio.Articulo;
-import View.Controllers.ArticulosController;
+import View.Controllers.ArticuloController;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -21,11 +21,11 @@ public class MainWindowAdministrador extends JFrame {
 	private JTextField barraBusqueda;
 	private JTable table;
 	private DefaultTableModel interiorTabla;
-	private ArticulosController _ctrl;
+	private ArticuloController _ctrl;
 
 
 
-	public MainWindowAdministrador(ArticulosController ctrl) {
+	public MainWindowAdministrador(ArticuloController ctrl) {
 
 		this._ctrl = ctrl;
 

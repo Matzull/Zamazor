@@ -14,6 +14,6 @@ public interface IDAOAComprador {
 
     public List<Comprador> buscarComprador(String Nombre);
 
-    public Comprador consultarComprador(int id);
+    public Comprador consultarComprador(String username);
 
 }

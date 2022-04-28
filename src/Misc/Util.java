@@ -5,23 +5,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 public class Util {
-    public static ImageIcon scaleImage(ImageIcon icon, double scale)
-    {
-        int w = (int)(scale * icon.getIconWidth());
-        int h = (int)(scale * icon.getIconHeight());
+    public static ImageIcon scaleImage(ImageIcon icon, double scale) {
+        int w = (int) (scale * icon.getIconWidth());
+        int h = (int) (scale * icon.getIconHeight());
         int nw = icon.getIconWidth();
         int nh = icon.getIconHeight();
 
-        if(icon.getIconWidth() > w)
-        {
+        if (icon.getIconWidth() > w) {
             nw = w;
             nh = (nw * icon.getIconHeight()) / icon.getIconWidth();
         }
 
-        if(nh > h)
-        {
+        if (nh > h) {
             nh = h;
             nw = (icon.getIconWidth() * nh) / icon.getIconHeight();
         }
@@ -29,21 +29,46 @@ public class Util {
         return new ImageIcon(icon.getImage().getScaledInstance(nw, nh, Image.SCALE_SMOOTH));
     }
 
-    public static ImageIcon Blob_to_Image(byte[] img)
-    {
+    public static ImageIcon Blob_to_Image(byte[] img) {
         ImageIcon ret = null;
 
-        try{
+        try {
             ByteArrayInputStream inStreambj = new ByteArrayInputStream(img);
             BufferedImage image = ImageIO.read(inStreambj);
 
-            ret = new ImageIcon(image.getScaledInstance(202, (int)((202.0 / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH));
-        }
-        catch (Exception e)
-        {
+            double size = 215;
+            ret = (image.getHeight() < image.getWidth()) ? new ImageIcon(image.getScaledInstance((int) size, (int) ((size / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH)) : new ImageIcon(image.getScaledInstance((int) ((size / image.getHeight()) * image.getWidth()), (int) size, Image.SCALE_SMOOTH));
+        } catch (Exception e) {
             System.out.println("Cannot load image");
         }
         return ret;
     }
 
+    public static String hash256(String input) {
+
+        // Static getInstance method is called
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        byte[] digest = md.digest(input.getBytes(StandardCharsets.UTF_8));
+        // Convert byte array into signum representation
+        BigInteger number = new BigInteger(1, digest);
+
+        // Convert message digest into hex value
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+
+        // Pad with leading zeros
+        while (hexString.length() < 32) {
+            hexString.insert(0, '0');
+        }
+
+        return hexString.toString();
+    }
 }
+
+

@@ -1,24 +1,25 @@
 package View.Controllers;
 
+import Subsistemas.Articulos.FachadaArticulos;
 import Subsistemas.Articulos.ImplFachadaArticulos;
 import ModeloDominio.Articulo;
 
 import javax.swing.*;
 import java.util.List;
 
-public class ArticulosController {
+public class ArticuloController {
     private Articulo a;
-    private ImplFachadaArticulos fachadaArticulos;
+    private FachadaArticulos fachadaArticulos;
 
     //Constructor vacio. Valores por defecto
-    public ArticulosController(){
+    public ArticuloController(){
         this.a = new Articulo();
         this.fachadaArticulos = new ImplFachadaArticulos();
     }
     
     //Constructor con parametros. Contectar con BBDD
-    public ArticulosController(Integer id, Double rating, Double precio, Integer sellerId, String name, String description,
-                               String department, Boolean stock, ImageIcon image){
+    public ArticuloController(Integer id, Double rating, Double precio, Integer sellerId, String name, String description,
+                              String department, Boolean stock, ImageIcon image){
         this.a = new Articulo(id, rating, precio, sellerId, name, description, department, stock, image);
     }
 
