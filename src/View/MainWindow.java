@@ -2,8 +2,7 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
-import ModeloDominio.Comprador;
-import ModeloDominio.Vendedor;
+import View.ArticleWindow.Emode;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -12,10 +11,6 @@ import View.Controllers.VendedorController;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -32,27 +27,26 @@ public class MainWindow {
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
-
-    private Comprador comp;
-    private Vendedor vend;
-
-    private int vendor = 0;//0 nothing, 1 vendor, 2 buyer
+ 
+    private JList<Articulo> list;
 
     private ArticuloController _actrl = new ArticuloController();
     private CompradorController _cctrl = new CompradorController();
     private PedidoController _pctrl = new PedidoController();
     private VendedorController _vctrl = new VendedorController();
-    JList<Articulo> list;
+    
+    
+
 
     public MainWindow() {
         initialize();
     }
 
     private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {
-
+    
         Map<Integer, ImageIcon> map = new HashMap<>();
         for (Articulo s : fullTable) {
-            map.put(s.getId(), s.getImage(1));
+            map.put(s.getId(), s.getImage(1));            
         }
         return map;
     }
@@ -86,15 +80,6 @@ public class MainWindow {
 
         buscadorTXT = new JTextField();
         buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        buscadorTXT.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String texto = buscadorTXT.getText().toLowerCase();
-					filter(texto);
-				} //PARA QUE AL DARLE AL ENTER SE BUSQUE AUTOMATICAMENTE EN LA BARRA DE BUSQUEDA PRINCIPAL TRAS ESCRIBIR
-			}
-		});
         panel_2.add(buscadorTXT);
         buscadorTXT.setColumns(40);
 
@@ -103,15 +88,8 @@ public class MainWindow {
         botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         iconLogo = new ImageIcon("resources/search.png");
         botonBuscar.setIcon(iconLogo);
-        botonBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String texto = buscadorTXT.getText().toLowerCase();
-				filter(texto);
-			}
-		});
         panel_2.add(botonBuscar);
-        
-        
+
         JPanel panel_3 = new JPanel();
         panel_3.setBackground(Util._barColor);
         FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
@@ -123,34 +101,8 @@ public class MainWindow {
         loginIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (vendor == 0)
-                {
-                    Login login = new Login(_cctrl, _vctrl);
-                    login.setVisible(true);
-                    if(login.getIsVendedor() == 1)
-                    {
-                        vend = login.getVendedor();
-                        vendor = 1;
-                    }
-                    else
-                    {
-                        comp = login.getComprador();
-                        vendor = 2;
-                    }
-                }
-                else if(vendor == 1)
-                {
-                    UserInfoWindow userInfo = new UserInfoWindow(vend);
-                }
-                else if(vendor == 2)
-                {
-                    UserInfoWindow userInfo = new UserInfoWindow(comp);
-                }
-                else
-                {
-                    UserInfoWindow userInfo = new UserInfoWindow();
-                }
-
+                Login login = new Login(_cctrl, _vctrl);
+                login.setVisible(true);
             }
         });
         iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
@@ -170,6 +122,13 @@ public class MainWindow {
 
 
         list = new JList<Articulo>();
+        list.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent arg0) {
+        		eventoClickArticulo();
+        	}
+        });
+        list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         imageMap = createImageMap(fullTable());
         crearModeloJlist(fullTable());
         list.setModel(modeloJLista);
@@ -184,27 +143,57 @@ public class MainWindow {
 
     }
 
-    private void filter(String texto) {
-    	crearModeloJlist(_actrl.buscarArticulo(texto));
-    	list.setModel(modeloJLista);
-    }
+    protected void eventoClickArticulo() {
+    	ArticleWindow ventanaArticulo = new ArticleWindow(this,Emode.Modificar,list.getSelectedValue());
+    	ventanaArticulo.setVisible(true);
+		
+	}
 
-    public void crearModeloJlist(List<Articulo> arts) {
+	public void crearModeloJlist(List<Articulo> arts) {
         modeloJLista = new DefaultListModel<>();
 
         for (Articulo ar : arts) {
             modeloJLista.addElement(ar);
         }
-    }
 
+    }
     private List<Articulo> fullTable() {
+
         return _actrl.fullTable();
     }
 
     public void setVisible(boolean b) {
         frame.setVisible(b);
-    }
 
+    }
+    
+    public Articulo consultarArticulo(int id)
+	{
+		Articulo ret = _actrl.consultarArticulo(id);
+		if(ret == null)
+		{
+			JOptionPane.showMessageDialog(frame, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		return ret;
+	}
+
+	public void modificarArticulo(Articulo a) {
+		if(!_actrl.modificarArticulo(a))
+		{
+			JOptionPane.showMessageDialog(frame, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+
+	public void altaArticulo(Articulo a) {
+		if(!_actrl.altaArticulo(a))
+		{
+			JOptionPane.showMessageDialog(frame, "Id already exists", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
     public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {
 
         Font fontt = new Font("Arial", Font.BOLD, 17);
@@ -250,6 +239,7 @@ public class MainWindow {
             }
             return this;
         }
+        
+    	
     }
-
 }
