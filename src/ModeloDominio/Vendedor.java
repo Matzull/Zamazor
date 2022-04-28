@@ -10,6 +10,7 @@ public class Vendedor {
     private String email;
     private Long telefono;
     private List<Articulo> Articulos;
+    private String password;
 
     public Vendedor() {
         id = 0;
@@ -17,14 +18,16 @@ public class Vendedor {
         email = "";
         telefono = Long.valueOf(0);
         Articulos = new ArrayList<Articulo>();
+        password = "";
     }
 
-    public Vendedor(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos) {
+    public Vendedor(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos, String password) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
         this.Articulos = Articulos;
+        this.password = password;
     }
 
     //region Getters y setters
@@ -73,5 +76,13 @@ public class Vendedor {
     public String toString()
     {
         return "Funciono, nombre: " + this.nombre;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -29,8 +29,8 @@ public class FachadaDaoVendedorImpl implements IFachadaDaoVendedor{
     public List<Vendedor> buscarVendedor(String nombre) {return Dao.buscarVendedor(nombre);}
 
     @Override
-    public Vendedor consultarVendedor(int id) {
-        return Dao.consultarVendedor(id);
+    public Vendedor consultarVendedor(String username) {
+        return Dao.consultarVendedor(username);
     }
 
 }

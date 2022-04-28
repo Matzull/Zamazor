@@ -10,6 +10,6 @@ public interface FachadaVendedor {
     public boolean modificarVendedor(Vendedor v);
     public boolean bajaVendedor(int id);
     public List<Vendedor> buscarVendedor(String nombre);
-    public Vendedor consultarVendedor(int id);
+    public Vendedor consultarVendedor(String username);
 
 }

@@ -77,6 +77,12 @@ public class Login extends JFrame {
 		regbtn.setBackground(new Color(244, 164, 96));
 		regbtn.setForeground(new Color(0, 0, 0));
 		regbtn.setBounds(117, 112, 86, 23);
+		regbtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Register_V reg = new Register_V(_cctrl, _vctrl);
+			}
+		});
 		panel.add(regbtn);
 		
 		vendor = new JCheckBox("Vendedor");
@@ -161,6 +167,10 @@ public class Login extends JFrame {
 					ret = true;
 				}
 			}
+		}
+		else
+		{
+			Vendedor vend = _vctrl.consultarVendedor(username);
 		}
 		return ret;
 	}

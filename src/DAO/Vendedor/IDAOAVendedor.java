@@ -13,5 +13,5 @@ public interface IDAOAVendedor {
 
      List<Vendedor> buscarVendedor(String username);
 
-     Vendedor consultarVendedor(int id);
+     Vendedor consultarVendedor(String username);
 }

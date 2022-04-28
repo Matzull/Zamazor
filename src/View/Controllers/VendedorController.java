@@ -17,8 +17,8 @@ public class VendedorController {
         fachadaVendedor = new ImplFachadaVendedor();
     }
 
-    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos){
-        this.v = new Vendedor(id,nombre,email,telefono,Articulos);
+    public VendedorController(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos, String password){
+        this.v = new Vendedor(id,nombre,email,telefono,Articulos, password);
     }
 
     public Vendedor getVendedor(){return this.v;}
@@ -33,6 +33,6 @@ public class VendedorController {
 
     public List<Vendedor> fullTable(){return fachadaVendedor.buscarVendedor("");}
 
-    public Vendedor consultarVendedor(int id){return fachadaVendedor.consultarVendedor(id);}
+    public Vendedor consultarVendedor(String username){return fachadaVendedor.consultarVendedor(username);}
 
 }

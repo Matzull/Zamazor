@@ -37,8 +37,8 @@ public class DAOvendedor implements IDAOAVendedor
         boolean correct = false;
 
         QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos)" +
-                " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ ","  + a.getEmail() + ","+ a.getTelefono() +
-                ","+ "'" + a.getArticulos() + "'" + ")";
+                " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ "," + "'"+ a.getEmail() + "'" + ","+ a.getTelefono() +
+                "," + "'" + a.getArticulos() + "'" + "," + "'" + a.getPassword() + "'" + ")";
 
         try {
             stmt.executeUpdate(QUERY);
@@ -72,7 +72,7 @@ public class DAOvendedor implements IDAOAVendedor
         boolean correct = true;
         try
         {
-            if (consultarVendedor(v.getId()).getNombre() == "")
+            if (consultarVendedor(v.getNombre()).getNombre() == "")
             {
                 throw new Exception("");
             }
@@ -80,6 +80,7 @@ public class DAOvendedor implements IDAOAVendedor
                     ", _Email = " + "'" + v.getEmail() + "'" +
                     ", _Telefono = " + "'" + v.getTelefono() + "'" +
                     ", _Articulos = " + "'" + v.getArticulos() + "'" +
+                    ", _Password = " + "'" + v.getPassword() + "'" +
                     " WHERE _ID = " + v.getId();
 
             stmt.executeUpdate(QUERY);
@@ -118,6 +119,7 @@ public class DAOvendedor implements IDAOAVendedor
                     vend.setEmail(rs.getString("_Email"));
                     vend.setTelefono(rs.getLong("_Telefono"));
                     vend.setArticulos(vendedorParser(rs.getString("_Articulos")));
+                    vend.setPassword(rs.getString("_Password"));
                     c.add(vend);
                 }
             } catch (NullPointerException e) {
@@ -132,9 +134,9 @@ public class DAOvendedor implements IDAOAVendedor
     }
 
     @Override
-    public Vendedor consultarVendedor(int id) {
+    public Vendedor consultarVendedor(String username) {
         Vendedor vend = new Vendedor();
-        QUERY = "SELECT * FROM Vendedores WHERE _ID = " + id;
+        QUERY = "SELECT * FROM Vendedores WHERE _ID = " + "'" + username + "'";
 
         try {
             rs = stmt.executeQuery(QUERY);
@@ -143,6 +145,7 @@ public class DAOvendedor implements IDAOAVendedor
             vend.setEmail(rs.getString("_Email"));
             vend.setTelefono(rs.getLong("_Telefono"));
             vend.setArticulos(vendedorParser(rs.getString("_Articulo")));
+            vend.setPassword(rs.getString("_Password"));
         }
         catch (Exception e)
         {

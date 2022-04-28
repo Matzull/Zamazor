@@ -31,7 +31,7 @@ public class ImplFachadaVendedor implements FachadaVendedor{
     }
 
     @Override
-    public Vendedor consultarVendedor(int id) {
-        return sa.consultarVendedor(id);
+    public Vendedor consultarVendedor(String username) {
+        return sa.consultarVendedor(username);
     }
 }

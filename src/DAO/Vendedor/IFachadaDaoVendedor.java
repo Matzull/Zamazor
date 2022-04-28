@@ -14,6 +14,6 @@ public interface IFachadaDaoVendedor {
 
     public List<Vendedor> buscarVendedor(String username);
 
-    public Vendedor consultarVendedor(int id);
+    public Vendedor consultarVendedor(String username);
 
 }

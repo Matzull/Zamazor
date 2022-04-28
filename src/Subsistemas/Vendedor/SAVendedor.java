@@ -32,7 +32,7 @@ public class SAVendedor implements ISAVendedor{
     }
 
     @Override
-    public Vendedor consultarVendedor(int id) {
-        return DAO.consultarVendedor(id);
+    public Vendedor consultarVendedor(String username) {
+        return DAO.consultarVendedor(username);
     }
 }
