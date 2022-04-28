@@ -1,42 +1,24 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-import java.awt.Dimension;
-import javax.swing.UIManager;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JPasswordField;
 import java.awt.Color;
-import javax.swing.JToolBar;
 
 import Misc.Util;
 
-public class userInfoWindow extends JFrame {
+public class UserInfoWindow extends JFrame {
 
     private JPanel contentPane;
     private Vendedor vendedor;
@@ -51,46 +33,34 @@ public class userInfoWindow extends JFrame {
     private boolean editable;
     private JButton pedidosButton, modificarButton, eliminarButton, cartButtton, returnButton;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    userInfoWindow frame = new userInfoWindow();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * Create the frame.
      */
-    public userInfoWindow() {
-        this.setTitle("Zamazor -> Informacion de usuario");
+    public UserInfoWindow() {
+        this.setTitle("Informacion de usuario");
         loadIcon();
         initGUI();
+        this.setVisible(true);
         editable = false;
     }
 
-    public userInfoWindow(Vendedor vendedor) {
+    public UserInfoWindow(Vendedor vendedor) {
         this.vendedor = vendedor;
         loadIcon();
+        this.setVisible(true);
         initGUI();
     }
 
-    public userInfoWindow(Comprador comprador) {
+    public UserInfoWindow(Comprador comprador) {
         this.comprador = comprador;
         loadIcon();
+        this.setVisible(true);
         initGUI();
     }
 
     private void initGUI() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 700, 601);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

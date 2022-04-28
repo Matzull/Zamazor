@@ -9,28 +9,18 @@ import View.Controllers.VendedorController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
-import javax.swing.JScrollBar;
-import javax.swing.JSeparator;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Locale;
-import javax.swing.JCheckBox;
 
 import static Misc.Util.hash256;
 
-public class Login extends JFrame {
+public class Login extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -38,6 +28,10 @@ public class Login extends JFrame {
 	private VendedorController _vctrl;
 	private CompradorController _cctrl;
 	private JCheckBox vendor;
+	private int isVendor;
+
+	private Comprador comprador;
+	private Vendedor vendedor;
 
 	public Login(CompradorController cc, VendedorController vc) {
 		setTitle("Log In");
@@ -48,7 +42,7 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
+		setModal(true);
 		_vctrl = vc;
 		_cctrl = cc;
 
@@ -111,9 +105,11 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(login(txtUsuario.getText(), passwordField.getPassword()))
 				{
-					System.out.println("Entro");
-					//TODO initiate user
 					setVisible(false);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(panel_1, "Usuario o contrase\u00F1a erroneos", "error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -167,26 +163,43 @@ public class Login extends JFrame {
 		boolean ret = false;
 		if (!vendor.isSelected())
 		{
-			Comprador comp = _cctrl.consultarComprador(username);
-			if (!comp.getCuenta().equals(""))
+			comprador = _cctrl.consultarComprador(username);
+			if (comprador.getCuenta() != null)
 			{
-				if(comp.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				if(comprador.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
 				{
+					isVendor = 0;
 					ret = true;
 				}
 			}
 		}
 		else
 		{
-			Vendedor vend = _vctrl.consultarVendedor(username);
-			if (!vend.getNombre().equals(""))
+			vendedor = _vctrl.consultarVendedor(username);
+			if (vendedor.getNombre() != null)
 			{
-				if(vend.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				if(vendedor.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
 				{
+					isVendor = 1;
 					ret = true;
 				}
 			}
 		}
 		return ret;
+	}
+
+	public Comprador getComprador()
+	{
+		return this.comprador;
+	}
+
+	public Vendedor getVendedor()
+	{
+		return this.vendedor;
+	}
+
+	public int getIsVendedor()
+	{
+		return this.isVendor;
 	}
 }

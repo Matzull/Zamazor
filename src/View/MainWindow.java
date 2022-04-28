@@ -2,6 +2,8 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
+import ModeloDominio.Comprador;
+import ModeloDominio.Vendedor;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -30,6 +32,11 @@ public class MainWindow {
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
+
+    private Comprador comp;
+    private Vendedor vend;
+
+    private int vendor = 0;//0 nothing, 1 vendor, 2 buyer
 
     private ArticuloController _actrl = new ArticuloController();
     private CompradorController _cctrl = new CompradorController();
@@ -116,8 +123,34 @@ public class MainWindow {
         loginIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Login login = new Login(_cctrl, _vctrl);
-                login.setVisible(true);
+                if (vendor == 0)
+                {
+                    Login login = new Login(_cctrl, _vctrl);
+                    login.setVisible(true);
+                    if(login.getIsVendedor() == 1)
+                    {
+                        vend = login.getVendedor();
+                        vendor = 1;
+                    }
+                    else
+                    {
+                        comp = login.getComprador();
+                        vendor = 2;
+                    }
+                }
+                else if(vendor == 1)
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow(vend);
+                }
+                else if(vendor == 2)
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow(comp);
+                }
+                else
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow();
+                }
+
             }
         });
         iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
@@ -162,16 +195,14 @@ public class MainWindow {
         for (Articulo ar : arts) {
             modeloJLista.addElement(ar);
         }
-
     }
-    private List<Articulo> fullTable() {
 
+    private List<Articulo> fullTable() {
         return _actrl.fullTable();
     }
 
     public void setVisible(boolean b) {
         frame.setVisible(b);
-
     }
 
     public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {
@@ -220,4 +251,5 @@ public class MainWindow {
             return this;
         }
     }
+
 }
