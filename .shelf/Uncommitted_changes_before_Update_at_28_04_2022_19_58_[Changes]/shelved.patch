@@ -1,0 +1,91 @@
+Index: src/View/MainWindow.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package View;\r\n\r\nimport Misc.Util;\r\nimport ModeloDominio.Articulo;\r\nimport View.Controllers.ArticuloController;\r\nimport View.Controllers.CompradorController;\r\nimport View.Controllers.PedidoController;\r\nimport View.Controllers.VendedorController;\r\n\r\nimport javax.swing.*;\r\nimport javax.swing.border.LineBorder;\r\nimport java.awt.*;\r\nimport java.awt.event.MouseAdapter;\r\nimport java.awt.event.MouseEvent;\r\nimport java.util.HashMap;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\n\r\npublic class MainWindow {\r\n\r\n    private JFrame frame;\r\n    private JTextField buscadorTXT;\r\n    private DefaultListModel<Articulo> modeloJLista;\r\n    JLabel loginIcon;\r\n    JScrollPane scrollPane;\r\n    JLabel[] labelsParaImagenes;\r\n    private Map<Integer, ImageIcon> imageMap;\r\n\r\n    private ArticuloController _actrl = new ArticuloController();\r\n    private CompradorController _cctrl = new CompradorController();\r\n    private PedidoController _pctrl = new PedidoController();\r\n    private VendedorController _vctrl = new VendedorController();\r\n\r\n\r\n    public MainWindow() {\r\n        initialize();\r\n    }\r\n\r\n    private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {\r\n\r\n        Map<Integer, ImageIcon> map = new HashMap<>();\r\n        for (Articulo s : fullTable) {\r\n            map.put(s.getId(), s.getImage(1));\r\n        }\r\n        return map;\r\n    }\r\n\r\n    private void initialize() {\r\n        frame = new JFrame();\r\n        frame.setBounds(100, 100, 596, 428);\r\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        frame.setResizable(true);\r\n        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);\r\n\r\n        JPanel panel = new JPanel();\r\n        panel.setBackground(Util._barColor);\r\n        frame.getContentPane().add(panel, BorderLayout.NORTH);\r\n        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));\r\n\r\n        JPanel panel_1 = new JPanel();\r\n        panel_1.setBackground(Util._barColor);\r\n        FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();\r\n        flowLayout.setAlignment(FlowLayout.LEFT);\r\n        panel.add(panel_1, BorderLayout.CENTER);\r\n\r\n        JLabel fotoZamazor = new JLabel();\r\n        ImageIcon iconLogo = Util.scaleImage(new ImageIcon(\"resources/IconoZamazor.png\"), 3);\r\n        fotoZamazor.setIcon(iconLogo);\r\n        panel_1.add(fotoZamazor);\r\n\r\n        JPanel panel_2 = new JPanel();\r\n        panel_2.setBackground(Util._barColor);\r\n        panel.add(panel_2);\r\n\r\n        buscadorTXT = new JTextField();\r\n        buscadorTXT.setFont(new Font(\"Tahoma\", Font.PLAIN, 20));\r\n        panel_2.add(buscadorTXT);\r\n        buscadorTXT.setColumns(40);\r\n\r\n        JButton botonBuscar = new JButton(\"\");\r\n        botonBuscar.setBorderPainted(false);\r\n        botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n        iconLogo = new ImageIcon(\"resources/search.png\");\r\n        botonBuscar.setIcon(iconLogo);\r\n        panel_2.add(botonBuscar);\r\n\r\n        JPanel panel_3 = new JPanel();\r\n        panel_3.setBackground(Util._barColor);\r\n        FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();\r\n        flowLayout_1.setAlignment(FlowLayout.RIGHT);\r\n        panel.add(panel_3);\r\n\r\n        loginIcon = new JLabel();\r\n        loginIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));\r\n        loginIcon.addMouseListener(new MouseAdapter() {\r\n            @Override\r\n            public void mouseClicked(MouseEvent e) {\r\n                Login login = new Login(_cctrl, _vctrl);\r\n                login.setVisible(true);\r\n            }\r\n        });\r\n        iconLogo = Util.scaleImage(new ImageIcon(\"resources/user.png\"), 0.04);\r\n        loginIcon.setIcon(iconLogo);\r\n        panel_3.add(loginIcon);\r\n\r\n        JPanel panel_4 = new JPanel();\r\n        panel_4.setBackground(SystemColor.inactiveCaptionBorder);\r\n        frame.getContentPane().add(panel_4, BorderLayout.CENTER);\r\n        panel_4.setBorder(null);\r\n        panel_4.setBackground(Util._bodyColor);\r\n        panel_4.setLayout(new CardLayout());\r\n\r\n        scrollPane = new JScrollPane();\r\n        scrollPane.setBackground(Util._bodyColor);\r\n        panel_4.add(scrollPane, \"name_179239712047600\");\r\n\r\n\r\n        JList<Articulo> list = new JList<Articulo>();\r\n        imageMap = createImageMap(fullTable());\r\n        crearModeloJlist(fullTable());\r\n        list.setModel(modeloJLista);\r\n        list.setCellRenderer(new CellRenderer());\r\n        scrollPane.setViewportView(list);\r\n\r\n\r\n        list.setFixedCellHeight(250);\r\n        list.setFixedCellWidth(250);\r\n        //JLabel lblNewLabel = new JLabel(\"New label\");\r\n        //scrollPane.setRowHeaderView(lblNewLabel);\r\n\r\n    }\r\n\r\n    public void crearModeloJlist(List<Articulo> arts) {\r\n        modeloJLista = new DefaultListModel<>();\r\n\r\n        for (Articulo ar : arts) {\r\n            modeloJLista.addElement(ar);\r\n        }\r\n\r\n    }\r\n    private List<Articulo> fullTable() {\r\n\r\n        return _actrl.fullTable();\r\n    }\r\n\r\n    public void setVisible(boolean b) {\r\n        frame.setVisible(b);\r\n\r\n    }\r\n\r\n    public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {\r\n\r\n        Font fontt = new Font(\"Arial\", Font.BOLD, 17);\r\n        Font font = new Font(\"Arial\", Font.PLAIN, 15);\r\n        Font fontp = new Font(\"Arial\", Font.BOLD, 23);\r\n\r\n        private JLabel lblIcon = new JLabel();\r\n        private JLabel lblNombre = new JLabel();\r\n        private JLabel lblPrecio = new JLabel();\r\n        private JLabel lblDescripcion = new JLabel();\r\n\r\n        public CellRenderer()\r\n        {\r\n            setLayout(new BorderLayout(50, 10));\r\n            setBorder(new LineBorder(new Color(120, 120, 120), 1));\r\n            JPanel panelText = new JPanel(new GridLayout(4, 1));\r\n            panelText.add(lblNombre);\r\n            panelText.add(lblPrecio);\r\n            panelText.add(lblDescripcion);\r\n            add(Box.createRigidArea(new Dimension(5, 0)), BorderLayout.WEST);\r\n            add(lblIcon, BorderLayout.WEST);\r\n            add(panelText, BorderLayout.CENTER);\r\n            panelText.setBackground(Util._bodyColor);\r\n            setBackground(Util._bodyColor);\r\n        }\r\n\r\n        @Override\r\n        public Component getListCellRendererComponent(JList<? extends Articulo> list, Articulo art, int index,boolean isSelected, boolean cellHasFocus) {\r\n\r\n            lblIcon.setIcon(imageMap.get(art.getId()));\r\n            lblNombre.setText(art.getNombre());\r\n            lblPrecio.setText(Double.toString(art.getPrecio()) + \"\\u20AC\");\r\n            lblDescripcion.setText(art.getDescripcion());\r\n            lblNombre.setFont(fontt);\r\n            lblPrecio.setFont(fontp);\r\n            lblDescripcion.setFont(font);\r\n            if (isSelected) {\r\n            \tsetBorder(new LineBorder(new Color(50, 50, 120), 2));\r\n\t\t\t}\r\n            else\r\n            {\r\n                setBorder(new LineBorder(new Color(120, 120, 120), 1));\r\n            }\r\n            return this;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/View/MainWindow.java b/src/View/MainWindow.java
+--- a/src/View/MainWindow.java	(revision a2687125e9772033d2e12d84edfb73a4b7a3cf51)
++++ b/src/View/MainWindow.java	(date 1651168687531)
+@@ -2,6 +2,8 @@
+ 
+ import Misc.Util;
+ import ModeloDominio.Articulo;
++import ModeloDominio.Comprador;
++import ModeloDominio.Vendedor;
+ import View.Controllers.ArticuloController;
+ import View.Controllers.CompradorController;
+ import View.Controllers.PedidoController;
+@@ -27,6 +29,11 @@
+     JLabel[] labelsParaImagenes;
+     private Map<Integer, ImageIcon> imageMap;
+ 
++    private Comprador comp;
++    private Vendedor vend;
++
++    private boolean vendor;
++
+     private ArticuloController _actrl = new ArticuloController();
+     private CompradorController _cctrl = new CompradorController();
+     private PedidoController _pctrl = new PedidoController();
+@@ -137,16 +144,14 @@
+         for (Articulo ar : arts) {
+             modeloJLista.addElement(ar);
+         }
+-
+     }
++
+     private List<Articulo> fullTable() {
+-
+         return _actrl.fullTable();
+     }
+ 
+     public void setVisible(boolean b) {
+         frame.setVisible(b);
+-
+     }
+ 
+     public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {
+@@ -195,4 +200,20 @@
+             return this;
+         }
+     }
++
++    public void setIsVendor(boolean vendor)
++    {
++        this.vendor = vendor;
++    }
++
++    public void setVendor(Vendedor vend)
++    {
++        this.ve
++    }
++
++    public void setBuyer(Comprador comp)
++    {
++
++    }
++
+ }
+Index: src/View/MainWindowAdministrador.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package View;\r\n\r\nimport java.awt.*;\r\n\r\nimport javax.swing.*;\r\nimport javax.swing.border.EmptyBorder;\r\nimport javax.swing.table.DefaultTableModel;\r\n\r\nimport ModeloDominio.Articulo;\r\nimport View.Controllers.ArticuloController;\r\n\r\nimport java.awt.event.KeyAdapter;\r\nimport java.awt.event.KeyEvent;\r\nimport java.util.List;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\n\r\npublic class MainWindowAdministrador extends JFrame {\r\n\r\n\tprivate JPanel contentPane;\r\n\tprivate JTextField barraBusqueda;\r\n\tprivate JTable table;\r\n\tprivate DefaultTableModel interiorTabla;\r\n\tprivate ArticuloController _ctrl;\r\n\r\n\r\n\r\n\tpublic MainWindowAdministrador(ArticuloController ctrl) {\r\n\r\n\t\tthis._ctrl = ctrl;\r\n\r\n\t\tsetDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n\t\tsetBounds(200, 200, 1000, 720);\r\n\t\tcontentPane = new JPanel();\r\n\t\tcontentPane.setBorder(new EmptyBorder(5, 5, 5, 5));\r\n\t\tcontentPane.setLayout(new BorderLayout(0, 0));\r\n\t\tsetContentPane(contentPane);\r\n\r\n\t\tJPanel panel = new JPanel();\r\n\t\tpanel.setBackground(Color.GRAY);\r\n\r\n\t\tcontentPane.add(panel, BorderLayout.NORTH);\r\n\t\tpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));\r\n\r\n\t\tJLabel zamazorIcon = new JLabel(\"\");\r\n\t\tzamazorIcon.setVerticalAlignment(SwingConstants.TOP);\r\n\t\tzamazorIcon.setForeground(Color.WHITE);\r\n\r\n\t\tImageIcon iconLogo = new ImageIcon(\"resources/IconoZamazor.png\");\r\n\t\tzamazorIcon.setIcon(iconLogo);\r\n\r\n\t\tpanel.add(zamazorIcon);\r\n\r\n\t\tbarraBusqueda = new JTextField();\r\n\t\tbarraBusqueda.addKeyListener(new KeyAdapter() {\r\n\t\t\t@Override\r\n\t\t\tpublic void keyReleased(KeyEvent e) {\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel.add(barraBusqueda);\r\n\t\tbarraBusqueda.setColumns(10);\r\n\r\n\r\n\t\tJButton buscarButton = new JButton(\"\");\r\n\t\tbuscarButton.setBorderPainted(false);\r\n\t\tbuscarButton.setBackground(Color.GRAY);\r\n\t\ticonLogo = new ImageIcon(\"resources/search.png\");\r\n\t\tbuscarButton.setIcon(iconLogo);\r\n\t\tbuscarButton.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\t\t\t\tString texto = barraBusqueda.getText().toLowerCase();\r\n\t\t\t\tfilter(texto);\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel.add(buscarButton);\r\n\r\n\r\n\t\tJPanel panel_1 = new JPanel();\r\n\t\tpanel_1.setBackground(Color.WHITE);\r\n\t\tcontentPane.add(panel_1, BorderLayout.CENTER);\r\n\t\tpanel_1.setLayout(new BorderLayout(0, 0));\r\n\r\n\t\tJScrollPane scrollPane = new JScrollPane();\r\n\t\tpanel_1.add(scrollPane);\r\n\r\n\r\n\t\ttable = new JTable();\r\n\t\tinitTable();\r\n\t\tcrearModeloTabla(fullTable());\r\n\t\ttable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);\r\n\t\tscrollPane.setViewportView(table);\r\n\r\n\t\tJPanel panel_2 = new JPanel();\r\n\t\tcontentPane.add(panel_2, BorderLayout.SOUTH);\r\n\r\n\t\tJButton modificarButton = new JButton(\"Modificar Articulo\");\r\n\t\tmodificarButton.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\r\n\t\t\t\t//el if es para si no hay ninguna fila seleccionada no lanza excepcion al no crear la auxWindow\r\n\t\t\t\tif(table.getSelectedRow() != -1){\r\n\t\t\t\t\tcrearAuxWindow(AuxWindow.Emode.Modificar);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel_2.add(modificarButton);\r\n\r\n\t\tJButton eliminarButton = new JButton(\"Eliminar Articulo\");\r\n\r\n\t\teliminarButton.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent arg0) {\r\n\t\t\t\tif(table.getSelectedRow() != -1) {\r\n\t\t\t\t\teliminar();\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel_2.add(eliminarButton);\r\n\r\n\t\tJButton anadirArticulo = new JButton(\"A\\u00F1adir Articulo\");\r\n\t\tanadirArticulo.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\t\t\t\tcrearAuxWindow(AuxWindow.Emode.Anadir);\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel_2.add(anadirArticulo);\r\n\r\n\t\tJButton consultarArticulo = new JButton(\"Consultar Articulo\");\r\n\t\tconsultarArticulo.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\t\t\t\t//el if es para si no hay ninguna fila seleccionada no lanza excepcion al no crear la auxWindow\r\n\t\t\t\tif(table.getSelectedRow() != -1){\r\n\t\t\t\t\tcrearAuxWindow(AuxWindow.Emode.Consultar);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel_2.add(consultarArticulo);\r\n\t}\r\n\r\n\tprivate void crearAuxWindow(AuxWindow.Emode modificar) {\r\n\r\n\t\tAuxWindow prueba = new AuxWindow(this, modificar,table);\r\n\t\tprueba.setVisible(true);\r\n\t}\r\n\r\n\r\n\tprivate List<Articulo> fullTable() {\r\n\t\treturn _ctrl.fullTable();\r\n\t}\r\n\r\n\tprivate void filter(String texto) {\r\n\t\tcrearModeloTabla(_ctrl.buscarArticulo(texto));\r\n\t}\r\n\r\n\tpublic Articulo consultarArticulo(int id)\r\n\t{\r\n\t\tArticulo ret = _ctrl.consultarArticulo(id);\r\n\t\tif(ret == null)\r\n\t\t{\r\n\t\t\tJOptionPane.showMessageDialog(this, \"Id not found\", \"error\", JOptionPane.ERROR_MESSAGE);\r\n\t\t}\r\n\t\tcrearModeloTabla(fullTable());\r\n\t\treturn ret;\r\n\t}\r\n\r\n\tpublic void modificarArticulo(Articulo a) {\r\n\t\tif(!_ctrl.modificarArticulo(a))\r\n\t\t{\r\n\t\t\tJOptionPane.showMessageDialog(this, \"Id not found\", \"error\", JOptionPane.ERROR_MESSAGE);\r\n\t\t}\r\n\t\tcrearModeloTabla(fullTable());\r\n\t}\r\n\r\n\tpublic void altaArticulo(Articulo a) {\r\n\t\tif(!_ctrl.altaArticulo(a))\r\n\t\t{\r\n\t\t\tJOptionPane.showMessageDialog(this, \"Id already exists\", \"error\", JOptionPane.ERROR_MESSAGE);\r\n\t\t}\r\n\t\tcrearModeloTabla(fullTable());\r\n\t}\r\n\r\n\tpublic void crearModeloTabla(List<Articulo> arts) {\r\n\t\tinteriorTabla.setRowCount(0);\r\n\t\tfor (Articulo ar : arts) {\r\n\t\t\tObject[] interior = {ar.getId(), ar.getNombre(), ar.getPrecio(), ar.getStock(), ar.getDescripcion(), ar.getValoracion(), ar.getTipo(), ar.getVendedor_id()};\r\n\t\t\tinteriorTabla.addRow(interior);\r\n\t\t}\r\n\t}\r\n\r\n\tpublic void initTable() {\r\n\t\tinteriorTabla = (DefaultTableModel) table.getModel();\r\n\t\tinteriorTabla.addColumn(\"ID\");\r\n\t\tinteriorTabla.addColumn(\"Nombre\");\r\n\t\tinteriorTabla.addColumn(\"Precio\");\r\n\t\tinteriorTabla.addColumn(\"Stock\");\r\n\t\tinteriorTabla.addColumn(\"Descripcion\");\r\n\t\tinteriorTabla.addColumn(\"Valoracion\");\r\n\t\tinteriorTabla.addColumn(\"Tipo\");\r\n\t\tinteriorTabla.addColumn(\"Vendedor_ID\");\r\n\r\n\t\ttable.removeColumn(table.getColumnModel().getColumn(0));\r\n\t}\r\n\r\n\tprivate void eliminar() {\r\n\t\tif (!_ctrl.bajaArticulo((Integer) interiorTabla.getValueAt(table.getSelectedRow(), 0)))\r\n\t\t{\r\n\t\t\tJOptionPane.showMessageDialog(this, \"Cannot delete record\", \"error\", JOptionPane.ERROR_MESSAGE);\r\n\t\t}\r\n\t\tcrearModeloTabla(fullTable());\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+diff --git a/src/View/MainWindowAdministrador.java b/src/View/MainWindowAdministrador.java
+--- a/src/View/MainWindowAdministrador.java	(revision a2687125e9772033d2e12d84edfb73a4b7a3cf51)
++++ b/src/View/MainWindowAdministrador.java	(date 1651168359032)
+@@ -55,6 +55,10 @@
+ 		barraBusqueda.addKeyListener(new KeyAdapter() {
+ 			@Override
+ 			public void keyReleased(KeyEvent e) {
++				if(e.getKeyCode() == KeyEvent.VK_ENTER) {}
++				{
++					
++				}
+ 			}
+ 		});
+ 		panel.add(barraBusqueda);

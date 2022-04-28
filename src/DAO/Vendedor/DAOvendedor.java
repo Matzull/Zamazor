@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Misc.Util.hash256;
+
 public class DAOvendedor implements IDAOAVendedor
 {
 
@@ -36,9 +38,9 @@ public class DAOvendedor implements IDAOAVendedor
     public boolean altaVendedor(Vendedor a) {
         boolean correct = false;
 
-        QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos)" +
+        QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos, _Password)" +
                 " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ "," + "'"+ a.getEmail() + "'" + ","+ a.getTelefono() +
-                "," + "'" + a.getArticulos() + "'" + "," + "'" + a.getPassword() + "'" + ")";
+                "," + "'" + a.getArticulos() + "'" + "," + "'" + hash256(a.getPassword()) + "'" + ")";
 
         try {
             stmt.executeUpdate(QUERY);
@@ -136,7 +138,7 @@ public class DAOvendedor implements IDAOAVendedor
     @Override
     public Vendedor consultarVendedor(String username) {
         Vendedor vend = new Vendedor();
-        QUERY = "SELECT * FROM Vendedores WHERE _ID = " + "'" + username + "'";
+        QUERY = "SELECT * FROM Vendedores WHERE _Nombre = " + "'" + username + "'";
 
         try {
             rs = stmt.executeQuery(QUERY);
@@ -144,7 +146,7 @@ public class DAOvendedor implements IDAOAVendedor
             vend.setNombre(rs.getString("_Nombre"));
             vend.setEmail(rs.getString("_Email"));
             vend.setTelefono(rs.getLong("_Telefono"));
-            vend.setArticulos(vendedorParser(rs.getString("_Articulo")));
+            vend.setArticulos(vendedorParser(rs.getString("_Articulos")));
             vend.setPassword(rs.getString("_Password"));
         }
         catch (Exception e)
@@ -161,11 +163,17 @@ public class DAOvendedor implements IDAOAVendedor
         List <Articulo> ret = new ArrayList<Articulo>();
         String articulos_id[] = articulos.split(",");
 
-        for (String id : articulos_id)
+        if(!articulos_id[0].equals("null"))
         {
-            ret.add(ArticulosDao.consultarArticulo(Integer.parseInt(id)));
+            for (String id : articulos_id)
+            {
+                ret.add(ArticulosDao.consultarArticulo(Integer.parseInt(id)));
+            }
         }
-
+        else
+        {
+            ret = null;
+        }
         return ret;
     }
 }

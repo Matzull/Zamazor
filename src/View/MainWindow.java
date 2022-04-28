@@ -26,11 +26,15 @@ public class MainWindow {
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
+ 
+    private JList<Articulo> list;
 
     private ArticuloController _actrl = new ArticuloController();
     private CompradorController _cctrl = new CompradorController();
     private PedidoController _pctrl = new PedidoController();
     private VendedorController _vctrl = new VendedorController();
+    
+    
 
 
     public MainWindow() {
@@ -38,10 +42,10 @@ public class MainWindow {
     }
 
     private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {
-
+    
         Map<Integer, ImageIcon> map = new HashMap<>();
         for (Articulo s : fullTable) {
-            map.put(s.getId(), s.getImage(1));
+            map.put(s.getId(), s.getImage(1));            
         }
         return map;
     }
@@ -54,23 +58,23 @@ public class MainWindow {
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(148, 0, 211));
+        panel.setBackground(Util._barColor);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         JPanel panel_1 = new JPanel();
-        panel_1.setBackground(new Color(147, 112, 219));
+        panel_1.setBackground(Util._barColor);
         FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
         panel.add(panel_1, BorderLayout.CENTER);
 
         JLabel fotoZamazor = new JLabel();
-        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
+        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 1);
         fotoZamazor.setIcon(iconLogo);
         panel_1.add(fotoZamazor);
 
         JPanel panel_2 = new JPanel();
-        panel_2.setBackground(new Color(147, 112, 219));
+        panel_2.setBackground(Util._barColor);
         panel.add(panel_2);
 
         buscadorTXT = new JTextField();
@@ -86,7 +90,7 @@ public class MainWindow {
         panel_2.add(botonBuscar);
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBackground(new Color(147, 112, 219));
+        panel_3.setBackground(Util._barColor);
         FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
         flowLayout_1.setAlignment(FlowLayout.RIGHT);
         panel.add(panel_3);
@@ -108,13 +112,22 @@ public class MainWindow {
         panel_4.setBackground(SystemColor.inactiveCaptionBorder);
         frame.getContentPane().add(panel_4, BorderLayout.CENTER);
         panel_4.setBorder(null);
+        panel_4.setBackground(Util._bodyColor);
         panel_4.setLayout(new CardLayout());
 
         scrollPane = new JScrollPane();
+        scrollPane.setBackground(Util._bodyColor);
         panel_4.add(scrollPane, "name_179239712047600");
 
 
-        JList<Articulo> list = new JList<Articulo>();
+        list = new JList<Articulo>();
+        list.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent arg0) {
+        		eventoClickArticulo();
+        	}
+        });
+        list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         imageMap = createImageMap(fullTable());
         crearModeloJlist(fullTable());
         list.setModel(modeloJLista);
@@ -129,7 +142,13 @@ public class MainWindow {
 
     }
 
-    public void crearModeloJlist(List<Articulo> arts) {
+    protected void eventoClickArticulo() {
+    	ArticleWindow ventanaArticulo = new ArticleWindow(this, list.getSelectedValue());
+    	ventanaArticulo.setVisible(true);
+		
+	}
+
+	public void crearModeloJlist(List<Articulo> arts) {
         modeloJLista = new DefaultListModel<>();
 
         for (Articulo ar : arts) {
@@ -146,7 +165,34 @@ public class MainWindow {
         frame.setVisible(b);
 
     }
+    
+    public Articulo consultarArticulo(int id)
+	{
+		Articulo ret = _actrl.consultarArticulo(id);
+		if(ret == null)
+		{
+			JOptionPane.showMessageDialog(frame, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		return ret;
+	}
 
+	public void modificarArticulo(Articulo a) {
+		if(!_actrl.modificarArticulo(a))
+		{
+			JOptionPane.showMessageDialog(frame, "Id not found", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+
+	public void altaArticulo(Articulo a) {
+		if(!_actrl.altaArticulo(a))
+		{
+			JOptionPane.showMessageDialog(frame, "Id already exists", "error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
     public class CellRenderer extends JPanel implements ListCellRenderer<Articulo> {
 
         Font fontt = new Font("Arial", Font.BOLD, 17);
@@ -169,6 +215,8 @@ public class MainWindow {
             add(Box.createRigidArea(new Dimension(5, 0)), BorderLayout.WEST);
             add(lblIcon, BorderLayout.WEST);
             add(panelText, BorderLayout.CENTER);
+            panelText.setBackground(Util._bodyColor);
+            setBackground(Util._bodyColor);
         }
 
         @Override
@@ -190,5 +238,7 @@ public class MainWindow {
             }
             return this;
         }
+        
+    	
     }
 }

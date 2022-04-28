@@ -1,5 +1,6 @@
 package View;
 
+import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 import View.Controllers.CompradorController;
@@ -8,28 +9,18 @@ import View.Controllers.VendedorController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
 import java.awt.FlowLayout;
-import javax.swing.JScrollBar;
-import javax.swing.JSeparator;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Locale;
-import javax.swing.JCheckBox;
 
 import static Misc.Util.hash256;
 
-public class Login extends JFrame {
+public class Login extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -37,6 +28,10 @@ public class Login extends JFrame {
 	private VendedorController _vctrl;
 	private CompradorController _cctrl;
 	private JCheckBox vendor;
+	private int isVendor;
+
+	private Comprador comprador;
+	private Vendedor vendedor;
 
 	public Login(CompradorController cc, VendedorController vc) {
 		setTitle("Log In");
@@ -47,7 +42,7 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
+		setModal(true);
 		_vctrl = vc;
 		_cctrl = cc;
 
@@ -74,19 +69,26 @@ public class Login extends JFrame {
 		panel.add(txtPassWord);
 		
 		JButton regbtn = new JButton("Registro");
-		regbtn.setBackground(new Color(244, 164, 96));
+		regbtn.setBackground(Util._bodyColor);
 		regbtn.setForeground(new Color(0, 0, 0));
 		regbtn.setBounds(117, 112, 86, 23);
 		regbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Register_V reg = new Register_V(_cctrl, _vctrl);
+				if (vendor.isSelected())
+				{
+					Register_V regv = new Register_V(_vctrl);
+				}
+				else
+				{
+					Register_C regc = new Register_C(_cctrl);
+				}
 			}
 		});
 		panel.add(regbtn);
 		
 		vendor = new JCheckBox("Vendedor");
-		vendor.setBackground(new Color(250, 235, 215));
+		vendor.setBackground(Util._bodyColor);
 		vendor.setBounds(14, 112, 97, 23);
 		panel.add(vendor);
 		
@@ -95,7 +97,7 @@ public class Login extends JFrame {
 		panel.add(separator_3);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(148, 0, 211));
+		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton okaybtn = new JButton("Ok");		
@@ -103,14 +105,16 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(login(txtUsuario.getText(), passwordField.getPassword()))
 				{
-					System.out.println("Entro");
-					//TODO initiate user
 					setVisible(false);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(panel_1, "Usuario o contrase\u00F1a erroneos", "error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 		okaybtn.setForeground(new Color(0, 0, 0));
-		okaybtn.setBackground(new Color(148, 0, 211));
+		okaybtn.setBackground(Util._barColor);
 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
 		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
@@ -122,7 +126,7 @@ public class Login extends JFrame {
 			}
 		});
 		Cancelbtn.setHorizontalAlignment(SwingConstants.LEFT);
-		Cancelbtn.setBackground(new Color(148, 0, 211));
+		Cancelbtn.setBackground(Util._barColor);
 		panel_1.add(Cancelbtn);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -137,7 +141,7 @@ public class Login extends JFrame {
 		panel_1.add(separator_2);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(148, 0, 211));
+		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -145,7 +149,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setForeground(Util._bodyColor);
 		panel_2.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -159,19 +163,43 @@ public class Login extends JFrame {
 		boolean ret = false;
 		if (!vendor.isSelected())
 		{
-			Comprador comp = _cctrl.consultarComprador(username);
-			if (!comp.getCuenta().equals(""))
+			comprador = _cctrl.consultarComprador(username);
+			if (comprador.getCuenta() != null)
 			{
-				if(comp.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				if(comprador.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
 				{
+					isVendor = 0;
 					ret = true;
 				}
 			}
 		}
 		else
 		{
-			Vendedor vend = _vctrl.consultarVendedor(username);
+			vendedor = _vctrl.consultarVendedor(username);
+			if (vendedor.getNombre() != null)
+			{
+				if(vendedor.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				{
+					isVendor = 1;
+					ret = true;
+				}
+			}
 		}
 		return ret;
+	}
+
+	public Comprador getComprador()
+	{
+		return this.comprador;
+	}
+
+	public Vendedor getVendedor()
+	{
+		return this.vendedor;
+	}
+
+	public int getIsVendedor()
+	{
+		return this.isVendor;
 	}
 }

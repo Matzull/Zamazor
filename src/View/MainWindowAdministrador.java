@@ -55,6 +55,10 @@ public class MainWindowAdministrador extends JFrame {
 		barraBusqueda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {}
+				{
+					
+				}
 			}
 		});
 		panel.add(barraBusqueda);
