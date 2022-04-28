@@ -1,5 +1,6 @@
 package View;
 
+import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 import View.Controllers.CompradorController;
@@ -74,19 +75,26 @@ public class Login extends JFrame {
 		panel.add(txtPassWord);
 		
 		JButton regbtn = new JButton("Registro");
-		regbtn.setBackground(new Color(244, 164, 96));
+		regbtn.setBackground(Util._bodyColor);
 		regbtn.setForeground(new Color(0, 0, 0));
 		regbtn.setBounds(117, 112, 86, 23);
 		regbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Register_V reg = new Register_V(_cctrl, _vctrl);
+				if (vendor.isSelected())
+				{
+					Register_V regv = new Register_V(_vctrl);
+				}
+				else
+				{
+					Register_C regc = new Register_C(_cctrl);
+				}
 			}
 		});
 		panel.add(regbtn);
 		
 		vendor = new JCheckBox("Vendedor");
-		vendor.setBackground(new Color(250, 235, 215));
+		vendor.setBackground(Util._bodyColor);
 		vendor.setBounds(14, 112, 97, 23);
 		panel.add(vendor);
 		
@@ -95,7 +103,7 @@ public class Login extends JFrame {
 		panel.add(separator_3);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(148, 0, 211));
+		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton okaybtn = new JButton("Ok");		
@@ -110,7 +118,7 @@ public class Login extends JFrame {
 			}
 		});
 		okaybtn.setForeground(new Color(0, 0, 0));
-		okaybtn.setBackground(new Color(148, 0, 211));
+		okaybtn.setBackground(Util._barColor);
 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
 		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
@@ -122,7 +130,7 @@ public class Login extends JFrame {
 			}
 		});
 		Cancelbtn.setHorizontalAlignment(SwingConstants.LEFT);
-		Cancelbtn.setBackground(new Color(148, 0, 211));
+		Cancelbtn.setBackground(Util._barColor);
 		panel_1.add(Cancelbtn);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -137,7 +145,7 @@ public class Login extends JFrame {
 		panel_1.add(separator_2);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(148, 0, 211));
+		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -145,7 +153,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setForeground(Util._bodyColor);
 		panel_2.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -171,6 +179,13 @@ public class Login extends JFrame {
 		else
 		{
 			Vendedor vend = _vctrl.consultarVendedor(username);
+			if (!vend.getNombre().equals(""))
+			{
+				if(vend.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				{
+					ret = true;
+				}
+			}
 		}
 		return ret;
 	}

@@ -1,5 +1,6 @@
 package View;
 
+import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 import View.Controllers.CompradorController;
@@ -17,18 +18,16 @@ public class Register_V extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField name;
 	private JTextField email;
-	private JTextField direccion;
 
 	private VendedorController _vctrl;
-	private CompradorController _cctrl;
 	private JTextField telefono;
 
 
-	public Register_V(CompradorController cc, VendedorController vc) {
-		setTitle("Sign up");
+	public Register_V(VendedorController vc) {
+		setTitle("Sign up vendor");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 301, 335);
+		setBounds(100, 100, 301, 291);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -36,10 +35,9 @@ public class Register_V extends JFrame {
 		setVisible(true);
 
 		_vctrl = vc;
-		_cctrl = cc;
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(250, 235, 215));
+		panel.setBackground(Util._bodyColor);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
@@ -69,31 +67,22 @@ public class Register_V extends JFrame {
 		panel.add(email);
 		email.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Direcci\u00F3n:");
-		lblNewLabel_4.setBounds(23, 146, 60, 14);
-		panel.add(lblNewLabel_4);
-
-		direccion = new JTextField();
-		direccion.setBounds(107, 138, 105, 20);
-		panel.add(direccion);
-		direccion.setColumns(10);
-
 		JSeparator separator_4 = new JSeparator();
 		separator_4.setOrientation(SwingConstants.VERTICAL);
 		separator_4.setBounds(35, 246, 1, 2);
 		panel.add(separator_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Tel\u00E9fono:");
-		lblNewLabel_5.setBounds(23, 185, 46, 14);
+		lblNewLabel_5.setBounds(23, 146, 46, 14);
 		panel.add(lblNewLabel_5);
 		
 		telefono = new JTextField();
-		telefono.setBounds(107, 177, 105, 20);
+		telefono.setBounds(107, 138, 105, 20);
 		panel.add(telefono);
 		telefono.setColumns(10);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(148, 0, 211));
+		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 
 		JButton okaybtn = new JButton("Ok");
@@ -106,7 +95,7 @@ public class Register_V extends JFrame {
 			}
 		});
 		okaybtn.setForeground(new Color(0, 0, 0));
-		okaybtn.setBackground(new Color(148, 0, 211));
+		okaybtn.setBackground(Util._barColor);
 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
 		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 
@@ -118,7 +107,7 @@ public class Register_V extends JFrame {
 			}
 		});
 		Cancelbtn.setHorizontalAlignment(SwingConstants.LEFT);
-		Cancelbtn.setBackground(new Color(148, 0, 211));
+		Cancelbtn.setBackground(Util._barColor);
 		panel_1.add(Cancelbtn);
 
 		JSeparator separator_1 = new JSeparator();
@@ -133,15 +122,15 @@ public class Register_V extends JFrame {
 		panel_1.add(separator_2);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(148, 0, 211));
+		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.NORTH);
 
 		JLabel lblNewLabel = new JLabel("");
 		panel_2.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Resgistro");
+		JLabel lblNewLabel_1 = new JLabel("Registro");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setForeground(Util._bodyColor);
 		panel_2.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("");

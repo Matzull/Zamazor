@@ -54,12 +54,12 @@ public class MainWindow {
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(148, 0, 211));
+        panel.setBackground(Util._barColor);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         JPanel panel_1 = new JPanel();
-        panel_1.setBackground(new Color(147, 112, 219));
+        panel_1.setBackground(Util._barColor);
         FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
         flowLayout.setAlignment(FlowLayout.LEFT);
         panel.add(panel_1, BorderLayout.CENTER);
@@ -70,7 +70,7 @@ public class MainWindow {
         panel_1.add(fotoZamazor);
 
         JPanel panel_2 = new JPanel();
-        panel_2.setBackground(new Color(147, 112, 219));
+        panel_2.setBackground(Util._barColor);
         panel.add(panel_2);
 
         buscadorTXT = new JTextField();
@@ -86,7 +86,7 @@ public class MainWindow {
         panel_2.add(botonBuscar);
 
         JPanel panel_3 = new JPanel();
-        panel_3.setBackground(new Color(147, 112, 219));
+        panel_3.setBackground(Util._barColor);
         FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
         flowLayout_1.setAlignment(FlowLayout.RIGHT);
         panel.add(panel_3);
@@ -108,9 +108,11 @@ public class MainWindow {
         panel_4.setBackground(SystemColor.inactiveCaptionBorder);
         frame.getContentPane().add(panel_4, BorderLayout.CENTER);
         panel_4.setBorder(null);
+        panel_4.setBackground(Util._bodyColor);
         panel_4.setLayout(new CardLayout());
 
         scrollPane = new JScrollPane();
+        scrollPane.setBackground(Util._bodyColor);
         panel_4.add(scrollPane, "name_179239712047600");
 
 
@@ -169,6 +171,8 @@ public class MainWindow {
             add(Box.createRigidArea(new Dimension(5, 0)), BorderLayout.WEST);
             add(lblIcon, BorderLayout.WEST);
             add(panelText, BorderLayout.CENTER);
+            panelText.setBackground(Util._bodyColor);
+            setBackground(Util._bodyColor);
         }
 
         @Override
