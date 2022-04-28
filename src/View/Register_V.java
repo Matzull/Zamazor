@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 public class Register_V extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUsuario;
 	private JPasswordField passwordField;
 	private JTextField name;
 	private JTextField email;
@@ -29,7 +28,7 @@ public class Register_V extends JFrame {
 		setTitle("Sign up");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 379);
+		setBounds(100, 100, 301, 335);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -44,47 +43,38 @@ public class Register_V extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(107, 38, 105, 20);
-		panel.add(txtUsuario);
-		txtUsuario.setColumns(10);
-
-		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(23, 44, 74, 14);
-		panel.add(lblUsuario);
-
 		passwordField = new JPasswordField();
-		passwordField.setBounds(107, 77, 105, 20);
+		passwordField.setBounds(107, 60, 105, 20);
 		panel.add(passwordField);
 
 		JLabel txtPassWord = new JLabel("Contrase\u00F1a:");
-		txtPassWord.setBounds(23, 83, 74, 14);
+		txtPassWord.setBounds(23, 68, 74, 14);
 		panel.add(txtPassWord);
 
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(23, 122, 46, 14);
+		lblNombre.setBounds(23, 29, 46, 14);
 		panel.add(lblNombre);
 
 		name = new JTextField();
-		name.setBounds(107, 116, 105, 20);
+		name.setBounds(107, 21, 105, 20);
 		panel.add(name);
 		name.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Email:");
-		lblNewLabel_3.setBounds(23, 161, 46, 14);
+		lblNewLabel_3.setBounds(23, 107, 46, 14);
 		panel.add(lblNewLabel_3);
 
 		email = new JTextField();
-		email.setBounds(107, 155, 105, 20);
+		email.setBounds(107, 99, 105, 20);
 		panel.add(email);
 		email.setColumns(10);
 
 		JLabel lblNewLabel_4 = new JLabel("Direcci\u00F3n:");
-		lblNewLabel_4.setBounds(23, 200, 60, 14);
+		lblNewLabel_4.setBounds(23, 146, 60, 14);
 		panel.add(lblNewLabel_4);
 
 		direccion = new JTextField();
-		direccion.setBounds(107, 194, 105, 20);
+		direccion.setBounds(107, 138, 105, 20);
 		panel.add(direccion);
 		direccion.setColumns(10);
 
@@ -94,11 +84,11 @@ public class Register_V extends JFrame {
 		panel.add(separator_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Tel\u00E9fono:");
-		lblNewLabel_5.setBounds(23, 239, 46, 14);
+		lblNewLabel_5.setBounds(23, 185, 46, 14);
 		panel.add(lblNewLabel_5);
 		
 		telefono = new JTextField();
-		telefono.setBounds(107, 233, 105, 20);
+		telefono.setBounds(107, 177, 105, 20);
 		panel.add(telefono);
 		telefono.setColumns(10);
 

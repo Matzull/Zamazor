@@ -36,7 +36,7 @@ public class DAOvendedor implements IDAOAVendedor
     public boolean altaVendedor(Vendedor a) {
         boolean correct = false;
 
-        QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos)" +
+        QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos, _Password)" +
                 " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ "," + "'"+ a.getEmail() + "'" + ","+ a.getTelefono() +
                 "," + "'" + a.getArticulos() + "'" + "," + "'" + a.getPassword() + "'" + ")";
 
