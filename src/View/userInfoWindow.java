@@ -115,14 +115,14 @@ public class userInfoWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if(!editable) {
-                    int i = JOptionPane.showConfirmDialog(null, "¿Esta seguro de querer modificar su cuenta?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int i = JOptionPane.showConfirmDialog(null, "ï¿½Esta seguro de querer modificar su cuenta?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Habilitado modo edicion de cuenta", "Modificar cuenta", 0 , edit);
                         enableEdit();
                     }
                 }
                 else {
-                    int i = JOptionPane.showConfirmDialog(null, "¿Esta seguro de los datos modificados?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int i = JOptionPane.showConfirmDialog(null, "ï¿½Esta seguro de los datos modificados?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Datos actualizados. Desactivado modo edicion de cuenta", "Modificar cuenta", 0 , save);
                         enableEdit();
@@ -137,9 +137,9 @@ public class userInfoWindow extends JFrame {
         eliminarButton = new JButton("Borrar cuenta");
         eliminarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int i = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int i = JOptionPane.showConfirmDialog(null, "ï¿½Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if(i == JOptionPane.YES_OPTION) {
-                    int j = JOptionPane.showConfirmDialog(null, "¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int j = JOptionPane.showConfirmDialog(null, "ï¿½Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
                         dispose();
@@ -151,6 +151,7 @@ public class userInfoWindow extends JFrame {
         buttonsPanel.add(eliminarButton);
 
         JPanel infoPanel = new JPanel();
+        infoPanel.setBackground(Util._bodyColor);
         contentPane.add(infoPanel, BorderLayout.CENTER);
         infoPanel.setLayout(null);
 
@@ -241,7 +242,7 @@ public class userInfoWindow extends JFrame {
         
         returnButton = new JButton();
         returnButton.setBorder(null);
-        returnButton.setBackground(new Color(255, 255, 0));
+        returnButton.setBackground(Util._bodyColor);
         returnButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         returnButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
