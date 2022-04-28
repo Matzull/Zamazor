@@ -18,6 +18,7 @@ import java.awt.Color;
 
 import Misc.Util;
 
+
 public class UserInfoWindow extends JFrame {
 
     private JPanel contentPane;
@@ -50,6 +51,7 @@ public class UserInfoWindow extends JFrame {
         loadIcon();
         this.setVisible(true);
         initGUI();
+        fillVendor();
     }
 
     public UserInfoWindow(Comprador comprador) {
@@ -57,6 +59,7 @@ public class UserInfoWindow extends JFrame {
         loadIcon();
         this.setVisible(true);
         initGUI();
+        fillBuyer();
     }
 
     private void initGUI() {
@@ -107,9 +110,9 @@ public class UserInfoWindow extends JFrame {
         eliminarButton = new JButton("Borrar cuenta");
         eliminarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int i = JOptionPane.showConfirmDialog(null, "�Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int i = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if(i == JOptionPane.YES_OPTION) {
-                    int j = JOptionPane.showConfirmDialog(null, "�Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int j = JOptionPane.showConfirmDialog(null, "¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
                         dispose();
@@ -192,7 +195,7 @@ public class UserInfoWindow extends JFrame {
         userCarroPanel.setLayout(new BoxLayout(userCarroPanel, BoxLayout.LINE_AXIS));*/
         
         JToolBar toolBar = new JToolBar();
-        toolBar.setBackground(new Color(147, 112, 219));
+        toolBar.setBackground(Util._barColor);
         contentPane.add(toolBar, BorderLayout.NORTH);
         toolBar.setSize(120, 60);
 
@@ -238,7 +241,7 @@ public class UserInfoWindow extends JFrame {
         cartButtton = new JButton("");
         cartButtton.setBorderPainted(false);
         cartButtton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        cartButtton.setBackground(new Color(100, 149, 237));
+        cartButtton.setBackground(Util._barColor);
         cartButtton.setBorder(UIManager.getBorder("DesktopIcon.border"));
         //Util.scaleImage(cart,0.25);
         toolBar.add(cartButtton);
@@ -279,7 +282,6 @@ public class UserInfoWindow extends JFrame {
             returnButton.setEnabled(true);
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
-
     }
 
     private void loadIcon() {
@@ -292,5 +294,22 @@ public class UserInfoWindow extends JFrame {
             this.volver = new ImageIcon("resources/volver.png");
         } catch (Exception e) {
         }
+    }
+
+    private void fillVendor()
+    {
+        idText.setText(vendedor.getId().toString());
+        nombreText.setText(vendedor.getNombre());
+        emailText.setText(vendedor.getEmail());
+        passwordField.setText(vendedor.getPassword());
+    }
+
+    private void fillBuyer()
+    {
+        idText.setText(comprador.getId().toString());
+        nombreText.setText(comprador.getNombre());
+        emailText.setText(comprador.getEmail());
+        userText.setText(comprador.getCuenta());
+        passwordField.setText(comprador.getPassword());
     }
 }

@@ -1,0 +1,168 @@
+Index: src/View/AuxWindow.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package View;\r\n\r\nimport java.awt.*;\r\n\r\nimport javax.imageio.ImageIO;\r\nimport javax.swing.*;\r\nimport javax.swing.border.EmptyBorder;\r\n\r\nimport ModeloDominio.Articulo;\r\n\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.KeyAdapter;\r\nimport java.awt.event.KeyEvent;\r\nimport java.io.File;\r\nimport java.io.IOException;\r\n\r\npublic class AuxWindow extends JFrame {\r\n\r\n\tprivate JPanel contentPane;\r\n\tprivate JTextField idTxtField;\r\n\tprivate JTextField nombreTextField;\r\n\tprivate JTextField descTextField;\r\n\tprivate JTextField valTextField;\r\n\tprivate JTextField precioTxtField;\r\n\tprivate JTextField tipoTextField;\r\n\tprivate JTextField idVendTextField;\r\n\tprivate JCheckBox stockCheckBox;\r\n\tprivate MainWindowAdministrador mainWindowAdministrador;\r\n\tpublic static enum Emode {Modificar, Anadir, Consultar};\r\n\tprivate Emode mode;\r\n\tprivate ImageIcon _image;\r\n\r\n\tprivate JTable table;\r\n\r\n\tpublic AuxWindow(MainWindowAdministrador mainWindow, Emode mode,JTable table) {\r\n\r\n\t\tthis.mainWindowAdministrador = mainWindow;\r\n\r\n\t\tthis.mode = mode;\r\n\r\n\t\tthis.table = table;\r\n\r\n\t\tsetBounds(100, 100, 500, 400);\r\n\t\tcontentPane = new JPanel();\r\n\t\tcontentPane.setBorder(new EmptyBorder(5, 5, 5, 5));\r\n\t\tcontentPane.setLayout(new BorderLayout(0, 0));\r\n\t\tsetContentPane(contentPane);\r\n\t\t\r\n\t\tJPanel panel = new JPanel();\r\n\t\tcontentPane.add(panel, BorderLayout.CENTER);\r\n\t\tpanel.setLayout(new GridLayout(0, 2, 0, 0));\r\n\t\t\r\n\t\tJLabel idLabel = new JLabel(\"Id:\");\r\n\t\tidLabel.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(idLabel);\r\n\t\t\r\n\t\tidTxtField = new JTextField();\r\n\t\tpanel.add(idTxtField);\r\n\t\tidTxtField.setColumns(10);\r\n\t\tidTxtField.addKeyListener(new KeyAdapter() {\r\n\t\t\t@Override\r\n\t\t\tpublic void keyReleased(KeyEvent e) {\r\n\t\t\t\t//fillFields();\r\n\t\t\t}\r\n\t\t});\r\n\t\t\r\n\t\tJLabel nombrelbl = new JLabel(\"Nombre:\");\r\n\t\tnombrelbl.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(nombrelbl);\r\n\t\t\r\n\t\tnombreTextField = new JTextField();\r\n\t\tnombreTextField.setColumns(10);\r\n\t\tpanel.add(nombreTextField);\r\n\r\n\t\tJLabel precioLbl = new JLabel(\"Precio:\");\r\n\t\tprecioLbl.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(precioLbl);\r\n\r\n\t\tprecioTxtField = new JTextField();\r\n\t\tpanel.add(precioTxtField);\r\n\t\tprecioTxtField.setColumns(10);\r\n\t\t\r\n\t\tJLabel stocklbl = new JLabel(\"Stock:\");\r\n\t\tstocklbl.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(stocklbl);\r\n\t\t\r\n\t\tstockCheckBox = new JCheckBox(\"\");\r\n\t\tstockCheckBox.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(stockCheckBox);\r\n\t\t\r\n\t\tJLabel desclabel = new JLabel(\"Descripcion:\");\r\n\t\tdesclabel.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(desclabel);\r\n\t\t\r\n\t\tdescTextField = new JTextField();\r\n\t\tdescTextField.setColumns(10);\r\n\t\tpanel.add(descTextField);\r\n\t\t\r\n\t\tJLabel valLbl = new JLabel(\"Valoracion:\");\r\n\t\tvalLbl.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(valLbl);\r\n\t\t\r\n\t\tvalTextField = new JTextField();\r\n\t\tvalTextField.setColumns(10);\r\n\t\tpanel.add(valTextField);\r\n\t\t\r\n\t\tJLabel tipoLbl = new JLabel(\"Tipo:\");\r\n\t\ttipoLbl.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(tipoLbl);\r\n\t\t\r\n\t\ttipoTextField = new JTextField();\r\n\t\ttipoTextField.setColumns(10);\r\n\t\tpanel.add(tipoTextField);\r\n\t\t\r\n\t\tJLabel lblVendedor = new JLabel(\"Id vendedor:\");\r\n\t\tlblVendedor.setHorizontalAlignment(SwingConstants.CENTER);\r\n\t\tpanel.add(lblVendedor);\r\n\r\n\r\n\t\t\r\n\t\tidVendTextField = new JTextField();\r\n\t\tpanel.add(idVendTextField);\r\n\t\tidVendTextField.setColumns(10);\r\n\t\t\r\n\t\tJPanel panel_1 = new JPanel();\r\n\t\tpanel_1.setBackground(Color.GRAY);\r\n\t\tcontentPane.add(panel_1, BorderLayout.NORTH);\r\n\t\t\r\n\t\tJLabel zamazorBlancoIcon = new JLabel(\"\");\r\n\t\tImageIcon iconLogo = new ImageIcon(\"resources/IconoZamazor.png\");\r\n\t\tzamazorBlancoIcon.setIcon(iconLogo);\r\n\t\tpanel_1.add(zamazorBlancoIcon);\r\n\t\t\r\n\t\tJPanel panel_2 = new JPanel();\r\n\t\tcontentPane.add(panel_2, BorderLayout.SOUTH);\r\n\t\t\r\n\t\tJButton cancelarButton = new JButton(\"Cancelar\");\r\n\t\ticonLogo = new ImageIcon(\"resources/IconoCancel.png\");\r\n\t\tcancelarButton.setIcon(iconLogo);\r\n\t\tcancelarButton.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\t\t\t\tcancelar();\r\n\t\t\t}\r\n\t\t});\r\n\t\tpanel_2.add(cancelarButton);\r\n\t\t\r\n\t\tJButton aceptarButton = new JButton(\"Aceptar\");\r\n\t\taceptarButton.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent e) {\r\n\t\t\t\taceptar();\r\n\t\t\t}\r\n\t\t});\r\n\t\ticonLogo = new ImageIcon(\"resources/IconoOkey.png\");\r\n\t\taceptarButton.setIcon(iconLogo);\r\n\r\n\r\n\r\n\t\tidTxtField.setEditable(false);\r\n\t\tif(mode == Emode.Consultar)\r\n\t\t{\r\n\t\t\taceptarButton.setVisible(false);\r\n\t\t\tnombreTextField.setEditable(false);\r\n\t\t\tdescTextField.setEditable(false);\r\n\t\t\tvalTextField.setEditable(false);\r\n\t\t\tprecioTxtField.setEditable(false);\r\n\t\t\ttipoTextField.setEditable(false);\r\n\t\t\tidVendTextField.setEditable(false);\r\n\t\t\tstockCheckBox.setEnabled(false);\r\n\t\t}\r\n\t\tpanel_2.add(aceptarButton);\r\n\t\tif(mode != Emode.Anadir) {\r\n\t\t\tfillFields();\r\n\t\t}\r\n\r\n\t\tJPanel panelImage = new JPanel();\r\n\t\tpanelImage.setLayout(new BorderLayout());\r\n\t\tcontentPane.add(panelImage, BorderLayout.EAST);\r\n\t\tJLabel imageLabel = new JLabel(_image);\r\n\t\tpanelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);\r\n\t\tpanelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);\r\n\t\tpanelImage.add(imageLabel, BorderLayout.CENTER);\r\n\r\n\t}\r\n\r\n\tpublic void cancelar() {\r\n\t\tthis.setVisible(false);\r\n\t}\r\n\r\n\tpublic void aceptar(){\r\n\t\tif (mode == Emode.Modificar)\r\n\t\t{\r\n\t\t\tArticulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble((valTextField.getText() == \"\" ? \"0\" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == \"\" ? \"0\" : precioTxtField.getText())),\r\n\t\t\tInteger.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);\r\n\t\t\tthis.setVisible(false);\r\n\t\t\tmainWindowAdministrador.modificarArticulo(a);\r\n\t\t}\r\n\t\telse\r\n\t\t{\r\n\t\t\tArticulo a = new Articulo(null,  Double.parseDouble((valTextField.getText().equals(\"\") ? \"0\" : valTextField.getText())), Double.parseDouble((precioTxtField.getText().equals(\"\") ? \"0\" : precioTxtField.getText())),\r\n\t\t\t\t\tInteger.parseInt(idVendTextField.getText().equals(\"\") ? \"0\" : idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);\r\n\t\t\tthis.setVisible(false);\r\n\t\t\t mainWindowAdministrador.altaArticulo(a);\r\n\t\t}\r\n\r\n\t}\r\n\r\n\tpublic void fillFields()\r\n\t{\r\n\t\tArticulo art = mainWindowAdministrador.consultarArticulo((Integer)table.getModel().getValueAt(table.convertRowIndexToModel(table.getSelectedRow()),0));\r\n\t\tif (art != null)\r\n\t\t{\r\n\t\t\t_image = art.getImage();\r\n\t\t\tidTxtField.setText(art.getId().toString());\r\n\t\t\tnombreTextField.setText(art.getNombre());\r\n\t\t\tdescTextField.setText(art.getDescripcion());\r\n\t\t\tprecioTxtField.setText(Double.toString(art.getPrecio()));\r\n\t\t\tvalTextField.setText(Double.toString(art.getValoracion()));\r\n\t\t\ttipoTextField.setText(art.getTipo());\r\n\t\t\tidVendTextField.setText(Integer.toString(art.getVendedor_id()));\r\n\t\t\tstockCheckBox.setSelected(art.getStock());\r\n\t\t}\r\n\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/View/AuxWindow.java b/src/View/AuxWindow.java
+--- a/src/View/AuxWindow.java	(revision 3d8c9c374394a4f4f280a8224a29174920f1005a)
++++ b/src/View/AuxWindow.java	(date 1651000108874)
+@@ -117,7 +117,6 @@
+ 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
+ 		panel.add(lblVendedor);
+ 
+-
+ 		
+ 		idVendTextField = new JTextField();
+ 		panel.add(idVendTextField);
+Index: src/View/Login.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package View;\r\n\r\nimport java.awt.BorderLayout;\r\nimport java.awt.EventQueue;\r\n\r\nimport javax.swing.JFrame;\r\nimport javax.swing.JPanel;\r\nimport javax.swing.border.EmptyBorder;\r\nimport javax.swing.JButton;\r\nimport javax.swing.JTextField;\r\nimport javax.swing.ImageIcon;\r\nimport java.awt.Color;\r\nimport javax.swing.JLabel;\r\nimport javax.swing.JPasswordField;\r\n\r\npublic class Login extends JFrame {\r\n\r\n\tprivate JPanel contentPane;\r\n\tprivate JTextField txtUsuario;\r\n\tprivate JPasswordField passwordField;\r\n\r\n\tpublic Login() {\r\n\t\tsetResizable(false);\r\n\t\tsetDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n\t\tsetBounds(100, 100, 294, 252);\r\n\t\tcontentPane = new JPanel();\r\n\t\tcontentPane.setBorder(new EmptyBorder(5, 5, 5, 5));\r\n\t\tcontentPane.setLayout(new BorderLayout(0, 0));\r\n\t\tsetContentPane(contentPane);\r\n\t\t\r\n\t\tJPanel panel = new JPanel();\r\n\t\tcontentPane.add(panel, BorderLayout.CENTER);\r\n\t\tpanel.setLayout(null);\r\n\t\t\r\n\t\ttxtUsuario = new JTextField();\r\n\t\ttxtUsuario.setBounds(107, 38, 86, 20);\r\n\t\tpanel.add(txtUsuario);\r\n\t\ttxtUsuario.setColumns(10);\r\n\t\t\r\n\t\tJLabel lblUsuario = new JLabel(\"Usuario:\");\r\n\t\tlblUsuario.setBounds(37, 41, 60, 14);\r\n\t\tpanel.add(lblUsuario);\r\n\t\t\r\n\t\tpasswordField = new JPasswordField();\r\n\t\tpasswordField.setBounds(107, 76, 86, 20);\r\n\t\tpanel.add(passwordField);\r\n\t\t\r\n\t\tJLabel txtPassWord = new JLabel(\"Contrase\\u00F1a:\");\r\n\t\ttxtPassWord.setBounds(23, 79, 74, 14);\r\n\t\tpanel.add(txtPassWord);\r\n\t\t\r\n\t\tJPanel panel_1 = new JPanel();\r\n\t\tpanel_1.setBackground(Color.LIGHT_GRAY);\r\n\t\tcontentPane.add(panel_1, BorderLayout.SOUTH);\r\n\t\t\r\n\t\tJButton iniciarSesionBoton = new JButton(\"Iniciar sesion\");\t\t\r\n\t\tImageIcon iconLogo = new ImageIcon(\"resources/IconoOkey.png\");\r\n\t\tiniciarSesionBoton.setIcon(iconLogo);\r\n\t\t\r\n\t\tpanel_1.add(iniciarSesionBoton);\r\n\t\t\r\n\t\tJPanel panel_2 = new JPanel();\r\n\t\tpanel_2.setBackground(Color.LIGHT_GRAY);\r\n\t\tcontentPane.add(panel_2, BorderLayout.NORTH);\r\n\t\t\r\n\t\tJLabel lblNewLabel = new JLabel(\"\");\r\n\t\tpanel_2.add(lblNewLabel);\r\n\t\t\r\n\t\tJLabel lblNewLabel_1 = new JLabel(\"Inicio de sesion\");\r\n\t\tpanel_2.add(lblNewLabel_1);\r\n\t\t\r\n\t\tJLabel lblNewLabel_2 = new JLabel(\"\");\r\n\t\ticonLogo = new ImageIcon(\"resources/IconoZamazor.png\");\r\n\t\tlblNewLabel_2.setIcon(iconLogo);\r\n\t\tpanel_2.add(lblNewLabel_2);\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/View/Login.java b/src/View/Login.java
+--- a/src/View/Login.java	(revision 3d8c9c374394a4f4f280a8224a29174920f1005a)
++++ b/src/View/Login.java	(date 1650999619475)
+@@ -12,6 +12,13 @@
+ import java.awt.Color;
+ import javax.swing.JLabel;
+ import javax.swing.JPasswordField;
++import javax.swing.SwingConstants;
++import java.awt.FlowLayout;
++import javax.swing.JScrollBar;
++import javax.swing.JSeparator;
++import java.awt.Font;
++import java.awt.event.ActionListener;
++import java.awt.event.ActionEvent;
+ 
+ public class Login extends JFrame {
+ 
+@@ -20,6 +27,7 @@
+ 	private JPasswordField passwordField;
+ 
+ 	public Login() {
++		setTitle("Log In");
+ 		setResizable(false);
+ 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 		setBounds(100, 100, 294, 252);
+@@ -29,44 +37,78 @@
+ 		setContentPane(contentPane);
+ 		
+ 		JPanel panel = new JPanel();
++		panel.setBackground(new Color(244, 164, 96));
+ 		contentPane.add(panel, BorderLayout.CENTER);
+ 		panel.setLayout(null);
+ 		
+ 		txtUsuario = new JTextField();
+-		txtUsuario.setBounds(107, 38, 86, 20);
++		txtUsuario.setBounds(107, 38, 105, 20);
+ 		panel.add(txtUsuario);
+ 		txtUsuario.setColumns(10);
+ 		
+ 		JLabel lblUsuario = new JLabel("Usuario:");
+-		lblUsuario.setBounds(37, 41, 60, 14);
++		lblUsuario.setBounds(23, 41, 60, 14);
+ 		panel.add(lblUsuario);
+ 		
+ 		passwordField = new JPasswordField();
+-		passwordField.setBounds(107, 76, 86, 20);
++		passwordField.setBounds(107, 76, 105, 20);
+ 		panel.add(passwordField);
+ 		
+ 		JLabel txtPassWord = new JLabel("Contrase\u00F1a:");
+ 		txtPassWord.setBounds(23, 79, 74, 14);
+ 		panel.add(txtPassWord);
+ 		
++		JButton regbtn = new JButton("Registro");
++		regbtn.setBackground(new Color(244, 164, 96));
++		regbtn.setForeground(new Color(0, 0, 0));
++		regbtn.setBounds(107, 112, 86, 23);
++		panel.add(regbtn);
++		
+ 		JPanel panel_1 = new JPanel();
+-		panel_1.setBackground(Color.LIGHT_GRAY);
++		panel_1.setBackground(new Color(148, 0, 211));
+ 		contentPane.add(panel_1, BorderLayout.SOUTH);
+ 		
+-		JButton iniciarSesionBoton = new JButton("Iniciar sesion");		
++		JButton okaybtn = new JButton("Ok");		
++		okaybtn.addActionListener(new ActionListener() {
++			public void actionPerformed(ActionEvent e) {
++			}
++		});
++		okaybtn.setForeground(new Color(0, 0, 0));
++		okaybtn.setBackground(new Color(148, 0, 211));
+ 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
+-		iniciarSesionBoton.setIcon(iconLogo);
++		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
++		
++		JButton Cancelbtn = new JButton("Cancel");
+ 		
+-		panel_1.add(iniciarSesionBoton);
++		Cancelbtn.addActionListener(new ActionListener() {
++			public void actionPerformed(ActionEvent e) {
++			}
++		});
++		Cancelbtn.setHorizontalAlignment(SwingConstants.LEFT);
++		Cancelbtn.setBackground(new Color(148, 0, 211));
++		panel_1.add(Cancelbtn);
++		
++		JSeparator separator_1 = new JSeparator();
++		panel_1.add(separator_1);
++		
++		JSeparator separator = new JSeparator();
++		panel_1.add(separator);
++		
++		panel_1.add(okaybtn);
++		
++		JSeparator separator_2 = new JSeparator();
++		panel_1.add(separator_2);
+ 		
+ 		JPanel panel_2 = new JPanel();
+-		panel_2.setBackground(Color.LIGHT_GRAY);
++		panel_2.setBackground(new Color(148, 0, 211));
+ 		contentPane.add(panel_2, BorderLayout.NORTH);
+ 		
+ 		JLabel lblNewLabel = new JLabel("");
+ 		panel_2.add(lblNewLabel);
+ 		
+-		JLabel lblNewLabel_1 = new JLabel("Inicio de sesion");
++		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
++		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
++		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+ 		panel_2.add(lblNewLabel_1);
+ 		
+ 		JLabel lblNewLabel_2 = new JLabel("");
+Index: Zamazor.ipr
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DataSourceManagerImpl\" format=\"xml\" multifile-model=\"true\">\r\n    <data-source source=\"LOCAL\" name=\"Zamazor.db\" uuid=\"9847445d-62a8-4b0a-a1a1-bf51edb6da32\">\r\n      <driver-ref>sqlite.xerial</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>\r\n      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/resources/Zamazor.db</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n  </component>\r\n  <component name=\"Encoding\">\r\n    <file url=\"file://$PROJECT_DIR$/src/View/MainWindowAdministrador.java\" charset=\"windows-1252\" />\r\n  </component>\r\n  <component name=\"InspectionProjectProfileManager\">\r\n    <profile version=\"1.0\">\r\n      <option name=\"myName\" value=\"Project Default\" />\r\n      <inspection_tool class=\"GrazieInspection\" enabled=\"false\" level=\"TYPO\" enabled_by_default=\"false\" />\r\n      <inspection_tool class=\"LanguageDetectionInspection\" enabled=\"false\" level=\"WARNING\" enabled_by_default=\"false\" />\r\n    </profile>\r\n    <version value=\"1.0\" />\r\n  </component>\r\n  <component name=\"Palette2\">\r\n    <group name=\"Swing\">\r\n      <item class=\"com.intellij.uiDesigner.HSpacer\" tooltip-text=\"Horizontal Spacer\" icon=\"/com/intellij/uiDesigner/icons/hspacer.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"1\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"com.intellij.uiDesigner.VSpacer\" tooltip-text=\"Vertical Spacer\" icon=\"/com/intellij/uiDesigner/icons/vspacer.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"1\" anchor=\"0\" fill=\"2\" />\r\n      </item>\r\n      <item class=\"javax.swing.JPanel\" icon=\"/com/intellij/uiDesigner/icons/panel.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"0\" fill=\"3\" />\r\n      </item>\r\n      <item class=\"javax.swing.JScrollPane\" icon=\"/com/intellij/uiDesigner/icons/scrollPane.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"7\" hsize-policy=\"7\" anchor=\"0\" fill=\"3\" />\r\n      </item>\r\n      <item class=\"javax.swing.JButton\" icon=\"/com/intellij/uiDesigner/icons/button.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"0\" fill=\"1\" />\r\n        <initial-values>\r\n          <property name=\"text\" value=\"Button\" />\r\n        </initial-values>\r\n      </item>\r\n      <item class=\"javax.swing.JRadioButton\" icon=\"/com/intellij/uiDesigner/icons/radioButton.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"8\" fill=\"0\" />\r\n        <initial-values>\r\n          <property name=\"text\" value=\"RadioButton\" />\r\n        </initial-values>\r\n      </item>\r\n      <item class=\"javax.swing.JCheckBox\" icon=\"/com/intellij/uiDesigner/icons/checkBox.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"3\" anchor=\"8\" fill=\"0\" />\r\n        <initial-values>\r\n          <property name=\"text\" value=\"CheckBox\" />\r\n        </initial-values>\r\n      </item>\r\n      <item class=\"javax.swing.JLabel\" icon=\"/com/intellij/uiDesigner/icons/label.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"8\" fill=\"0\" />\r\n        <initial-values>\r\n          <property name=\"text\" value=\"Label\" />\r\n        </initial-values>\r\n      </item>\r\n      <item class=\"javax.swing.JTextField\" icon=\"/com/intellij/uiDesigner/icons/textField.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\">\r\n          <preferred-size width=\"150\" height=\"-1\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JPasswordField\" icon=\"/com/intellij/uiDesigner/icons/passwordField.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\">\r\n          <preferred-size width=\"150\" height=\"-1\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JFormattedTextField\" icon=\"/com/intellij/uiDesigner/icons/formattedTextField.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\">\r\n          <preferred-size width=\"150\" height=\"-1\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JTextArea\" icon=\"/com/intellij/uiDesigner/icons/textArea.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JTextPane\" icon=\"/com/intellij/uiDesigner/icons/textPane.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JEditorPane\" icon=\"/com/intellij/uiDesigner/icons/editorPane.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JComboBox\" icon=\"/com/intellij/uiDesigner/icons/comboBox.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"2\" anchor=\"8\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"javax.swing.JTable\" icon=\"/com/intellij/uiDesigner/icons/table.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JList\" icon=\"/com/intellij/uiDesigner/icons/list.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"2\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JTree\" icon=\"/com/intellij/uiDesigner/icons/tree.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"150\" height=\"50\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JTabbedPane\" icon=\"/com/intellij/uiDesigner/icons/tabbedPane.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"200\" height=\"200\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JSplitPane\" icon=\"/com/intellij/uiDesigner/icons/splitPane.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"3\" hsize-policy=\"3\" anchor=\"0\" fill=\"3\">\r\n          <preferred-size width=\"200\" height=\"200\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JSpinner\" icon=\"/com/intellij/uiDesigner/icons/spinner.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"true\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"javax.swing.JSlider\" icon=\"/com/intellij/uiDesigner/icons/slider.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"8\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"javax.swing.JSeparator\" icon=\"/com/intellij/uiDesigner/icons/separator.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"6\" anchor=\"0\" fill=\"3\" />\r\n      </item>\r\n      <item class=\"javax.swing.JProgressBar\" icon=\"/com/intellij/uiDesigner/icons/progressbar.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"javax.swing.JToolBar\" icon=\"/com/intellij/uiDesigner/icons/toolbar.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"6\" anchor=\"0\" fill=\"1\">\r\n          <preferred-size width=\"-1\" height=\"20\" />\r\n        </default-constraints>\r\n      </item>\r\n      <item class=\"javax.swing.JToolBar$Separator\" icon=\"/com/intellij/uiDesigner/icons/toolbarSeparator.png\" removable=\"false\" auto-create-binding=\"false\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"0\" hsize-policy=\"0\" anchor=\"0\" fill=\"1\" />\r\n      </item>\r\n      <item class=\"javax.swing.JScrollBar\" icon=\"/com/intellij/uiDesigner/icons/scrollbar.png\" removable=\"false\" auto-create-binding=\"true\" can-attach-label=\"false\">\r\n        <default-constraints vsize-policy=\"6\" hsize-policy=\"0\" anchor=\"0\" fill=\"2\" />\r\n      </item>\r\n    </group>\r\n  </component>\r\n  <component name=\"ProjectDictionaryState\">\r\n    <dictionary name=\"azmal\" />\r\n  </component>\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/Zamazor.iml\" filepath=\"$PROJECT_DIR$/Zamazor.iml\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/images/images.iml\" filepath=\"$PROJECT_DIR$/images/images.iml\" />\r\n    </modules>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" project-jdk-name=\"openjdk-18\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-213.7172.25\">\r\n    <data-source name=\"Zamazor.db\" uuid=\"9847445d-62a8-4b0a-a1a1-bf51edb6da32\">\r\n      <database-info product=\"SQLite\" version=\"3.36.0\" jdbc-version=\"2.1\" driver-name=\"SQLite JDBC\" driver-version=\"3.36.0.3\" dbms=\"SQLITE\" exact-version=\"3.36.0\" exact-driver-version=\"3.36\">\r\n        <identifier-quote-string>&quot;</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\r\n      <secret-storage>master_key</secret-storage>\r\n      <auth-provider>no-auth</auth-provider>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n  <component name=\"libraryTable\">\r\n    <library name=\"sqlite-jdbc-3.36.0.3\">\r\n      <CLASSES>\r\n        <root url=\"jar://$PROJECT_DIR$/../sqlite-jdbc-3.36.0.3.jar!/\" />\r\n      </CLASSES>\r\n      <JAVADOC />\r\n      <SOURCES />\r\n    </library>\r\n  </component>\r\n  <component name=\"uidesigner-configuration\">\r\n    <option name=\"DEFAULT_LAYOUT_MANAGER\" value=\"BorderLayout\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Zamazor.ipr b/Zamazor.ipr
+--- a/Zamazor.ipr	(revision 3d8c9c374394a4f4f280a8224a29174920f1005a)
++++ b/Zamazor.ipr	(date 1650997294410)
+@@ -158,17 +158,8 @@
+   </component>
+   <component name="dataSourceStorageLocal" created-in="IU-213.7172.25">
+     <data-source name="Zamazor.db" uuid="9847445d-62a8-4b0a-a1a1-bf51edb6da32">
+-      <database-info product="SQLite" version="3.36.0" jdbc-version="2.1" driver-name="SQLite JDBC" driver-version="3.36.0.3" dbms="SQLITE" exact-version="3.36.0" exact-driver-version="3.36">
+-        <identifier-quote-string>&quot;</identifier-quote-string>
+-      </database-info>
+-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+-      <secret-storage>master_key</secret-storage>
+-      <auth-provider>no-auth</auth-provider>
+-      <schema-mapping>
+-        <introspection-scope>
+-          <node kind="schema" qname="@" />
+-        </introspection-scope>
+-      </schema-mapping>
++      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="SQLITE" exact-version="0" />
++      <schema-mapping />
+     </data-source>
+   </component>
+   <component name="libraryTable">

@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class ArticleWindow extends JDialog {
+public class ArticleWindow4vendor extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField idTxtField;
@@ -26,15 +26,19 @@ public class ArticleWindow extends JDialog {
 	private JTextField idVendTextField;
 	private JCheckBox stockCheckBox;
 	private MainWindow mainWindow;
+	public static enum Emode {Modificar, Anadir, Consultar};
+	private Emode mode;
 	private ImageIcon _image;
 
 	private Articulo articulo;
 
-	public ArticleWindow(MainWindow mainWindow, Articulo articulo) {
+	public ArticleWindow4vendor(MainWindow mainWindow, Emode mode,Articulo articulo) {
 
 		setModal(true);
 
 		this.mainWindow = mainWindow;
+
+		this.mode = mode;
 
 		this.articulo = articulo;
 
@@ -154,7 +158,21 @@ public class ArticleWindow extends JDialog {
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.SOUTH);
+		
+		
+		JButton cancelarButton = new JButton("Cancelar");
+		cancelarButton.setBackground(Util._barColor);
+		iconLogo = new ImageIcon("resources/IconoCancel.png");
+		cancelarButton.setIcon(iconLogo);
+		cancelarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cancelar();
+			}
+		});
+		panel_2.add(cancelarButton);
 
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("resources/examples/"));
 
 		JButton aceptarButton = new JButton("Aceptar");
 		aceptarButton.setBackground(Util._barColor);
@@ -169,18 +187,21 @@ public class ArticleWindow extends JDialog {
 
 
 		idTxtField.setEditable(false);
-		//aceptarButton.setVisible(false);
-		nombreTextField.setEditable(false);
-		descTextField.setEditable(false);
-		valTextField.setEditable(false);
-		precioTxtField.setEditable(false);
-		tipoTextField.setEditable(false);
-		idVendTextField.setEditable(false);
-		stockCheckBox.setEnabled(false);
-
+		if(mode == Emode.Consultar)
+		{
+			aceptarButton.setVisible(false);
+			nombreTextField.setEditable(false);
+			descTextField.setEditable(false);
+			valTextField.setEditable(false);
+			precioTxtField.setEditable(false);
+			tipoTextField.setEditable(false);
+			idVendTextField.setEditable(false);
+			stockCheckBox.setEnabled(false);
+		}
 		panel_2.add(aceptarButton);
-
-		fillFields();
+		if(mode != Emode.Anadir) {
+			fillFields();
+		}
 
 		JPanel panelImage = new JPanel();
 		panelImage.setBackground(Util._bodyColor);
@@ -195,17 +216,60 @@ public class ArticleWindow extends JDialog {
 		flowLayout_1.setAlignment(FlowLayout.RIGHT);
 		fcpPanel.setBackground(Util._bodyColor);
 		panelImage.add(fcpPanel, BorderLayout.SOUTH);
+		
+		JButton botonArchivo = new JButton();
+		botonArchivo.setForeground(Util._bodyColor);
+		botonArchivo.setHorizontalAlignment(SwingConstants.RIGHT);
+		botonArchivo.setBackground(Util._bodyColor);
+		fcpPanel.add(botonArchivo, BorderLayout.SOUTH);
+		
+		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/IconoZamazor.png")));
+		botonArchivo.setToolTipText("boton para abrir");
+
+		botonArchivo.addActionListener((e)->{
+			int i = fc.showOpenDialog(this);
+			if (i == fc.APPROVE_OPTION) {
+
+				File archivo = fc.getSelectedFile();
+				try {
+					BufferedImage image = ImageIO.read(archivo);
+					_image = new ImageIcon(image.getScaledInstance(202, (int)((202.0 / image.getWidth()) * image.getHeight()), Image.SCALE_SMOOTH));
+					imageLabel.setIcon(_image);
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(this, "Cannot load file", "error", JOptionPane.ERROR_MESSAGE);
+				}
 
 
+			}
+		});
 
 	}
 
-	public void aceptar(){
+	public void cancelar() {
 		this.setVisible(false);
+	}
+
+	public void aceptar(){
+		if (mode == Emode.Modificar)
+		{
+			Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble((valTextField.getText() == "" ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == "" ? "0" : precioTxtField.getText())),
+			Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
+			this.setVisible(false);
+			mainWindow.modificarArticulo(a);
+		}
+		else
+		{
+			Articulo a = new Articulo(null,  Double.parseDouble((valTextField.getText().equals("") ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText().equals("") ? "0" : precioTxtField.getText())),
+					Integer.parseInt(idVendTextField.getText().equals("") ? "0" : idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
+			this.setVisible(false);
+			 mainWindow.altaArticulo(a);
+		}
+
 	}
 
 	public void fillFields()
 	{
+		//Articulo art = mainWindow.consultarArticulo(jList1.getSelectedValue());
 		System.out.print(articulo.getNombre());
 		if (articulo != null)
 		{

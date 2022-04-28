@@ -2,7 +2,6 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
-import View.ArticleWindow.Emode;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -70,7 +69,7 @@ public class MainWindow {
         panel.add(panel_1, BorderLayout.CENTER);
 
         JLabel fotoZamazor = new JLabel();
-        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
+        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 1);
         fotoZamazor.setIcon(iconLogo);
         panel_1.add(fotoZamazor);
 
@@ -144,7 +143,7 @@ public class MainWindow {
     }
 
     protected void eventoClickArticulo() {
-    	ArticleWindow ventanaArticulo = new ArticleWindow(this,Emode.Modificar,list.getSelectedValue());
+    	ArticleWindow ventanaArticulo = new ArticleWindow(this, list.getSelectedValue());
     	ventanaArticulo.setVisible(true);
 		
 	}
