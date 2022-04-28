@@ -17,6 +17,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Misc.Util.hash256;
+
 
 public class DAOcomprador implements IDAOAComprador
 {
@@ -44,9 +46,9 @@ public class DAOcomprador implements IDAOAComprador
     public boolean altaComprador(Comprador a) {
         boolean correct = false;
 
-        QUERY = "INSERT INTO Articulos (_ID, _Nombre, _Email, _Cuenta, _Direccion, _Pedidos, _Password)" +
-                " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ ","  + "'" + a.getEmail() + "'" + "," + "'" + a.getDireccion() + "'" + ","
-                + "'" + a.getPedidos() + "'" +  "," + "'" + a.getPassword() + "'" + ")";
+        QUERY = "INSERT INTO Comprador (_ID, _Nombre, _Email, _Cuenta, _Direccion, _Pedidos, _Password)" +
+                " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ ","  + "'" + a.getEmail() + "'" + ","  + "'" + a.getCuenta() + "'"+ "," + "'" + a.getDireccion() + "'" + ","
+                + "'" + a.getPedidos() + "'" +  "," + "'" + hash256(a.getPassword()) + "'" + ")";
 
             try {
                 stmt.executeUpdate(QUERY);
@@ -81,7 +83,7 @@ public class DAOcomprador implements IDAOAComprador
             {
                 throw new Exception("");
             }
-            QUERY = "UPDATE Articulos SET   _Nombre = " + "'" + c.getNombre() + "'" +
+            QUERY = "UPDATE Comprador SET   _Nombre = " + "'" + c.getNombre() + "'" +
                                             ", _Email = " + "'" + c.getEmail() + "'" +
                                             ", _Cuenta = " + "'" + c.getCuenta() + "'" +
                                             ", _Direccion = " + "'" + c.getDireccion() + "'" +
@@ -164,11 +166,15 @@ public class DAOcomprador implements IDAOAComprador
         List <Pedido> ret = new ArrayList<Pedido>();
         String pedidos_id[] = pedidos.split(",");
 
-        for (String id : pedidos_id)
-        {
-            ret.add(PedidosDao.consultarPedido(Integer.parseInt(id)));
+        if(!pedidos_id[0].equals("null")) {
+            for (String id : pedidos_id) {
+                ret.add(PedidosDao.consultarPedido(Integer.parseInt(id)));
+            }
         }
-
+        else
+        {
+            ret = null;
+        }
         return ret;
     }
 }
