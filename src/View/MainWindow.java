@@ -10,6 +10,10 @@ import View.Controllers.VendedorController;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -31,7 +35,7 @@ public class MainWindow {
     private CompradorController _cctrl = new CompradorController();
     private PedidoController _pctrl = new PedidoController();
     private VendedorController _vctrl = new VendedorController();
-
+    JList<Articulo> list;
 
     public MainWindow() {
         initialize();
@@ -75,6 +79,15 @@ public class MainWindow {
 
         buscadorTXT = new JTextField();
         buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        buscadorTXT.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					String texto = buscadorTXT.getText().toLowerCase();
+					filter(texto);
+				} //PARA QUE AL DARLE AL ENTER SE BUSQUE AUTOMATICAMENTE EN LA BARRA DE BUSQUEDA PRINCIPAL TRAS ESCRIBIR
+			}
+		});
         panel_2.add(buscadorTXT);
         buscadorTXT.setColumns(40);
 
@@ -83,8 +96,15 @@ public class MainWindow {
         botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         iconLogo = new ImageIcon("resources/search.png");
         botonBuscar.setIcon(iconLogo);
+        botonBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String texto = buscadorTXT.getText().toLowerCase();
+				filter(texto);
+			}
+		});
         panel_2.add(botonBuscar);
-
+        
+        
         JPanel panel_3 = new JPanel();
         panel_3.setBackground(Util._barColor);
         FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
@@ -116,7 +136,7 @@ public class MainWindow {
         panel_4.add(scrollPane, "name_179239712047600");
 
 
-        JList<Articulo> list = new JList<Articulo>();
+        list = new JList<Articulo>();
         imageMap = createImageMap(fullTable());
         crearModeloJlist(fullTable());
         list.setModel(modeloJLista);
@@ -129,6 +149,11 @@ public class MainWindow {
         //JLabel lblNewLabel = new JLabel("New label");
         //scrollPane.setRowHeaderView(lblNewLabel);
 
+    }
+
+    private void filter(String texto) {
+    	crearModeloJlist(_actrl.buscarArticulo(texto));
+    	list.setModel(modeloJLista);
     }
 
     public void crearModeloJlist(List<Articulo> arts) {
