@@ -20,6 +20,11 @@ import java.util.Locale;
 
 import static Misc.Util.hash256;
 
+/**
+ * esta clase es para hacer el login y ver los datos del usuario o para crear un usuario nuevo,
+ * en esta clase se puede hacer el login tanto de un comprador como de un vendedor marcando una casilla,
+ * o registrarse dando a register
+ */
 public class Login extends JDialog {
 
 	private JPanel contentPane;
@@ -33,6 +38,12 @@ public class Login extends JDialog {
 	private Comprador comprador;
 	private Vendedor vendedor;
 
+	/**
+	 * crea la interfaz del login, creando unos campos para poner el usuario y la contrasenia, un boton de registro
+	 * para registrar el susario en la base de datos que llama a las clases Regsiter_C y Register_V
+	 * @param cc se recibe el controller del comprador para insertar en el el registro
+	 * @param vc se recibe el controller del vendedor para insertar en el el registro
+	 */
 	public Login(CompradorController cc, VendedorController vc) {
 		setTitle("Log In");
 		setResizable(false);
@@ -158,9 +169,18 @@ public class Login extends JDialog {
 		panel_2.add(lblNewLabel_2);
 	}
 
+	/**
+	 * al recibir esta funcion un nombre de ususario y una contrasenia si esta la checkbox desactivada
+	 * intenta consultar el comprador en la base de datos y compara la contrasenia de la base de datos
+	 * con la escrita por el usuario si es correcta la funcion devuelve true.
+	 * @param username username insertado por el ususario
+	 * @param password contraseña insertada por el usuario
+	 * @return devuelve un booleano si es que se ha completado el login
+	 */
 	private boolean login(String username, char[] password)
 	{
 		boolean ret = false;
+		//TODO ver si este if esta bien
 		if (!vendor.isSelected())
 		{
 			comprador = _cctrl.consultarComprador(username);
@@ -188,16 +208,27 @@ public class Login extends JDialog {
 		return ret;
 	}
 
+	/**
+	 * @return devuelve el comprador registrado
+	 */
 	public Comprador getComprador()
 	{
 		return this.comprador;
 	}
-
+	/**
+	 * @return devuelve el vendedor registrado
+	 */
 	public Vendedor getVendedor()
 	{
 		return this.vendedor;
 	}
 
+	/**
+	 * @return este entero simboliza si un usuario es un comprador, un vendedor,
+	 * o si el login esta en su estado por defecto, ya que en la ventana pricipal
+	 * al no haberse registrado,a interfaz es para registrarse pero al haberse
+	 * registrado la interfaz cambia segun el valor que tenga este numero
+	 */
 	public int getIsVendedor()
 	{
 		return this.isVendor;
