@@ -33,8 +33,8 @@ public class MainWindow {
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
 
-    private Comprador comp;
-    private Vendedor vend;
+    private Comprador comp = null;
+    private Vendedor vend = null;
 
     private int vendor = 0;//0 nothing, 1 vendor, 2 buyer
  
@@ -111,7 +111,8 @@ public class MainWindow {
         buscadorTXT.setColumns(40);
 
         JButton botonBuscar = new JButton("");
-        botonBuscar.setBorderPainted(false);
+        //botonBuscar.setBorderPainted(false);
+        botonBuscar.setBackground(Util._barColor);
         botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         iconLogo = new ImageIcon("resources/search.png");
         botonBuscar.setIcon(iconLogo);
@@ -130,6 +131,24 @@ public class MainWindow {
         flowLayout_1.setAlignment(FlowLayout.RIGHT);
         panel.add(panel_3);
 
+        JLabel logoutIcon = new JLabel();
+        logoutIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        logoutIcon.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    if (vendor != 0)
+                    {
+                        vendor = 0;
+                        vend = null;
+                        comp = null;
+                        JOptionPane.showMessageDialog(null, "Loged out");
+                    }
+                }
+        });
+        logoutIcon.setIcon(Util.scaleImage(new ImageIcon("resources/Log-out.png"), 0.04));
+
+        panel_3.add(logoutIcon);
+        
         loginIcon = new JLabel();
         loginIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginIcon.addMouseListener(new MouseAdapter() {
@@ -168,6 +187,7 @@ public class MainWindow {
         iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
         loginIcon.setIcon(iconLogo);
         panel_3.add(loginIcon);
+
 
         JPanel panel_4 = new JPanel();
         panel_4.setBackground(SystemColor.inactiveCaptionBorder);

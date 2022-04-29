@@ -2,6 +2,8 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
+import ModeloDominio.Comprador;
+import ModeloDominio.Pedido;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -21,19 +23,17 @@ import java.awt.event.ActionEvent;
 public class CarritoCompra {
 
     private JFrame frame;
-    private JTextField buscadorTXT;
     private DefaultListModel<Articulo> modeloJLista;
     JLabel loginIcon;
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
-
-    private ArticuloController _actrl = new ArticuloController();
-    private PedidoController _pctrl = new PedidoController();
-    private final Action action = new SwingAction();;
+    private Pedido _pedido;
 
 
-    public CarritoCompra() {
+
+    public CarritoCompra(Comprador comp) {
+        this._pedido = comp.getPedidos().get(comp.getPedidos().length() - 1);
         initialize();
     }
 
@@ -51,62 +51,19 @@ public class CarritoCompra {
         frame.setBounds(100, 100, 596, 428);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(148, 0, 211));
-        frame.getContentPane().add(panel, BorderLayout.NORTH);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-
-        JPanel panel_1 = new JPanel();
-        panel_1.setBackground(new Color(147, 112, 219));
-        FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
-        flowLayout.setAlignment(FlowLayout.LEFT);
-        panel.add(panel_1, BorderLayout.CENTER);
-
-        JLabel fotoZamazor = new JLabel();
-        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
-        fotoZamazor.setIcon(iconLogo);
-        panel_1.add(fotoZamazor);
-
-        JPanel panel_2 = new JPanel();
-        panel_2.setBackground(new Color(147, 112, 219));
-        panel.add(panel_2);
-
-        buscadorTXT = new JTextField();
-        buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        panel_2.add(buscadorTXT);
-        buscadorTXT.setColumns(40);
-
-        JButton botonBuscar = new JButton("");
-        botonBuscar.setBorderPainted(false);
-        botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        iconLogo = new ImageIcon("resources/search.png");
-        botonBuscar.setIcon(iconLogo);
-        panel_2.add(botonBuscar);
-
-        JPanel panel_3 = new JPanel();
-        panel_3.setBackground(new Color(147, 112, 219));
-        FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
-        flowLayout_1.setAlignment(FlowLayout.RIGHT);
-        panel.add(panel_3);
-
-        iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
-        loginIcon.setIcon(iconLogo);
-        panel_3.add(loginIcon);
-
-        JPanel panel_4 = new JPanel();
-        panel_4.setBackground(SystemColor.inactiveCaptionBorder);
-        frame.getContentPane().add(panel_4, BorderLayout.CENTER);
-        panel_4.setBorder(null);
-        panel_4.setLayout(new CardLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setBackground(SystemColor.inactiveCaptionBorder);
+        frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+        mainPanel.setBorder(null);
+        mainPanel.setLayout(new CardLayout());
 
         scrollPane = new JScrollPane();
-        panel_4.add(scrollPane, "name_179239712047600");
+        mainPanel.add(scrollPane, "name_179239712047600");
 
 
         JList<Articulo> list = new JList<Articulo>();
-        imageMap = createImageMap(fullTablePedidos());
+        imageMap = createImageMap(_pedido.getArticulos());
         crearModeloJlist(fullTablePedidos());
         list.setModel(modeloJLista);
         list.setCellRenderer(new CellRenderer());
@@ -123,8 +80,6 @@ public class CarritoCompra {
         btnNewButton.setAction(action);
         btnNewButton.setHorizontalAlignment(SwingConstants.RIGHT);
         panel_5.add(btnNewButton);
-        //JLabel lblNewLabel = new JLabel("New label");
-        //scrollPane.setRowHeaderView(lblNewLabel);
 
     }
 
@@ -135,10 +90,6 @@ public class CarritoCompra {
             modeloJLista.addElement(ar);
         }
 
-    }
-    private List<Articulo> fullTablePedidos() {
-
-        return _pctrl.fullTableP();
     }
 
     public void setVisible(boolean b) {
@@ -190,13 +141,5 @@ public class CarritoCompra {
             return this;
         }
     }
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
 
-		}
-	}
 }
