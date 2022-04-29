@@ -8,7 +8,7 @@ import View.MainWindow;
 import java.awt.EventQueue;
 
 import javax.swing.*;
-
+//TODO JAVADOC MAIN
 public class mainClass {     //El main sera la clase Amazon del diagrama de clases?
 	public static void main(String[] args) {
 

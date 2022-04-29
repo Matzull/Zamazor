@@ -36,7 +36,7 @@ public class UserInfoWindow extends JFrame {
 
 
     /**
-     * Create the frame.
+     * En esta constructora se activa cuando no se ha
      */
     public UserInfoWindow() {
         this.setTitle("Informacion de usuario");
@@ -46,6 +46,11 @@ public class UserInfoWindow extends JFrame {
         editable = false;
     }
 
+    /**
+     * esta constructora de la ventana se activa cuando se registra un vendedor
+     * @param vendedor se pasa a la constructora el vendedor registrado y se cargaran
+     *        todos sus datos (con fillVendor()) junto con la ventana en la funcion initGUI()
+     */
     public UserInfoWindow(Vendedor vendedor) {
         this.vendedor = vendedor;
         loadIcon();
@@ -53,7 +58,11 @@ public class UserInfoWindow extends JFrame {
         initGUI();
         fillVendor();
     }
-
+    /**
+     * esta constructora de la ventana se activa cuando se registra un vendedor
+     * @param comprador se pasa a la constructora el vendedor registrado y se cargaran
+     *        todos sus datos (con fillBuyer()) junto con la ventana en la funcion initGUI()
+     */
     public UserInfoWindow(Comprador comprador) {
         this.comprador = comprador;
         loadIcon();
@@ -62,6 +71,9 @@ public class UserInfoWindow extends JFrame {
         fillBuyer();
     }
 
+    /**
+     * se encarga de iniciar la ventana de informacion de usuario
+     */
     private void initGUI() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 700, 601);
