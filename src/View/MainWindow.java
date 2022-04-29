@@ -47,11 +47,6 @@ public class MainWindow {
         initialize();
     }
 
-    /**
-     * TODO JAVADOC CREATE IMAGE MAP
-     * @param fullTable
-     * @return
-     */
     private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {
     
         Map<Integer, ImageIcon> map = new HashMap<>();
@@ -61,6 +56,11 @@ public class MainWindow {
         return map;
     }
 
+    /**
+     * crea la interfaz principal que contiene todos los articulos enlistados por defecto
+     * la barra de busqueda para buscar articulos en la base de datos y incluirlos en la interfaz, y un boton de
+     * login que lleva a la clase de login para registrarse como comprador o vendedor
+     */
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 596, 428);
@@ -159,7 +159,7 @@ public class MainWindow {
 		
 	}
 
-	public void crearModeloJlist(List<Articulo> arts) {
+	private void crearModeloJlist(List<Articulo> arts) {
         modeloJLista = new DefaultListModel<>();
 
         for (Articulo ar : arts) {
@@ -172,10 +172,16 @@ public class MainWindow {
         return _actrl.fullTable();
     }
 
-    public void setVisible(boolean b) {
+    private void setVisible(boolean b) {
         frame.setVisible(b);
 
     }
+    /**
+     * esta funcion consulta un articulo en la base de datos llamando a la funcion
+     * del controller, si no hay un articulo con el mismo id se muestra un mensaje de error
+     * indicando la falta de un id igual al del articulo que se queria consultar
+     * @param id es el id del articulo que se quiere modificar en la base de datos
+     */
     
     public Articulo consultarArticulo(int id)
 	{
@@ -187,7 +193,12 @@ public class MainWindow {
 		
 		return ret;
 	}
-
+    /**
+     * esta funcion modifica un articulo en la base de datos llamando a la funcion
+     * del controller, si no hay un articulo con el mismo id se muestra un mensaje de error
+     * indicando la falta de un id igual al del articulo que se queria modificar
+     * @param a es el articulo que se quiere modificar en la base de datos
+     */
 	public void modificarArticulo(Articulo a) {
 		if(!_actrl.modificarArticulo(a))
 		{
@@ -196,6 +207,12 @@ public class MainWindow {
 		
 	}
 
+    /**
+     * esta funcion inserta un articulo en la base de datos llamando a la funcion
+     * del controller, si ya hay un articulo con el mismo id se muestra un mensaje de error
+     * indicando la existencia de un id igual al articulo que se queria insertar
+     * @param a es el articulo que se quiere insertar en la base de datos
+     */
 	public void altaArticulo(Articulo a) {
 		if(!_actrl.altaArticulo(a))
 		{
