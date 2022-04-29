@@ -16,6 +16,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Locale;
 
 import static Misc.Util.hash256;
@@ -34,6 +36,7 @@ public class Login extends JDialog {
 	private CompradorController _cctrl;
 	private JCheckBox vendor;
 	private int isVendor;
+	private JPanel panel_1;
 
 	private Comprador comprador;
 	private Vendedor vendedor;
@@ -56,7 +59,6 @@ public class Login extends JDialog {
 		setModal(true);
 		_vctrl = vc;
 		_cctrl = cc;
-
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(250, 235, 215));
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -107,7 +109,8 @@ public class Login extends JDialog {
 		separator_3.setBounds(107, 147, 1, 2);
 		panel.add(separator_3);
 
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 
@@ -122,6 +125,27 @@ public class Login extends JDialog {
 				else
 				{
 					JOptionPane.showMessageDialog(panel_1, "Usuario o contrase\u00F1a erroneos", "error", JOptionPane.ERROR_MESSAGE);
+				}
+
+				aceptar();
+			}
+		});
+
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					aceptar();
+				}
+			}
+		});
+
+		txtUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+
+					aceptar();
 				}
 			}
 		});
@@ -234,5 +258,18 @@ public class Login extends JDialog {
 	public int getIsVendedor()
 	{
 		return this.isVendor;
+	}
+
+	private void aceptar()
+	{
+		if(login(txtUsuario.getText(), passwordField.getPassword()))
+		{
+			JOptionPane.showMessageDialog(null, "LogIn correcto");
+			setVisible(false);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(panel_1, "Usuario o contrase\u00F1a erroneos", "error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

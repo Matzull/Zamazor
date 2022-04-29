@@ -74,6 +74,8 @@ public class MainWindow {
         frame.setResizable(true);
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
+        modeloJLista = new DefaultListModel<>();
+
         JPanel panel = new JPanel();
         panel.setBackground(Util._barColor);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
@@ -214,13 +216,13 @@ public class MainWindow {
     }
 
 	private void crearModeloJlist(List<Articulo> arts) {
-        modeloJLista = new DefaultListModel<>();
-
+        modeloJLista.clear();
         for (Articulo ar : arts) {
             modeloJLista.addElement(ar);
         }
 
     }
+
     private List<Articulo> fullTable() {
 
         return _actrl.fullTable();
