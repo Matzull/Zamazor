@@ -61,24 +61,24 @@ public class Login extends JDialog {
 		panel.setBackground(new Color(250, 235, 215));
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
+
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(107, 38, 105, 20);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
-		
+
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setBounds(23, 41, 60, 14);
 		panel.add(lblUsuario);
-		
+
 		passwordField = new JPasswordField();
 		passwordField.setBounds(107, 76, 105, 20);
 		panel.add(passwordField);
-		
+
 		JLabel txtPassWord = new JLabel("Contrase\u00F1a:");
 		txtPassWord.setBounds(23, 79, 74, 14);
 		panel.add(txtPassWord);
-		
+
 		JButton regbtn = new JButton("Registro");
 		regbtn.setBackground(Util._bodyColor);
 		regbtn.setForeground(new Color(0, 0, 0));
@@ -97,25 +97,26 @@ public class Login extends JDialog {
 			}
 		});
 		panel.add(regbtn);
-		
+
 		vendor = new JCheckBox("Vendedor");
 		vendor.setBackground(Util._bodyColor);
 		vendor.setBounds(14, 112, 97, 23);
 		panel.add(vendor);
-		
+
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setBounds(107, 147, 1, 2);
 		panel.add(separator_3);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.SOUTH);
-		
-		JButton okaybtn = new JButton("Ok");		
+
+		JButton okaybtn = new JButton("Ok");
 		okaybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(login(txtUsuario.getText(), passwordField.getPassword()))
 				{
+					JOptionPane.showMessageDialog(null, "LogIn correcto");
 					setVisible(false);
 				}
 				else
@@ -128,9 +129,9 @@ public class Login extends JDialog {
 		okaybtn.setBackground(Util._barColor);
 		ImageIcon iconLogo = new ImageIcon("resources/IconoOkey.png");
 		panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		
+
 		JButton Cancelbtn = new JButton("Cancel");
-		
+
 		Cancelbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -139,35 +140,37 @@ public class Login extends JDialog {
 		Cancelbtn.setHorizontalAlignment(SwingConstants.LEFT);
 		Cancelbtn.setBackground(Util._barColor);
 		panel_1.add(Cancelbtn);
-		
+
 		JSeparator separator_1 = new JSeparator();
 		panel_1.add(separator_1);
-		
+
 		JSeparator separator = new JSeparator();
 		panel_1.add(separator);
-		
+
 		panel_1.add(okaybtn);
-		
+
 		JSeparator separator_2 = new JSeparator();
 		panel_1.add(separator_2);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.NORTH);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		panel_2.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_1.setForeground(Util._bodyColor);
 		panel_2.add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("");
 		iconLogo = new ImageIcon("resources/IconoZamazor.png");
 		lblNewLabel_2.setIcon(iconLogo);
 		panel_2.add(lblNewLabel_2);
 	}
+
+
 
 	/**
 	 * al recibir esta funcion un nombre de ususario y una contrasenia si esta la checkbox desactivada
@@ -180,7 +183,6 @@ public class Login extends JDialog {
 	private boolean login(String username, char[] password)
 	{
 		boolean ret = false;
-		//TODO ver si este if esta bien
 		if (!vendor.isSelected())
 		{
 			comprador = _cctrl.consultarComprador(username);

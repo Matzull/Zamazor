@@ -196,7 +196,7 @@ public class CarritoCompra {
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
-			_pctrl
+
 		}
 	}
 }

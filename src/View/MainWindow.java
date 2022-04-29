@@ -2,6 +2,8 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
+import ModeloDominio.Comprador;
+import ModeloDominio.Vendedor;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -10,8 +12,7 @@ import View.Controllers.VendedorController;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,11 @@ public class MainWindow {
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
+
+    private Comprador comp;
+    private Vendedor vend;
+
+    private int vendor = 0;//0 nothing, 1 vendor, 2 buyer
  
     private JList<Articulo> list;
 
@@ -80,7 +86,7 @@ public class MainWindow {
         panel.add(panel_1, BorderLayout.CENTER);
 
         JLabel fotoZamazor = new JLabel();
-        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 1);
+        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
         fotoZamazor.setIcon(iconLogo);
         panel_1.add(fotoZamazor);
 
@@ -90,6 +96,15 @@ public class MainWindow {
 
         buscadorTXT = new JTextField();
         buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        buscadorTXT.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String texto = buscadorTXT.getText().toLowerCase();
+                    filter(texto);
+                } //PARA QUE AL DARLE AL ENTER SE BUSQUE AUTOMATICAMENTE EN LA BARRA DE BUSQUEDA PRINCIPAL TRAS ESCRIBIR
+            }
+        });
         panel_2.add(buscadorTXT);
         buscadorTXT.setColumns(40);
 
@@ -98,7 +113,14 @@ public class MainWindow {
         botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         iconLogo = new ImageIcon("resources/search.png");
         botonBuscar.setIcon(iconLogo);
+        botonBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String texto = buscadorTXT.getText().toLowerCase();
+                filter(texto);
+            }
+        });
         panel_2.add(botonBuscar);
+
 
         JPanel panel_3 = new JPanel();
         panel_3.setBackground(Util._barColor);
@@ -111,8 +133,34 @@ public class MainWindow {
         loginIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Login login = new Login(_cctrl, _vctrl);
-                login.setVisible(true);
+                if (vendor == 0)
+                {
+                    Login login = new Login(_cctrl, _vctrl);
+                    login.setVisible(true);
+                    if(login.getIsVendedor() == 1)
+                    {
+                        vend = login.getVendedor();
+                        vendor = 1;
+                    }
+                    else
+                    {
+                        comp = login.getComprador();
+                        vendor = 2;
+                    }
+                }
+                else if(vendor == 1)
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow(vend);
+                }
+                else if(vendor == 2)
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow(comp);
+                }
+                else
+                {
+                    UserInfoWindow userInfo = new UserInfoWindow();
+                }
+
             }
         });
         iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
@@ -133,12 +181,13 @@ public class MainWindow {
 
         list = new JList<Articulo>();
         list.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent arg0) {
-        		eventoClickArticulo();
-        	}
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                eventoClickArticulo();
+            }
         });
         list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
         imageMap = createImageMap(fullTable());
         crearModeloJlist(fullTable());
         list.setModel(modeloJLista);
@@ -159,6 +208,11 @@ public class MainWindow {
 		
 	}
 
+    private void filter(String texto) {
+        crearModeloJlist(_actrl.buscarArticulo(texto));
+        list.setModel(modeloJLista);
+    }
+
 	private void crearModeloJlist(List<Articulo> arts) {
         modeloJLista = new DefaultListModel<>();
 
@@ -172,9 +226,8 @@ public class MainWindow {
         return _actrl.fullTable();
     }
 
-    private void setVisible(boolean b) {
+    public void setVisible(boolean b) {
         frame.setVisible(b);
-
     }
     /**
      * esta funcion consulta un articulo en la base de datos llamando a la funcion
