@@ -9,7 +9,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * esta clase es para registrar a un nuevo comprador en la base de datos,
+ * para ello hacemos una interfaz donde el usuario debe rellenar los campos correctamente
+ * para registrarse como comprador en la base de datos
+ */
 public class Register_C extends JFrame {
 
 	private JPanel contentPane;
@@ -21,7 +25,10 @@ public class Register_C extends JFrame {
 	private CompradorController _cctrl;
 	private JTextField user;
 
-
+	/**
+	 * crea la interfaz donde se va a mostrar los datos y finalmente cogiendo el comprador del controller los inserta
+	 * @param cc esta funcion recibe un comprador del controller para rellenar en los campos creados en la interfaz
+	 */
 	public Register_C(CompradorController cc) {
 		setTitle("Sign up buyer");
 		setResizable(false);
@@ -146,7 +153,11 @@ public class Register_C extends JFrame {
 		lblNewLabel_2.setIcon(iconLogo);
 		panel_2.add(lblNewLabel_2);
 	}
-
+	/**
+	 * para registrarse se crea un nuevo comprador con los valores introducidos en los campos respectivos
+	 * y si falla el alta salta una ventana de aviso de que no se ha creado el usuario.
+	 * @return devuelve true si el usuario ha sido creado en la base de datos y false si no.
+	 */
 	private boolean register()
 	{
 		boolean ret = true;

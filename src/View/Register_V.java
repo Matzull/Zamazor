@@ -12,6 +12,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * esta clase es para registrar a un nuevo vendedor en la base de datos,
+ * para ello hacemos una interfaz donde el usuario debe rellenar los campos correctamente
+ * para registrarse como vendedor en la base de datos
+ */
 public class Register_V extends JFrame {
 
 	private JPanel contentPane;
@@ -22,7 +27,10 @@ public class Register_V extends JFrame {
 	private VendedorController _vctrl;
 	private JTextField telefono;
 
-
+	/**
+	 * crea la interfaz donde se va a mostrar los datos y finalmente cogiendo el vendedor del controller los inserta
+	 * @param vc esta funcion recibe un vendedor del controller para rellenar en los campos creados en la interfaz
+	 */
 	public Register_V(VendedorController vc) {
 		setTitle("Sign up vendor");
 		setResizable(false);
@@ -139,6 +147,11 @@ public class Register_V extends JFrame {
 		panel_2.add(lblNewLabel_2);
 	}
 
+	/**
+	 * para registrarse se crea un nuevo vendedor con los valores introducidos en los campos respectivos
+	 * y si falla el alta salta una ventana de aviso de que no se ha creado el usuario.
+	 * @return devuelve true si el usuario ha sido creado en la base de datos y false si no.
+	 */
 	private boolean register()
 	{
 		boolean ret = true;

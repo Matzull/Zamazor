@@ -16,7 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * esta clase es la ventana principal de la interfaz donde estan listados por defecto todos los productos
+ * y con la barra de busqueda puedes buscar los productos que tengan un nombre similar a lo escrito.
+ * Tambien hay un boton de login que sirve tambien para registrarse.
+ * TODO PONER MAS INFORMACION DE LAS CLASES SI ES QUE FALTAN
+ */
 public class MainWindow {
 
     private JFrame frame;
@@ -33,14 +38,20 @@ public class MainWindow {
     private CompradorController _cctrl = new CompradorController();
     private PedidoController _pctrl = new PedidoController();
     private VendedorController _vctrl = new VendedorController();
-    
-    
 
 
+    /**
+     * esta constructora solo inicia el metodo iniciar que inicializa la interfaz
+     */
     public MainWindow() {
         initialize();
     }
 
+    /**
+     * TODO JAVADOC CREATE IMAGE MAP
+     * @param fullTable
+     * @return
+     */
     private Map<Integer, ImageIcon> createImageMap(List<Articulo> fullTable) {
     
         Map<Integer, ImageIcon> map = new HashMap<>();

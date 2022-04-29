@@ -15,7 +15,6 @@ public class ArticuloController {
     private Articulo a;
     private FachadaArticulos fachadaArticulos;
 
-    //Constructor vacio. Valores por defecto
 
     /**
      * en la constructora vacia se insertan valores por defecto al atributo articulo de la clase
@@ -26,7 +25,6 @@ public class ArticuloController {
         this.fachadaArticulos = new ImplFachadaArticulos();
     }
     
-    //Constructor con parametros. Contectar con BBDD
 
     /**
      * en la constructora con parametros asignamos los valores al atributo del articulo
