@@ -8,6 +8,8 @@ import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class Util {
 
@@ -85,6 +87,33 @@ public class Util {
         }
 
         return hexString.toString();
+    }
+
+    //DAO UTILS
+    private static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
+    public static Connection conn;
+    public static void startConnection()
+    {
+        try {
+            conn = DriverManager.getConnection(DB_URL);
+            System.out.println("Connection opened");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeConnection()
+    {
+        try {
+            conn.close();
+            System.out.println("Connection closed");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
 

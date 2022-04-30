@@ -1,5 +1,6 @@
 package DAO.Vendedor;
 
+import Misc.Util;
 import ModeloDominio.Vendedor;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class FachadaDaoVendedorImpl implements IFachadaDaoVendedor{
 
     private IDAOAVendedor Dao;
 
-    public FachadaDaoVendedorImpl(){Dao = new DAOvendedor();}
+    public FachadaDaoVendedorImpl(){Dao = new DAOvendedor(Util.conn);}
 
     @Override
     public boolean altaVendedor(Vendedor v) {

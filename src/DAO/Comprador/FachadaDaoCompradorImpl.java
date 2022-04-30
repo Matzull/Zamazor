@@ -1,5 +1,6 @@
 package DAO.Comprador;
 
+import Misc.Util;
 import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 
@@ -9,7 +10,7 @@ public class FachadaDaoCompradorImpl implements IFachadaDaoComprador {
 
     private IDAOAComprador Dao;
 
-    public FachadaDaoCompradorImpl(){Dao = new DAOcomprador();}
+    public FachadaDaoCompradorImpl(){Dao = new DAOcomprador(Util.conn);}
 
     @Override
     public boolean altaComprador(Comprador c) {

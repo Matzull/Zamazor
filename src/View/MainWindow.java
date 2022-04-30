@@ -10,6 +10,7 @@ import View.Controllers.PedidoController;
 import View.Controllers.VendedorController;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -40,16 +41,22 @@ public class MainWindow {
  
     private JList<Articulo> list;
 
-    private ArticuloController _actrl = new ArticuloController();
-    private CompradorController _cctrl = new CompradorController();
-    private PedidoController _pctrl = new PedidoController();
-    private VendedorController _vctrl = new VendedorController();
+
+    private ArticuloController _actrl;
+    private CompradorController _cctrl;
+    private PedidoController _pctrl;
+    private VendedorController _vctrl;
 
 
     /**
      * esta constructora solo inicia el metodo iniciar que inicializa la interfaz
      */
     public MainWindow() {
+        Util.startConnection();
+        _actrl = new ArticuloController();
+        _cctrl = new CompradorController();
+        _pctrl = new PedidoController();
+        _vctrl = new VendedorController();
         initialize();
     }
 
@@ -73,6 +80,11 @@ public class MainWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Util.closeConnection();
+            }
+        });
 
         modeloJLista = new DefaultListModel<>();
 
@@ -104,7 +116,7 @@ public class MainWindow {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     String texto = buscadorTXT.getText().toLowerCase();
                     filter(texto);
-                } //PARA QUE AL DARLE AL ENTER SE BUSQUE AUTOMATICAMENTE EN LA BARRA DE BUSQUEDA PRINCIPAL TRAS ESCRIBIR
+                }
             }
         });
         panel_2.add(buscadorTXT);
@@ -171,11 +183,11 @@ public class MainWindow {
                 }
                 else if(vendor == 1)
                 {
-                    UserInfoWindow userInfo = new UserInfoWindow(vend);
+                    UserInfoWindow userInfo = new UserInfoWindow(vend, _vctrl);
                 }
                 else if(vendor == 2)
                 {
-                    UserInfoWindow userInfo = new UserInfoWindow(comp);
+                    UserInfoWindow userInfo = new UserInfoWindow(comp, _cctrl);
                 }
                 else
                 {
@@ -317,6 +329,7 @@ public class MainWindow {
             panelText.add(lblDescripcion);
             add(Box.createRigidArea(new Dimension(5, 0)), BorderLayout.WEST);
             add(lblIcon, BorderLayout.WEST);
+            lblIcon.setBorder(new EmptyBorder(5, 15, 5, 5));
             add(panelText, BorderLayout.CENTER);
             panelText.setBackground(Util._bodyColor);
             setBackground(Util._bodyColor);

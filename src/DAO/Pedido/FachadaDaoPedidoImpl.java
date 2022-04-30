@@ -1,5 +1,6 @@
 package DAO.Pedido;
 
+import Misc.Util;
 import ModeloDominio.Pedido;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class FachadaDaoPedidoImpl implements IFachadaDaoPedido {
 
     private IDAOPedido Dao;
 
-    public FachadaDaoPedidoImpl(){Dao = new DAOpedido();}
+    public FachadaDaoPedidoImpl(){Dao = new DAOpedido(Util.conn);}
 
     @Override
     public boolean altaPedido(Pedido p) {

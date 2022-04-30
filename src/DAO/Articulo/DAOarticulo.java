@@ -16,7 +16,6 @@ import java.util.List;
 
 public class DAOarticulo implements IDAOArticulo
 {
-    static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
 
     private String QUERY;
     private Connection conn;
@@ -29,11 +28,11 @@ public class DAOarticulo implements IDAOArticulo
      *
      * conectamos con la base de datos con conn y creamos una consulta con stmt
      */
-    public DAOarticulo(){
+    public DAOarticulo(Connection conn){
         try
         {
             //Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
+            this.conn = conn;
             stmt = conn.createStatement();
         }
         catch (Exception e)

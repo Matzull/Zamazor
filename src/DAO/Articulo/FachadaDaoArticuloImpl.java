@@ -1,5 +1,6 @@
 package DAO.Articulo;
 
+import Misc.Util;
 import ModeloDominio.Articulo;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class FachadaDaoArticuloImpl implements IFachadaDaoArticulo {
 
     private IDAOArticulo Dao;
 
-    public FachadaDaoArticuloImpl(){Dao = new DAOarticulo();}
+    public FachadaDaoArticuloImpl(){Dao = new DAOarticulo(Util.conn);}
 
     /**
      *

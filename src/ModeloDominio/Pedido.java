@@ -25,11 +25,11 @@ public class Pedido {
         articulos = new ArrayList<Articulo>();
     }
 
-    public Pedido(Integer id, Integer comprador_id, Integer vendedor_id, String direccion,
+    public Pedido(Integer id, Integer comprador_id, Integer repartidor_id, String direccion,
                   Boolean entregado, String entrega, String pedido, List<Articulo> articulos){
         this.id = id;
         this.comprador_id = comprador_id;
-        this.repartidor_id = vendedor_id;
+        this.repartidor_id = repartidor_id;
         this.direccion = direccion;
         this.entregado = entregado;
         this.entrega = entrega;
@@ -103,7 +103,7 @@ public class Pedido {
 
     public String toString()
     {
-        return "Funciono, Direccion: " + this.direccion;
+        return Integer.toString(this.id);
     }
 
 }

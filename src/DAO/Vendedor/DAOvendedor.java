@@ -22,11 +22,11 @@ public class DAOvendedor implements IDAOAVendedor
     private Statement stmt;
     private ResultSet rs;
 
-    public DAOvendedor(){
+    public DAOvendedor(Connection conn){
         try
         {
             //Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
+            this.conn = conn;
             stmt = conn.createStatement();
         }
         catch (Exception e)
@@ -40,7 +40,7 @@ public class DAOvendedor implements IDAOAVendedor
 
         QUERY = "INSERT INTO Vendedores (_ID,_Nombre,_Email,_Telefono,_Articulos, _Password)" +
                 " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ "," + "'"+ a.getEmail() + "'" + ","+ a.getTelefono() +
-                "," + "'" + a.getArticulos() + "'" + "," + "'" + hash256(a.getPassword()) + "'" + ")";
+                "," + "'" + vendedorParser(a.getArticulos()) + "'" + "," + "'" + hash256(a.getPassword()) + "'" + ")";
 
         try {
             stmt.executeUpdate(QUERY);
@@ -81,7 +81,7 @@ public class DAOvendedor implements IDAOAVendedor
             QUERY = "UPDATE Vendedores SET   _Nombre = " + "'" + v.getNombre() + "'" +
                     ", _Email = " + "'" + v.getEmail() + "'" +
                     ", _Telefono = " + "'" + v.getTelefono() + "'" +
-                    ", _Articulos = " + "'" + v.getArticulos() + "'" +
+                    ", _Articulos = " + "'" + vendedorParser(v.getArticulos()) + "'" +
                     ", _Password = " + "'" + v.getPassword() + "'" +
                     " WHERE _ID = " + v.getId();
 
@@ -173,6 +173,18 @@ public class DAOvendedor implements IDAOAVendedor
         else
         {
             ret = null;
+        }
+        return ret;
+    }
+
+    public String vendedorParser(List<Articulo> arts)
+    {
+        String ret = "";
+        if (arts != null)
+        {
+            ret = arts.toString();
+            ret = ret.substring(1, ret.length() - 1);
+            ret = ret.replaceAll(" ", "");
         }
         return ret;
     }

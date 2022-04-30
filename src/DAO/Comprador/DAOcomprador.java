@@ -29,11 +29,11 @@ public class DAOcomprador implements IDAOAComprador
     private Statement stmt;
     private ResultSet rs;
 
-    public DAOcomprador(){
+    public DAOcomprador(Connection conn){
         try
         {
             //Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
+            this.conn = conn;
             stmt = conn.createStatement();
         }
         catch (Exception e)
@@ -48,7 +48,7 @@ public class DAOcomprador implements IDAOAComprador
 
         QUERY = "INSERT INTO Comprador (_ID, _Nombre, _Email, _Cuenta, _Direccion, _Pedidos, _Password)" +
                 " VALUES(" + a.getId() + "," + "'" + a.getNombre() + "'"+ ","  + "'" + a.getEmail() + "'" + ","  + "'" + a.getCuenta() + "'"+ "," + "'" + a.getDireccion() + "'" + ","
-                + "'" + a.getPedidos() + "'" +  "," + "'" + hash256(a.getPassword()) + "'" + ")";
+                + "'" + compParser(a.getPedidos()) + "'" +  "," + "'" + hash256(a.getPassword()) + "'" + ")";
 
             try {
                 stmt.executeUpdate(QUERY);
@@ -87,7 +87,7 @@ public class DAOcomprador implements IDAOAComprador
                                             ", _Email = " + "'" + c.getEmail() + "'" +
                                             ", _Cuenta = " + "'" + c.getCuenta() + "'" +
                                             ", _Direccion = " + "'" + c.getDireccion() + "'" +
-                                            ", _Pedidos = " + "'" + c.getPedidos() + "'" +
+                                            ", _Pedidos = " + "'" + compParser(c.getPedidos()) + "'" +
                                             ", _Password = " + "'" + c.getPassword() + "'" + " WHERE _ID = " + c.getId();
 
             stmt.executeUpdate(QUERY);
@@ -174,6 +174,18 @@ public class DAOcomprador implements IDAOAComprador
         else
         {
             ret = null;
+        }
+        return ret;
+    }
+
+    public String compParser(List<Pedido> ps)
+    {
+        String ret = "";
+        if (ps != null)
+        {
+            ret = ps.toString();
+            ret = ret.substring(1, ret.length() - 1);
+            ret = ret.replaceAll(" ", "");
         }
         return ret;
     }

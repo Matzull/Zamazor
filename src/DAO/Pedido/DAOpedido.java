@@ -25,11 +25,11 @@ public class DAOpedido implements IDAOPedido
     private Statement stmt;
     private ResultSet rs;
 
-    public DAOpedido(){
+    public DAOpedido(Connection conn){
         try
         {
             //Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection(DB_URL);
+            this.conn = conn;
             stmt = conn.createStatement();
         }
         catch (Exception e)
@@ -43,7 +43,7 @@ public class DAOpedido implements IDAOPedido
 
         QUERY = "INSERT INTO Pedido (_ID,_Comprador_id,_Repartidor_id,_Direccion,_Entregado,_Entrega,_Pedido,_Articulos)" +
                 " VALUES(" + p.getId() + ","  + p.getComprador_id() + ","  + p.getRepartidor_id() + ","+ "'" + p.getDireccion() + "'" +
-                 "," + p.getEntregado() + ","+ "'" + p.getEntrega() + "'" + ","+ "'" + p.getPedido() + "'" + ","+  "'" + p.getArticulos().toString() + "'" +")";
+                 "," + p.getEntregado() + ","+ "'" + p.getEntrega() + "'" + ","+ "'" + p.getPedido() + "'" + ","+  "'" + pedidoParser(p.getArticulos()) + "'" +")";
 
             try {
                 stmt.executeUpdate(QUERY);
@@ -76,7 +76,7 @@ public class DAOpedido implements IDAOPedido
         {
             QUERY = "UPDATE Pedido SET  _Comprador_Id= " +p.getComprador_id() +
                     ",_Repartidor_Id = " + p.getRepartidor_id() + ",_Direccion = " + "'" + p.getDireccion() + "'" +
-                    ",_Entregado= " + p.getEntregado()+ ",_Entrega = " + "'" + p.getEntrega() + "'"+ ",_Pedido = "+"'" +p.getPedido() +"'" +",_Articulos = "+"'" +p.getArticulos().toString()  +"'" + " WHERE _ID = " + p.getId();
+                    ",_Entregado= " + p.getEntregado()+ ",_Entrega = " + "'" + p.getEntrega() + "'"+ ",_Pedido = "+"'" +p.getPedido() +"'" +",_Articulos = "+"'" + pedidoParser(p.getArticulos())  +"'" + " WHERE _ID = " + p.getId();
             stmt.executeUpdate(QUERY);
             correct = true;
         }
@@ -178,6 +178,18 @@ public class DAOpedido implements IDAOPedido
             ret.add(ArticulosDao.consultarArticulo(Integer.parseInt(id)));
         }
 
+        return ret;
+    }
+
+    public String pedidoParser(List<Articulo> arts)
+    {
+        String ret = "";
+        if (arts != null)
+        {
+            ret = arts.toString();
+            ret = ret.substring(1, ret.length() - 1);
+            ret = ret.replaceAll(" ", "");
+        }
         return ret;
     }
 }

@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 import Misc.Util;
+import View.Controllers.CompradorController;
+import View.Controllers.VendedorController;
 
 
 public class UserInfoWindow extends JFrame {
@@ -33,6 +35,8 @@ public class UserInfoWindow extends JFrame {
     private JPasswordField passwordField;
     private boolean editable;
     private JButton pedidosButton, modificarButton, eliminarButton, cartButtton, returnButton;
+    private CompradorController _cctrl;
+    private VendedorController _vctrl;
 
 
     /**
@@ -51,7 +55,7 @@ public class UserInfoWindow extends JFrame {
      * @param vendedor se pasa a la constructora el vendedor registrado y se cargaran
      *        todos sus datos (con fillVendor()) junto con la ventana en la funcion initGUI()
      */
-    public UserInfoWindow(Vendedor vendedor) {
+    public UserInfoWindow(Vendedor vendedor, VendedorController _vctrl) {
         this.vendedor = vendedor;
         loadIcon();
         this.setVisible(true);
@@ -63,9 +67,10 @@ public class UserInfoWindow extends JFrame {
      * @param comprador se pasa a la constructora el vendedor registrado y se cargaran
      *        todos sus datos (con fillBuyer()) junto con la ventana en la funcion initGUI()
      */
-    public UserInfoWindow(Comprador comprador) {
+    public UserInfoWindow(Comprador comprador, CompradorController _cctrl) {
         this.comprador = comprador;
         loadIcon();
+        this._cctrl = _cctrl;
         this.setVisible(true);
         initGUI();
         fillBuyer();
@@ -130,7 +135,7 @@ public class UserInfoWindow extends JFrame {
         separator_1.setBackground(Util._barColor);
         separator_1.setForeground(Util._barColor);
         buttonsPanel.add(separator_1);
-        modificarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        modificarButton.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
         buttonsPanel.add(modificarButton);
 
         eliminarButton = new JButton("Borrar");
@@ -254,8 +259,7 @@ public class UserInfoWindow extends JFrame {
         cartButtton.setIcon(Util.scaleImage(cart,0.35));
         cartButtton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //CarritoCompra cart = new CarritoCompra();
-                //cart.setVisible(true);
+                CarritoCompra cart = new CarritoCompra(comprador, _cctrl);
             }
         });
 
