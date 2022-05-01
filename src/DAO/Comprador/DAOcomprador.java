@@ -1,19 +1,14 @@
 package DAO.Comprador;
 
-import DAO.Articulo.FachadaDaoArticuloImpl;
-import DAO.Articulo.IFachadaDaoArticulo;
 import DAO.Pedido.FachadaDaoPedidoImpl;
 import DAO.Pedido.IFachadaDaoPedido;
-import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -150,8 +145,8 @@ public class DAOcomprador implements IDAOAComprador
             comp.setEmail(rs.getString("_Email"));
             comp.setCuenta(rs.getString("_Cuenta"));
             comp.setDireccion(rs.getString("_Direccion"));
-            comp.setPedidos(compParser(rs.getString("_Pedidos")));
             comp.setPassword(rs.getString("_Password"));
+            comp.setPedidos(compParser(rs.getString("_Pedidos")));
         }
         catch (Exception e)
         {
@@ -168,7 +163,7 @@ public class DAOcomprador implements IDAOAComprador
 
         if(!pedidos_id[0].equals("null")) {
             for (String id : pedidos_id) {
-                ret.add(PedidosDao.consultarPedido(Integer.parseInt(id)));
+                ret.add(PedidosDao.consultarPedido(Integer.parseInt(id), false));
             }
         }
         else

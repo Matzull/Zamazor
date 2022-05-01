@@ -4,21 +4,16 @@ import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
 import View.Controllers.CompradorController;
+import View.Controllers.PedidoController;
 import View.Controllers.VendedorController;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Locale;
 
 import static Misc.Util.hash256;
 
@@ -37,6 +32,7 @@ public class Login extends JDialog {
 	private JCheckBox vendor;
 	private int isVendor;
 	private JPanel panel_1;
+	private PedidoController _pctrl;
 
 	private Comprador comprador;
 	private Vendedor vendedor;
@@ -47,7 +43,7 @@ public class Login extends JDialog {
 	 * @param cc se recibe el controller del comprador para insertar en el el registro
 	 * @param vc se recibe el controller del vendedor para insertar en el el registro
 	 */
-	public Login(CompradorController cc, VendedorController vc) {
+	public Login(CompradorController cc, VendedorController vc, PedidoController pc) {
 		setTitle("Log In");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -59,6 +55,7 @@ public class Login extends JDialog {
 		setModal(true);
 		_vctrl = vc;
 		_cctrl = cc;
+		_pctrl = pc;
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(250, 235, 215));
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -94,7 +91,7 @@ public class Login extends JDialog {
 				}
 				else
 				{
-					Register_C regc = new Register_C(_cctrl);
+					Register_C regc = new Register_C(_cctrl, _pctrl);
 				}
 			}
 		});
@@ -209,23 +206,27 @@ public class Login extends JDialog {
 		boolean ret = false;
 		if (!vendor.isSelected())
 		{
-			comprador = _cctrl.consultarComprador(username);
-			if (comprador.getCuenta() != null)
+			Comprador buffer = _cctrl.consultarComprador(username);
+			if (buffer.getCuenta() != null)
 			{
-				if(comprador.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				String real = buffer.getPassword().toLowerCase();
+				String in = hash256(new String(password)).toLowerCase();
+				if(real.equals(in))
 				{
-					isVendor = 0;
+					comprador = buffer;
+					isVendor = 2;
 					ret = true;
 				}
 			}
 		}
 		else
 		{
-			vendedor = _vctrl.consultarVendedor(username);
-			if (vendedor.getNombre() != null)
+			Vendedor buffer = _vctrl.consultarVendedor(username);
+			if (buffer.getNombre() != null)
 			{
-				if(vendedor.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
+				if(buffer.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
 				{
+					vendedor = buffer;
 					isVendor = 1;
 					ret = true;
 				}

@@ -82,11 +82,11 @@ public class Util {
         StringBuilder hexString = new StringBuilder(number.toString(16));
 
         // Pad with leading zeros
-        while (hexString.length() < 32) {
+        while (hexString.length() < 64) {
             hexString.insert(0, '0');
         }
 
-        return hexString.toString();
+        return hexString.toString().toUpperCase();
     }
 
     //DAO UTILS

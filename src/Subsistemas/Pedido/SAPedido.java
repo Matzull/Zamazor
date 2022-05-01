@@ -1,6 +1,6 @@
 package Subsistemas.Pedido;
 
-import DAO.Pedido.*;
+import DAO.Pedido.FachadaDaoPedidoImpl;
 import ModeloDominio.Pedido;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class SAPedido implements ISAPedido {
     }
 
     @Override
-    public Pedido consultarPedido(int id) {
-        return DAO.consultarPedido(id);
+    public Pedido consultarPedido(int id, boolean mode) {
+        return DAO.consultarPedido(id, mode);
     }
 }

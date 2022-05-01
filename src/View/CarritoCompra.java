@@ -13,7 +13,6 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -119,7 +118,7 @@ public class CarritoCompra extends JFrame {
 
     }
 
-    public void crearModeloJlist(List<Articulo> arts) {
+    private void crearModeloJlist(List<Articulo> arts) {
         modeloJLista.clear();
 
         for (Articulo ar : arts) {
@@ -173,24 +172,16 @@ public class CarritoCompra extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        CompradorController ctrl = new CompradorController();
-
-        CarritoCompra cart = new CarritoCompra(ctrl.consultarComprador("no"), ctrl);
-    }
-
     private void pagar() {
         if (JOptionPane.showConfirmDialog(null, "¿Desea pagar?", "Pago", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yy");
             LocalDateTime now = LocalDateTime.now();
-            System.out.println(dtf.format(now));
             _pedido.setPedido(dtf.format(now));
             _pctrl.modificarPedido(_pedido);
             Pedido pedido = new Pedido(null, _pedido.getComprador_id(), _pedido.getRepartidor_id(), _pedido.getDireccion(), false, null, null, null);
             _pctrl.altaPedido(pedido);
-
             List<Pedido> pedidos = comp.getPedidos();
-            pedidos.add(pedido);
+            pedidos.add(_pctrl.consultarPedido(comp.getId(), true));
             comp.setPedidos(pedidos);
             _cctrl.modificarComprador(comp);
         }

@@ -1,8 +1,8 @@
 package View.Controllers;
 
+import ModeloDominio.Articulo;
 import Subsistemas.Articulos.FachadaArticulos;
 import Subsistemas.Articulos.ImplFachadaArticulos;
-import ModeloDominio.Articulo;
 
 import javax.swing.*;
 import java.util.List;

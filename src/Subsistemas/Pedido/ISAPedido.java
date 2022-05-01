@@ -10,6 +10,6 @@ public interface ISAPedido {
     public boolean modificarPedido(Pedido p);
     public boolean bajaPedido(int id);
     public List<Pedido> buscarPedido(String nombre);
-    public Pedido consultarPedido(int id);
+    public Pedido consultarPedido(int id, boolean mode);
 
 }

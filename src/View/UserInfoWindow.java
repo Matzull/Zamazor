@@ -1,24 +1,17 @@
 package View;
 
-import java.awt.BorderLayout;
+import Misc.Util;
+import ModeloDominio.Comprador;
+import ModeloDominio.Vendedor;
+import View.Controllers.CompradorController;
+import View.Controllers.VendedorController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-import ModeloDominio.Comprador;
-import ModeloDominio.Vendedor;
-
-import java.awt.GridLayout;
-
-import java.awt.Cursor;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
-
-import Misc.Util;
-import View.Controllers.CompradorController;
-import View.Controllers.VendedorController;
+import java.awt.event.ActionListener;
 
 
 public class UserInfoWindow extends JFrame {

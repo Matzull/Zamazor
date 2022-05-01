@@ -1,6 +1,5 @@
 package DAO.Pedido;
 
-import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
 
 import java.util.List;
@@ -14,6 +13,6 @@ public interface IDAOPedido {
 
     public List<Pedido> buscarPedido(String id);
 
-    public Pedido consultarPedido(int id);
+    public Pedido consultarPedido(int id, boolean mode);
 
 }

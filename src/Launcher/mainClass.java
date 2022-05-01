@@ -2,12 +2,10 @@ package Launcher;
 
 import Subsistemas.Articulos.SAArticulos;
 import Subsistemas.Pedido.SAPedido;
-import View.Login;
 import View.MainWindow;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
+import java.awt.*;
 //TODO JAVADOC MAIN
 public class mainClass {     //El main sera la clase Amazon del diagrama de clases?
 	public static void main(String[] args) {
@@ -34,7 +32,7 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 		SAPedido sa = new SAPedido();
 		SAArticulos sa2 = new SAArticulos();
 		int id2;
-		id2 = sa.consultarPedido(2).getArticulos().get(1).getId();
+		id2 = sa.consultarPedido(2, false).getArticulos().get(1).getId();
 		System.out.println(sa2.consultarArticulo(id2));
 
 	}

@@ -32,7 +32,7 @@ public class ImplFachadaPedido implements FachadaPedido {
     }
 
     @Override
-    public Pedido consultarPedido(int id) {
-        return sa.consultarPedido(id);
+    public Pedido consultarPedido(int id, boolean mode) {
+        return sa.consultarPedido(id, mode);
     }
 }

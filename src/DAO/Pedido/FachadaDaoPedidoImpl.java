@@ -30,7 +30,7 @@ public class FachadaDaoPedidoImpl implements IFachadaDaoPedido {
     public List<Pedido> buscarPedido(String id) {return Dao.buscarPedido(id);}
 
     @Override
-    public Pedido consultarPedido(int id) {
-        return Dao.consultarPedido(id);
+    public Pedido consultarPedido(int id, boolean mode) {
+        return Dao.consultarPedido(id, mode);
     }
 }

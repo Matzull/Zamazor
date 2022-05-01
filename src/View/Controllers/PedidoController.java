@@ -33,7 +33,7 @@ public class PedidoController {
 
     public List<Pedido> fullTable(){return fachadaPedido.buscarPedido("");}
 
-    public Pedido consultarPedido(int id){return fachadaPedido.consultarPedido(id);}
+    public Pedido consultarPedido(int id, boolean mode){return fachadaPedido.consultarPedido(id, mode);}
 
     public List<Articulo> fullTableP() {
     	return p.getArticulos();

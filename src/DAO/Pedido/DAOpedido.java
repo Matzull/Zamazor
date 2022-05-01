@@ -3,7 +3,6 @@ package DAO.Pedido;
 import DAO.Articulo.FachadaDaoArticuloImpl;
 import DAO.Articulo.IFachadaDaoArticulo;
 import ModeloDominio.Articulo;
-import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
 
 import javax.imageio.ImageIO;
@@ -11,7 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,10 +128,16 @@ public class DAOpedido implements IDAOPedido
         return l;
     }
 
-    public Pedido consultarPedido(int id)
+    public Pedido consultarPedido(int id, boolean mode)//mode = false -> modo normal; mode = true -> modo comprador_id
     {
+
         Pedido pe = new Pedido();
         QUERY = "SELECT * FROM Pedido WHERE _ID = " + id;
+        if (mode)
+        {
+            QUERY = "SELECT * FROM Pedido WHERE _Comprador_Id = " + id + " AND _Pedido =" + "'" + "null" + "'";
+        }
+
 
         try {
             rs = stmt.executeQuery(QUERY);

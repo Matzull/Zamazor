@@ -168,14 +168,14 @@ public class MainWindow {
             public void mouseClicked(MouseEvent e) {
                 if (vendor == 0)
                 {
-                    Login login = new Login(_cctrl, _vctrl);
+                    Login login = new Login(_cctrl, _vctrl, _pctrl);
                     login.setVisible(true);
                     if(login.getIsVendedor() == 1)
                     {
                         vend = login.getVendedor();
                         vendor = 1;
                     }
-                    else
+                    else if(login.getIsVendedor() == 2)
                     {
                         comp = login.getComprador();
                         vendor = 2;

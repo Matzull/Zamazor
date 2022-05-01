@@ -1,6 +1,8 @@
 package DAO.Articulo;
-import java.util.List;
+
 import ModeloDominio.Articulo;
+
+import java.util.List;
 /**
  * Esta es la interfaz de la clase DAOarticulo que se encarga de recopilar
  * los datos de la tabla Articulo de la base de datos y conectarlos con la logica del programa

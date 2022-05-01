@@ -1,9 +1,7 @@
 package View;
 
 import Misc.Util;
-import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
-import View.Controllers.CompradorController;
 import View.Controllers.VendedorController;
 
 import javax.swing.*;

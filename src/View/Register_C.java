@@ -1,14 +1,19 @@
 package View;
 
+import DAO.Pedido.IDAOPedido;
 import Misc.Util;
 import ModeloDominio.Comprador;
+import ModeloDominio.Pedido;
 import View.Controllers.CompradorController;
+import View.Controllers.PedidoController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 /**
  * esta clase es para registrar a un nuevo comprador en la base de datos,
  * para ello hacemos una interfaz donde el usuario debe rellenar los campos correctamente
@@ -24,12 +29,13 @@ public class Register_C extends JFrame {
 
 	private CompradorController _cctrl;
 	private JTextField user;
+	private PedidoController _pctrl;
 
 	/**
 	 * crea la interfaz donde se va a mostrar los datos y finalmente cogiendo el comprador del controller los inserta
 	 * @param cc esta funcion recibe un comprador del controller para rellenar en los campos creados en la interfaz
 	 */
-	public Register_C(CompradorController cc) {
+	public Register_C(CompradorController cc, PedidoController pc) {
 		setTitle("Sign up buyer");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,6 +47,7 @@ public class Register_C extends JFrame {
 		setVisible(true);
 
 		_cctrl = cc;
+		_pctrl = pc;
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Util._bodyColor);
@@ -166,6 +173,17 @@ public class Register_C extends JFrame {
 		{
 			JOptionPane.showMessageDialog(this, "No se ha podido crear el usuario", "error", JOptionPane.ERROR_MESSAGE);
 			ret = false;
+		}
+		else
+		{
+			comprador = _cctrl.consultarComprador(user.getText());
+			Pedido pedido = new Pedido(null, comprador.getId(), 215, comprador.getDireccion(), false, null, null, null);
+			_pctrl.altaPedido(pedido);
+
+			List<Pedido> pedidos = comprador.getPedidos();
+			pedidos.add(_pctrl.consultarPedido(comprador.getId(), true));
+			comprador.setPedidos(pedidos);
+			_cctrl.modificarComprador(comprador);
 		}
 		return ret;
 	}

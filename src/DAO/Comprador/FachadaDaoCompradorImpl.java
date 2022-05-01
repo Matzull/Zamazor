@@ -1,7 +1,6 @@
 package DAO.Comprador;
 
 import Misc.Util;
-import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 
 import java.util.List;
