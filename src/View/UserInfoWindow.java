@@ -255,8 +255,9 @@ public class UserInfoWindow extends JFrame {
                 CarritoCompra cart = new CarritoCompra(comprador, _cctrl);
             }
         });
+        // no se pq al comentarlo funciona el dar a la cruz roja y cerrarse
+       //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void enableEdit() {
@@ -264,9 +265,9 @@ public class UserInfoWindow extends JFrame {
         if(!editable) {
             nombreText.setEditable(true);
             emailText.setEditable(true);
-            idText.setEditable(true);
+            idText.setEditable(false);
             userText.setEditable(true);
-            passwordField.setEditable(true);
+            passwordField.setEditable(false);
             editable = true;
             passwordField.setEchoChar((char) 0);
             cartButtton.setEnabled(false);
