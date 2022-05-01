@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class UserPedidos extends JDialog {
     JScrollPane scrollPane;
     JLabel[] labelsParaImagenes;
     private Map<Integer, ImageIcon> imageMap;
-    private Pedido _pedido;
+    private List<Pedido> _pedidos;
     private JButton pedidosButton;
     private PedidoController _pctrl;
     private CompradorController _cctrl;
@@ -35,16 +36,16 @@ public class UserPedidos extends JDialog {
     public UserPedidos(Comprador c, CompradorController _cctrl){
         setModal(true);
         this.comp = c;
-        this._pedido = comp.getPedidos().get(comp.getPedidos().size() - 1);
+        this._pedidos = c.getPedidos();
 
         this._cctrl = _cctrl;
         initGUI();
         setVisible(true);
     }
 
-    private Map<Integer, ImageIcon> createImageMap(java.util.List<Articulo> fullTable) {
+    private Map<Integer, ImageIcon> createImageMap(java.util.List<Articulo> fullTable,Map<Integer, ImageIcon> map) {
 
-        Map<Integer, ImageIcon> map = new HashMap<>();
+
         for (Articulo s : fullTable) {
             map.put(s.getId(), s.getImage(1));
         }
@@ -74,11 +75,13 @@ public class UserPedidos extends JDialog {
         scrollPane.setBackground(Util._bodyColor);
         mainPanel.add(scrollPane, "name_179239712047600");
 
-
+        _pedidos.remove(_pedidos.get(_pedidos.size() - 1));
         JList<Articulo> list = new JList<Articulo>();
-
-        imageMap = createImageMap(_pedido.getArticulos());
-        crearModeloJlist(_pedido.getArticulos());
+        Map<Integer, ImageIcon> map = new HashMap<>();
+        for(Pedido pe : _pedidos){
+            imageMap = createImageMap(pe.getArticulos(),map);
+            crearModeloJlist(pe.getArticulos());
+        }
         list.setModel(modeloJLista);
         list.setCellRenderer(new UserPedidos.CellRenderer());
         scrollPane.setViewportView(list);
@@ -112,8 +115,10 @@ public class UserPedidos extends JDialog {
 
 
         Double Total = 0.0;
-        for (Articulo art : _pedido.getArticulos()) {
-            Total += art.getPrecio();
+        for(Pedido pe : _pedidos){
+            for (Articulo art : pe.getArticulos()) {
+                Total += art.getPrecio();
+            }
         }
         JLabel Precio = new JLabel(Double.toString(Total) + "\u20AC");
         Precio.setFont(new Font("Arial", Font.BOLD, 23));
@@ -122,8 +127,6 @@ public class UserPedidos extends JDialog {
     }
 
     private void crearModeloJlist(List<Articulo> arts) {
-        modeloJLista.clear();
-
         for (Articulo ar : arts) {
             modeloJLista.addElement(ar);
         }

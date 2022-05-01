@@ -262,4 +262,6 @@ public class ArticleWindow extends JDialog {
 		dispose();
 	}
 
+
+
 }
