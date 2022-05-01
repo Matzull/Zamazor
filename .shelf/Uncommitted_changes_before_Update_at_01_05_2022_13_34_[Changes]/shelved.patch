@@ -1,0 +1,83 @@
+Index: .shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]/shelved.patch
+===================================================================
+diff --git a/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]/shelved.patch b/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]/shelved.patch	(revision cb75cf88510c9695fb33202e34ccd01fa639a28e)
++++ /dev/null	(revision cb75cf88510c9695fb33202e34ccd01fa639a28e)
+@@ -1,64 +0,0 @@
+-Index: src/DAO/Vendedor/DAOcomprador.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/DAO/Vendedor/DAOcomprador.java b/src/DAO/Comprador/DAOcomprador.java
+-rename from src/DAO/Vendedor/DAOcomprador.java
+-rename to src/DAO/Comprador/DAOcomprador.java
+---- a/src/DAO/Vendedor/DAOcomprador.java	(revision 29af7c22ae552158d6e35d67aa8ad8691a4e6b97)
+-+++ b/src/DAO/Comprador/DAOcomprador.java	(date 1650710847181)
+-@@ -1,4 +1,4 @@
+--package DAO.Vendedor;
+-+package DAO.Comprador;
+- 
+- import ModeloDominio.Articulo;
+- import ModeloDominio.Comprador;
+-Index: src/DAO/Vendedor/IFachadaDaoComprador.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/DAO/Vendedor/IFachadaDaoComprador.java b/src/DAO/Comprador/IFachadaDaoComprador.java
+-rename from src/DAO/Vendedor/IFachadaDaoComprador.java
+-rename to src/DAO/Comprador/IFachadaDaoComprador.java
+---- a/src/DAO/Vendedor/IFachadaDaoComprador.java	(revision 29af7c22ae552158d6e35d67aa8ad8691a4e6b97)
+-+++ b/src/DAO/Comprador/IFachadaDaoComprador.java	(date 1650710847191)
+-@@ -1,4 +1,4 @@
+--package DAO.Vendedor;
+-+package DAO.Comprador;
+- 
+- import ModeloDominio.Comprador;
+- 
+-Index: src/DAO/Vendedor/IDAOAComprador.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/DAO/Vendedor/IDAOAComprador.java b/src/DAO/Comprador/IDAOAComprador.java
+-rename from src/DAO/Vendedor/IDAOAComprador.java
+-rename to src/DAO/Comprador/IDAOAComprador.java
+---- a/src/DAO/Vendedor/IDAOAComprador.java	(revision 29af7c22ae552158d6e35d67aa8ad8691a4e6b97)
+-+++ b/src/DAO/Comprador/IDAOAComprador.java	(date 1650710847206)
+-@@ -1,4 +1,4 @@
+--package DAO.Vendedor;
+-+package DAO.Comprador;
+- 
+- import ModeloDominio.Comprador;
+- 
+-Index: src/DAO/Vendedor/FachadaDaoCompradorImpl.java
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/src/DAO/Vendedor/FachadaDaoCompradorImpl.java b/src/DAO/Comprador/FachadaDaoCompradorImpl.java
+-rename from src/DAO/Vendedor/FachadaDaoCompradorImpl.java
+-rename to src/DAO/Comprador/FachadaDaoCompradorImpl.java
+---- a/src/DAO/Vendedor/FachadaDaoCompradorImpl.java	(revision 29af7c22ae552158d6e35d67aa8ad8691a4e6b97)
+-+++ b/src/DAO/Comprador/FachadaDaoCompradorImpl.java	(date 1650710847212)
+-@@ -1,4 +1,4 @@
+--package DAO.Vendedor;
+-+package DAO.Comprador;
+- 
+- import ModeloDominio.Comprador;
+- 
+Index: .shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08__Changes_.xml
+===================================================================
+diff --git a/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08__Changes_.xml b/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08__Changes_.xml
+deleted file mode 100644
+--- a/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08__Changes_.xml	(revision cb75cf88510c9695fb33202e34ccd01fa639a28e)
++++ /dev/null	(revision cb75cf88510c9695fb33202e34ccd01fa639a28e)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]" date="1650715692301" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.shelf/Uncommitted_changes_before_Update_at_23_04_2022_14_08_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23/04/2022 14:08 [Changes]" />
+-</changelist>
+\ No newline at end of file
