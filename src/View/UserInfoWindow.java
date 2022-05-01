@@ -25,6 +25,7 @@ public class UserInfoWindow extends JFrame {
     private JTextField emailText;
     private JTextField idText;
     private JTextField userText;
+    private JTextField telefonoText;
     private JPasswordField passwordField;
     private boolean editable;
     private JButton pedidosButton, modificarButton, eliminarButton, cartButtton, returnButton;
@@ -86,13 +87,26 @@ public class UserInfoWindow extends JFrame {
         buttonsPanel.setLayout(new GridLayout(0, 7, 0, 0));
         buttonsPanel.setBorder(new EmptyBorder(5, 0, 5 ,0));
 
-        pedidosButton = new JButton("Pedidos");
-        pedidosButton.setBackground(Util._barColor);
-        pedidosButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //Mostrar los pedidos del usuario
-            }
-        });
+        if(comprador != null) {
+            pedidosButton = new JButton("Pedidos");
+            pedidosButton.setBackground(Util._barColor);
+            pedidosButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    //Mostrar los pedidos del usuario
+                    UserPedidos pe = new UserPedidos(comprador, _cctrl);
+                }
+            });
+        }
+        else if(vendedor != null){
+            pedidosButton = new JButton("Articulos");
+            pedidosButton.setBackground(Util._barColor);
+            pedidosButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    //Mostrar los pedidos del usuario
+                    UserArticulos ar = new UserArticulos(vendedor, _vctrl);
+                }
+            });
+        }
         
         JSeparator separator = new JSeparator();
         separator.setForeground(Util._barColor);
@@ -118,6 +132,10 @@ public class UserInfoWindow extends JFrame {
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Datos actualizados. Desactivado modo edicion de cuenta", "Modificar cuenta", 0 , save);
                         enableEdit();
+                        comprador.setNombre(nombreText.getText());
+                        comprador.setEmail(emailText.getText());
+                        comprador.setCuenta(userText.getText());
+                        _cctrl.modificarComprador(comprador);
                     }
                 }
 
@@ -141,6 +159,7 @@ public class UserInfoWindow extends JFrame {
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
                         dispose();
+                        _cctrl.bajaComprador(comprador.getId());
                     }
                 }
             }
@@ -194,18 +213,32 @@ public class UserInfoWindow extends JFrame {
         emailText.setEditable(false);
         infoPanel.add(emailText);
         emailText.setColumns(10);
+        if(comprador != null) {
+            JLabel cuentaLabel = new JLabel("Nombre de usuario:");
+            cuentaLabel.setBounds(21, 280, 179, 53);
+            cuentaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            infoPanel.add(cuentaLabel);
 
-        JLabel cuentaLabel = new JLabel("Nombre de usuario:");
-        cuentaLabel.setBounds(21, 280, 179, 53);
-        cuentaLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        infoPanel.add(cuentaLabel);
+            userText = new JTextField();
+            userText.setBounds(171, 280, 384, 53);
+            userText.setEditable(false);
+            userText.setHorizontalAlignment(SwingConstants.LEFT);
+            infoPanel.add(userText);
+            userText.setColumns(10);
+        }
+        else if(vendedor != null) {
+            JLabel telefonoLabel = new JLabel("Telefono:");
+            telefonoLabel.setBounds(21, 280, 179, 53);
+            telefonoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            infoPanel.add(telefonoLabel);
 
-        userText = new JTextField();
-        userText.setBounds(171, 280, 384, 53);
-        userText.setEditable(false);
-        userText.setHorizontalAlignment(SwingConstants.LEFT);
-        infoPanel.add(userText);
-        userText.setColumns(10);
+            telefonoText = new JTextField();
+            telefonoText.setBounds(171, 280, 384, 53);
+            telefonoText.setEditable(false);
+            telefonoText.setHorizontalAlignment(SwingConstants.LEFT);
+            infoPanel.add(telefonoText);
+            telefonoText.setColumns(10);
+        }
 
         JLabel passLabel = new JLabel("Contrase\u00F1a:");
         passLabel.setBounds(21, 358, 179, 53);
@@ -255,8 +288,8 @@ public class UserInfoWindow extends JFrame {
                 CarritoCompra cart = new CarritoCompra(comprador, _cctrl);
             }
         });
-        // no se pq al comentarlo funciona el dar a la cruz roja y cerrarse
-       //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
@@ -309,6 +342,7 @@ public class UserInfoWindow extends JFrame {
         idText.setText(vendedor.getId().toString());
         nombreText.setText(vendedor.getNombre());
         emailText.setText(vendedor.getEmail());
+        telefonoText.setText(vendedor.getTelefono().toString());
         passwordField.setText(vendedor.getPassword());
     }
 

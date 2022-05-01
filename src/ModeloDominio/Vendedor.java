@@ -68,7 +68,7 @@ public class Vendedor {
         return Articulos;
     }
 
-    public void setArticulos(List<Articulo> Articulo) {
+    public void setArticulos(List<Articulo> Articulos) {
         this.Articulos = Articulos;
     }
     //endregion
