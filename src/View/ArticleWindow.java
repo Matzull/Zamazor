@@ -2,6 +2,10 @@ package View;
 
 import Misc.Util;
 import ModeloDominio.Articulo;
+import ModeloDominio.Comprador;
+import ModeloDominio.Pedido;
+import View.Controllers.CompradorController;
+import View.Controllers.PedidoController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class ArticleWindow extends JDialog {
 
@@ -24,17 +29,25 @@ public class ArticleWindow extends JDialog {
 	private JCheckBox stockCheckBox;
 	private MainWindow mainWindow;
 	private ImageIcon _image;
+	private CompradorController _cctrl;
 
 	private Articulo articulo;
 
-	public ArticleWindow(MainWindow mainWindow, Articulo articulo) {
+	private Comprador comp;
+
+	public ArticleWindow(MainWindow mainWindow, Articulo articulo, Comprador comp, CompradorController _cctrl) {
 
 		setModal(true);
+
+
 
 		this.mainWindow = mainWindow;
 
 		this.articulo = articulo;
 
+		this.comp = comp;
+
+		this._cctrl = _cctrl;
 		//setBounds(100, 100, 500, 400);
 		setLocation(100, 100);
 		setMinimumSize(new Dimension(500, 500));
@@ -43,16 +56,16 @@ public class ArticleWindow extends JDialog {
 		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(Util._bodyColor);
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JLabel idLabel = new JLabel("Id:");
 		idLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(idLabel);
-		
+
 		idTxtField = new JTextField();
 		idTxtField.setHorizontalAlignment(SwingConstants.LEFT);
 		idTxtField.setBackground(Util._bodyColor);
@@ -65,11 +78,11 @@ public class ArticleWindow extends JDialog {
 				//fillFields();
 			}
 		});
-		
+
 		JLabel nombrelbl = new JLabel("Nombre:");
 		nombrelbl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(nombrelbl);
-		
+
 		nombreTextField = new JTextField();
 		nombreTextField.setHorizontalAlignment(SwingConstants.LEFT);
 		nombreTextField.setBackground(Util._bodyColor);
@@ -87,67 +100,68 @@ public class ArticleWindow extends JDialog {
 		precioTxtField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(precioTxtField);
 		precioTxtField.setColumns(10);
-		
+
 		JLabel stocklbl = new JLabel("Stock:");
 		stocklbl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(stocklbl);
-		
+
 		stockCheckBox = new JCheckBox("");
 		stockCheckBox.setBackground(Util._bodyColor);
 		stockCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(stockCheckBox);
-		
+
 		JLabel desclabel = new JLabel("Descripcion:");
 		desclabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(desclabel);
-		
+
 		descTextField = new JTextField();
 		descTextField.setBackground(Util._bodyColor);
 		descTextField.setColumns(10);
 		descTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(descTextField);
-		
+
 		JLabel valLbl = new JLabel("Valoracion:");
 		valLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(valLbl);
-		
+
 		valTextField = new JTextField();
 		valTextField.setBackground(Util._bodyColor);
 		valTextField.setColumns(10);
 		valTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(valTextField);
-		
+
 		JLabel tipoLbl = new JLabel("Tipo:");
 		tipoLbl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(tipoLbl);
-		
+
 		tipoTextField = new JTextField();
 		tipoTextField.setBackground(Util._bodyColor);
 		tipoTextField.setColumns(10);
 		tipoTextField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(tipoTextField);
-		
+
 		JLabel lblVendedor = new JLabel("Id vendedor:");
 		lblVendedor.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblVendedor);
-		
+
 		idVendTextField = new JTextField();
 		idVendTextField.setBackground(Util._bodyColor);
 		panel.add(idVendTextField);
 		idVendTextField.setBorder(new EmptyBorder(0,0,0,0));
 		idVendTextField.setColumns(10);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Util._barColor);
 		contentPane.add(panel_1, BorderLayout.NORTH);
-		
+
 		JLabel zamazorBlancoIcon = new JLabel("");
 		ImageIcon iconLogo = new ImageIcon("resources/IconoZamazor.png");
 		zamazorBlancoIcon.setIcon(iconLogo);
 		panel_1.add(zamazorBlancoIcon);
-		
+
 		JPanel panel_2 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+		flowLayout.setHgap(15);
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.SOUTH);
@@ -163,6 +177,19 @@ public class ArticleWindow extends JDialog {
 		iconLogo = new ImageIcon("resources/IconoOkey.png");
 		aceptarButton.setIcon(iconLogo);
 
+		JButton cart = new JButton("A\u00F1adir al carrito");
+		cart.setBackground(Util._barColor);
+		cart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addToCart();
+			}
+		});
+		if (comp != null)
+		{
+			panel_2.add(cart);
+		}
+		panel_2.add(aceptarButton);
+
 
 
 		idTxtField.setEditable(false);
@@ -174,8 +201,6 @@ public class ArticleWindow extends JDialog {
 		tipoTextField.setEditable(false);
 		idVendTextField.setEditable(false);
 		stockCheckBox.setEnabled(false);
-
-		panel_2.add(aceptarButton);
 
 		fillFields();
 
@@ -197,11 +222,11 @@ public class ArticleWindow extends JDialog {
 
 	}
 
-	public void aceptar(){
+	private void aceptar(){
 		this.setVisible(false);
 	}
 
-	public void fillFields()
+	private void fillFields()
 	{
 		System.out.print(articulo.getNombre());
 		if (articulo != null)
@@ -218,7 +243,23 @@ public class ArticleWindow extends JDialog {
 			idVendTextField.setText(Integer.toString(articulo.getVendedor_id()));
 			stockCheckBox.setSelected(articulo.getStock());
 		}
-		 
+
+	}
+
+	private void addToCart()
+	{
+		PedidoController _pctrl = new PedidoController();//Temporal
+		Pedido cart = _pctrl.consultarPedido(comp.getId(), true);
+		List<Pedido> pedidos = comp.getPedidos();
+		pedidos.remove(cart);
+		List<Articulo> arts = cart.getArticulos();
+		arts.add(articulo);
+		cart.setArticulos(arts);
+		pedidos.add(cart);
+		comp.setPedidos(pedidos);
+		_pctrl.modificarPedido(cart);
+		JOptionPane.showMessageDialog(null, "Articulo añadido a su cesta");
+		dispose();
 	}
 
 }

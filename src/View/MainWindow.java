@@ -237,7 +237,7 @@ public class MainWindow {
     }
 
     protected void eventoClickArticulo() {
-    	ArticleWindow ventanaArticulo = new ArticleWindow(this, list.getSelectedValue());
+    	ArticleWindow ventanaArticulo = new ArticleWindow(this, list.getSelectedValue(), comp, _cctrl);
     	ventanaArticulo.setVisible(true);
 		
 	}
