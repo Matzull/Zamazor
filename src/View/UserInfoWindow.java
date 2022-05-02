@@ -135,10 +135,21 @@ public class UserInfoWindow extends JFrame {
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Datos actualizados. Desactivado modo edicion de cuenta", "Modificar cuenta", 0 , save);
                         enableEdit();
-                        comprador.setNombre(nombreText.getText());
-                        comprador.setEmail(emailText.getText());
-                        comprador.setCuenta(userText.getText());
-                        _cctrl.modificarComprador(comprador);
+
+                        if(comprador != null)
+                        {
+                            comprador.setNombre(nombreText.getText());
+                            comprador.setEmail(emailText.getText());
+                            comprador.setCuenta(userText.getText());
+                            _cctrl.modificarComprador(comprador);
+                        }
+                        else
+                        {
+                            vendedor.setNombre(nombreText.getText());
+                            vendedor.setEmail(emailText.getText());
+                            vendedor.setTelefono(Long.parseLong(telefonoText.getText()));
+                            _vctrl.modificarVendedor(vendedor);
+                        }
                     }
                 }
             }
