@@ -102,10 +102,10 @@ public class DAOarticulo implements IDAOArticulo
         boolean correct = true;
         try
         {
-            if (consultarArticulo(a.getId()).getNombre() == "")
-            {
-                throw new Exception("");
-            }
+           // if (consultarArticulo(a.getId()).getNombre() == "")
+            //{
+             //   throw new Exception("");
+           // }
             QUERY = "UPDATE Articulos SET  _Nombre = " + "'" + a.getNombre() + "'" + ",_Precio= " +a.getPrecio() +
                     ",_Stock = " + a.getStock() + ",_Description = " + "'" + a.getDescripcion() + "'" +
                     ",_Valoracion = " +a.getValoracion()+ ",_Tipo = " + "'" + a.getTipo() + "'"+ ",_Vendedor_id = "+a.getVendedor_id() +  " WHERE _ID = " + a.getId();
