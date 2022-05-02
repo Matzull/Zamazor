@@ -35,11 +35,9 @@ public class ArticleWindow extends JDialog {
 
 	private Comprador comp;
 
-	public ArticleWindow(MainWindow mainWindow, Articulo articulo, Comprador comp, CompradorController _cctrl) {
+	public ArticleWindow(Articulo articulo, Comprador comp, CompradorController _cctrl) {
 
 		setModal(true);
-
-
 
 		this.mainWindow = mainWindow;
 
@@ -155,7 +153,7 @@ public class ArticleWindow extends JDialog {
 		contentPane.add(panel_1, BorderLayout.NORTH);
 
 		JLabel zamazorBlancoIcon = new JLabel("");
-		ImageIcon iconLogo = new ImageIcon("resources/IconoZamazor.png");
+		ImageIcon iconLogo = new ImageIcon("resources/zamazor.png");
 		zamazorBlancoIcon.setIcon(iconLogo);
 		panel_1.add(zamazorBlancoIcon);
 

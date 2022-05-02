@@ -36,7 +36,7 @@ public class UserPedidos extends JDialog {
     public UserPedidos(Comprador c, CompradorController _cctrl){
         setModal(true);
         this.comp = c;
-        this._pedidos = c.getPedidos();
+        this._pedidos = new ArrayList<Pedido>(c.getPedidos());
 
         this._cctrl = _cctrl;
         initGUI();
@@ -44,7 +44,6 @@ public class UserPedidos extends JDialog {
     }
 
     private Map<Integer, ImageIcon> createImageMap(java.util.List<Articulo> fullTable,Map<Integer, ImageIcon> map) {
-
 
         for (Articulo s : fullTable) {
             map.put(s.getId(), s.getImage(1));
@@ -61,8 +60,6 @@ public class UserPedidos extends JDialog {
         contentPane.setLayout(new BorderLayout(0, 0));
 
         modeloJLista = new DefaultListModel<>();
-
-        _pctrl = new PedidoController();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -97,13 +94,11 @@ public class UserPedidos extends JDialog {
         Total_pay.setBackground(Util._barColor);
 
         JButton volverButton = new JButton();
-        volverButton.setBorder(null);
-        volverButton.setPreferredSize(new Dimension(100,50));
-        volverButton.setBackground(Util._bodyColor);
+        volverButton.setBackground(Util._barColor);
         volverButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         volverButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                setVisible(false);
             }
         });
         volverButton.setText("volver");

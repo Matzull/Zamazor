@@ -100,8 +100,8 @@ public class MainWindow {
         panel.add(panel_1, BorderLayout.CENTER);
 
         JLabel fotoZamazor = new JLabel();
-        ImageIcon iconLogo = Util.scaleImage(new ImageIcon("resources/IconoZamazor.png"), 3);
-        fotoZamazor.setIcon(iconLogo);
+        ImageIcon iconLogo = new ImageIcon("resources/zamazor.png");
+        fotoZamazor.setIcon(Util.scaleImage(iconLogo, 3));
         panel_1.add(fotoZamazor);
 
         JPanel panel_2 = new JPanel();
@@ -183,7 +183,7 @@ public class MainWindow {
                 }
                 else if(vendor == 1)
                 {
-                    UserInfoWindow userInfo = new UserInfoWindow(vend, _vctrl);
+                    UserInfoWindow userInfo = new UserInfoWindow(vend, _vctrl, _actrl);
                 }
                 else if(vendor == 2)
                 {
@@ -237,7 +237,7 @@ public class MainWindow {
     }
 
     protected void eventoClickArticulo() {
-    	ArticleWindow ventanaArticulo = new ArticleWindow(this, list.getSelectedValue(), comp, _cctrl);
+    	ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(), comp, _cctrl);
     	ventanaArticulo.setVisible(true);
 		
 	}

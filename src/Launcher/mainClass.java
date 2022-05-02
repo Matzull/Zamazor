@@ -13,7 +13,8 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					String looknfeel = UIManager.getSystemLookAndFeelClassName();
+					UIManager.setLookAndFeel(looknfeel);
 					//MainWindowAdministrador frame = new MainWindowAdministrador(new ArticuloController());
 					//frame.setVisible(true);
 

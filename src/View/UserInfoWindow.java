@@ -3,6 +3,7 @@ package View;
 import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
+import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.VendedorController;
 
@@ -31,6 +32,7 @@ public class UserInfoWindow extends JFrame {
     private JButton pedidosButton, modificarButton, eliminarButton, cartButtton, returnButton;
     private CompradorController _cctrl;
     private VendedorController _vctrl;
+    private ArticuloController _actrl;
 
 
     /**
@@ -49,8 +51,9 @@ public class UserInfoWindow extends JFrame {
      * @param vendedor se pasa a la constructora el vendedor registrado y se cargaran
      *        todos sus datos (con fillVendor()) junto con la ventana en la funcion initGUI()
      */
-    public UserInfoWindow(Vendedor vendedor, VendedorController _vctrl) {
+    public UserInfoWindow(Vendedor vendedor, VendedorController _vctrl, ArticuloController _actrl) {
         this.vendedor = vendedor;
+        this._actrl = _actrl;
         loadIcon();
         this.setVisible(true);
         initGUI();
@@ -103,7 +106,7 @@ public class UserInfoWindow extends JFrame {
             pedidosButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     //Mostrar los pedidos del usuario
-                    UserArticulos ar = new UserArticulos(vendedor, _vctrl);
+                    UserArticulos ar = new UserArticulos(vendedor, _vctrl, _actrl);
                 }
             });
         }
@@ -238,6 +241,8 @@ public class UserInfoWindow extends JFrame {
             telefonoText.setHorizontalAlignment(SwingConstants.LEFT);
             infoPanel.add(telefonoText);
             telefonoText.setColumns(10);
+
+
         }
 
         JLabel passLabel = new JLabel("Contrase\u00F1a:");
@@ -275,22 +280,23 @@ public class UserInfoWindow extends JFrame {
         toolBar.add(returnButton);
         
         toolBar.add(Box.createHorizontalGlue());
-       
-        cartButtton = new JButton("");
-        cartButtton.setBorderPainted(false);
-        cartButtton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        cartButtton.setBackground(Util._barColor);
-        cartButtton.setBorder(UIManager.getBorder("DesktopIcon.border"));
-        toolBar.add(cartButtton);
-        cartButtton.setIcon(Util.scaleImage(cart,0.35));
-        cartButtton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CarritoCompra cart = new CarritoCompra(comprador, _cctrl);
-            }
-        });
 
-       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        if(vendedor == null)
+        {
+            cartButtton = new JButton("");
+            cartButtton.setBorderPainted(false);
+            cartButtton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            cartButtton.setBackground(Util._barColor);
+            cartButtton.setBorder(UIManager.getBorder("DesktopIcon.border"));
+            toolBar.add(cartButtton);
+            cartButtton.setIcon(Util.scaleImage(cart,0.35));
+            cartButtton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    CarritoCompra cart = new CarritoCompra(comprador, _cctrl);
+                }
+            });
+        }
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void enableEdit() {

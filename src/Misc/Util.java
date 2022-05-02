@@ -16,6 +16,10 @@ public class Util {
     public static final Color _barColor = new Color(147, 112, 219);
     public static final Color _bodyColor = new Color(250, 235, 215);
 
+
+    //public static final Color _barColor = new Color(49, 55, 70);
+    //public static final Color _bodyColor = new Color(250, 235, 215);
+
     /**
      * esta clase sirve para escalar una imagen en otra de distinto tamaño
      * metiendo sus dimensiones en enteros locales y creando nuevas dimensiones con

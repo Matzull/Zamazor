@@ -156,7 +156,7 @@ public class Register_C extends JFrame {
 		panel_2.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		iconLogo = new ImageIcon("resources/IconoZamazor.png");
+		iconLogo = new ImageIcon("resources/zamazor.png");
 		lblNewLabel_2.setIcon(iconLogo);
 		panel_2.add(lblNewLabel_2);
 	}

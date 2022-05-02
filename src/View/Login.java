@@ -114,16 +114,6 @@ public class Login extends JDialog {
 		JButton okaybtn = new JButton("Ok");
 		okaybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(login(txtUsuario.getText(), passwordField.getPassword()))
-				{
-					JOptionPane.showMessageDialog(null, "LogIn correcto");
-					setVisible(false);
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(panel_1, "Usuario o contrase\u00F1a erroneos", "error", JOptionPane.ERROR_MESSAGE);
-				}
-
 				aceptar();
 			}
 		});
@@ -186,7 +176,7 @@ public class Login extends JDialog {
 		panel_2.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		iconLogo = new ImageIcon("resources/IconoZamazor.png");
+		iconLogo = new ImageIcon("resources/zamazor.png");
 		lblNewLabel_2.setIcon(iconLogo);
 		panel_2.add(lblNewLabel_2);
 	}

@@ -149,7 +149,7 @@ public class ArticleWindow4vendor extends JDialog {
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		
 		JLabel zamazorBlancoIcon = new JLabel("");
-		ImageIcon iconLogo = new ImageIcon("resources/IconoZamazor.png");
+		ImageIcon iconLogo = new ImageIcon("resources/zamazor.png");
 		zamazorBlancoIcon.setIcon(iconLogo);
 		panel_1.add(zamazorBlancoIcon);
 		
@@ -223,7 +223,7 @@ public class ArticleWindow4vendor extends JDialog {
 		botonArchivo.setBackground(Util._bodyColor);
 		fcpPanel.add(botonArchivo, BorderLayout.SOUTH);
 		
-		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/IconoZamazor.png")));
+		botonArchivo.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("resources/zamazor.png")));
 		botonArchivo.setToolTipText("boton para abrir");
 
 		botonArchivo.addActionListener((e)->{

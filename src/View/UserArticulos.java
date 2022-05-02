@@ -5,6 +5,7 @@ import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
 import ModeloDominio.Vendedor;
+import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
 import View.Controllers.VendedorController;
@@ -30,14 +31,16 @@ public class UserArticulos extends JDialog {
     private JButton ArticulosButton;
     private PedidoController _pctrl;
     private VendedorController _vctrl;
+    private ArticuloController _actrl;
     private Vendedor v;
     private JButton volverButton;
 
 
-    public UserArticulos(Vendedor v, VendedorController _vctrl){
+    public UserArticulos(Vendedor v, VendedorController _vctrl, ArticuloController _actrl){
         setModal(true);
         this.v = v;
         this._vctrl = _vctrl;
+        this._actrl = _actrl;
         initGUI();
         setVisible(true);
     }
@@ -93,10 +96,25 @@ public class UserArticulos extends JDialog {
         contentPane.add(Total_pay, BorderLayout.SOUTH);
         Total_pay.setBackground(Util._barColor);
 
+        JButton anadirButton = new JButton();
+        anadirButton.setBorder(null);
+        anadirButton.setPreferredSize(new Dimension(100,50));
+        anadirButton.setBackground(Util._bodyColor);
+        anadirButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        anadirButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(),null, null);
+                ventanaArticulo.setVisible(true);
+            }
+        });
+        anadirButton.setText("Elminar articulo");
+        Total_pay.add(anadirButton);
+
         JButton volverButton = new JButton();
-        volverButton.setBorder(null);
-        volverButton.setPreferredSize(new Dimension(100,50));
-        volverButton.setBackground(Util._bodyColor);
+        //volverButton.setBorder(null);
+        //volverButton.setPreferredSize(new Dimension(100,50));
+        volverButton.setBackground(Util._barColor);
         volverButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         volverButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
