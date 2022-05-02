@@ -3,7 +3,6 @@ package View;
 import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
-import ModeloDominio.Articulo;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.VendedorController;
@@ -97,17 +96,16 @@ public class UserInfoWindow extends JFrame {
             pedidosButton.setBackground(Util._barColor);
             pedidosButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    //Mostrar los pedidos del usuario
                     UserPedidos pe = new UserPedidos(comprador, _cctrl);
                 }
             });
         }
+
         else if(vendedor != null){
             pedidosButton = new JButton("Articulos");
             pedidosButton.setBackground(Util._barColor);
             pedidosButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    //Mostrar los pedidos del usuario
                     UserArticulos ar = new UserArticulos(vendedor, _vctrl, _actrl);
                 }
             });
@@ -137,21 +135,12 @@ public class UserInfoWindow extends JFrame {
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Datos actualizados. Desactivado modo edicion de cuenta", "Modificar cuenta", 0 , save);
                         enableEdit();
-                        
-                        if(vendedor != null) {
-                        	vendedor.setNombre(nombreText.getText());
-                        	vendedor.setEmail(emailText.getText());
-                        	vendedor.setTelefono(Long.parseLong(telefonoText.getText()));
-                            _vctrl.modificarVendedor(vendedor);
-                        }else {
-                        	comprador.setNombre(nombreText.getText());
-                            comprador.setEmail(emailText.getText());
-                            comprador.setCuenta(userText.getText());
-                            _cctrl.modificarComprador(comprador);
-                        }
+                        comprador.setNombre(nombreText.getText());
+                        comprador.setEmail(emailText.getText());
+                        comprador.setCuenta(userText.getText());
+                        _cctrl.modificarComprador(comprador);
                     }
                 }
-
             }
         });
         
@@ -171,16 +160,8 @@ public class UserInfoWindow extends JFrame {
                     int j = JOptionPane.showConfirmDialog(null, "¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
+                        _cctrl.bajaComprador(comprador.getId());
                         dispose();
-                        if(vendedor != null) {         
-                        	//Borrar articulos del vendedor
-                        	for (Articulo x: vendedor.getArticulos()) {
-                        		_actrl.bajaArticulo(x.getId());
-                        	}
-                            _vctrl.bajaVendedor(vendedor.getId());
-                        }else {
-                        	_cctrl.bajaComprador(comprador.getId());
-                        }
                     }
                 }
             }
@@ -258,8 +239,6 @@ public class UserInfoWindow extends JFrame {
             telefonoText.setHorizontalAlignment(SwingConstants.LEFT);
             infoPanel.add(telefonoText);
             telefonoText.setColumns(10);
-
-
         }
 
         JLabel passLabel = new JLabel("Contrase\u00F1a:");
@@ -298,9 +277,9 @@ public class UserInfoWindow extends JFrame {
         
         toolBar.add(Box.createHorizontalGlue());
 
+        cartButtton = new JButton("");
         if(vendedor == null)
         {
-            cartButtton = new JButton("");
             cartButtton.setBorderPainted(false);
             cartButtton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             cartButtton.setBackground(Util._barColor);
@@ -324,18 +303,13 @@ public class UserInfoWindow extends JFrame {
             idText.setEditable(false);
             userText.setEditable(true);
             passwordField.setEditable(false);
-            
+            telefonoText.setEditable(true);
             editable = true;
             //passwordField.setEchoChar((char) 0);
-           
+            cartButtton.setEnabled(false);
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
             returnButton.setEnabled(false);
-            if(comprador == null) {
-            	telefonoText.setEditable(true);
-            }else {
-            	 cartButtton.setEnabled(false);
-            }
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
         else {
@@ -343,18 +317,15 @@ public class UserInfoWindow extends JFrame {
             emailText.setEditable(false);
             idText.setEditable(false);
             userText.setEditable(false);
+            telefonoText.setEditable(false);
+            telefonoText.setEditable(false);
             passwordField.setEditable(false);
             editable = false;
             passwordField.setEchoChar('*');
+            cartButtton.setEnabled(true);
             eliminarButton.setEnabled(true);
             pedidosButton.setEnabled(true);
             returnButton.setEnabled(true);
-            
-            if(comprador == null) {
-            	telefonoText.setEditable(true);
-            }else {
-            	 cartButtton.setEnabled(false);
-            }
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
     }

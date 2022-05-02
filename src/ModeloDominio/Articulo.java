@@ -144,4 +144,16 @@ public class Articulo{
         return Integer.toString(this.id);
     }
 
+    @Override
+    public boolean equals(Object a)
+    {
+        boolean ret = false;
+        Articulo art = (Articulo) a;
+        if (this.id == art.getId() && this.nombre.equals(art.getNombre()))
+        {
+            ret = true;
+        }
+        return ret;
+    }
+
 }

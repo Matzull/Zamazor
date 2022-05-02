@@ -104,6 +104,10 @@ public class UserArticulos extends JDialog {
 
                 ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(), _actrl, Util.Emode.Anadir, _vctrl, v);
                 ventanaArticulo.setVisible(true);
+                crearModeloJlist(v.getArticulos());
+                list.setModel(modeloJLista);
+                list.setCellRenderer(new UserArticulos.CellRenderer());
+                scrollPane.setViewportView(list);
             }
         });
         
@@ -128,9 +132,10 @@ public class UserArticulos extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 List<Articulo> articulos = v.getArticulos();
                 articulos.remove(list.getSelectedValue());
-                v.setArticulos(articulos);
-                _vctrl.modificarVendedor(v);
-                _actrl.bajaArticulo(list.getSelectedValue().getId());
+                crearModeloJlist(v.getArticulos());
+                list.setModel(modeloJLista);
+                list.setCellRenderer(new UserArticulos.CellRenderer());
+                scrollPane.setViewportView(list);
             }
         });
         

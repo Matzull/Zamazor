@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_Update_at_03_05_2022_1_14_[Changes]" date="1651533319620" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.shelf/Uncommitted_changes_before_Update_at_03_05_2022_1_14_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 03/05/2022 1:14 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="resources/Zamazor.db" />
+    <option name="AFTER_PATH" value="resources/Zamazor.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.shelf/Uncommitted_changes_before_Update_at_03_05_2022_1_14_[Changes]/Zamazor.db" />
+  </binary>
+</changelist>
