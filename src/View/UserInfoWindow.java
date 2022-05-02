@@ -171,7 +171,15 @@ public class UserInfoWindow extends JFrame {
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
                         dispose();
-                        _cctrl.bajaComprador(comprador.getId());
+                        if(vendedor != null) {         
+                        	//Borrar articulos del vendedor
+                        	for (Articulo x: vendedor.getArticulos()) {
+                        		_actrl.bajaArticulo(x.getId());
+                        	}
+                            _vctrl.bajaVendedor(vendedor.getId());
+                        }else {
+                        	_cctrl.bajaComprador(comprador.getId());
+                        }
                     }
                 }
             }
@@ -315,13 +323,18 @@ public class UserInfoWindow extends JFrame {
             idText.setEditable(false);
             userText.setEditable(true);
             passwordField.setEditable(false);
-            telefonoText.setEditable(true);
+            
             editable = true;
             //passwordField.setEchoChar((char) 0);
-            //cartButtton.setEnabled(false);
+           
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
             returnButton.setEnabled(false);
+            if(comprador == null) {
+            	telefonoText.setEditable(true);
+            }else {
+            	 cartButtton.setEnabled(false);
+            }
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
         else {
@@ -329,15 +342,18 @@ public class UserInfoWindow extends JFrame {
             emailText.setEditable(false);
             idText.setEditable(false);
             userText.setEditable(false);
-            telefonoText.setEditable(false);
-            telefonoText.setEditable(false);
             passwordField.setEditable(false);
             editable = false;
             passwordField.setEchoChar('*');
-            //cartButtton.setEnabled(true);
             eliminarButton.setEnabled(true);
             pedidosButton.setEnabled(true);
             returnButton.setEnabled(true);
+            
+            if(comprador == null) {
+            	telefonoText.setEditable(true);
+            }else {
+            	 cartButtton.setEnabled(false);
+            }
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
     }
