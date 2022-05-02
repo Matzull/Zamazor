@@ -4,17 +4,23 @@ import Misc.Util;
 import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
+import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.List;
+import Misc.Util;
 
 public class ArticleWindow extends JDialog {
 
@@ -30,28 +36,39 @@ public class ArticleWindow extends JDialog {
 	private MainWindow mainWindow;
 	private ImageIcon _image;
 	private CompradorController _cctrl;
+	private ArticuloController _actrl;
+	private Util.Emode mode;//0 modif, 1 add
 
 	private Articulo articulo;
 
 	private Comprador comp;
 
+	/**
+	 * @wbp.parser.constructor
+	 */
+	public ArticleWindow(Articulo articulo, ArticuloController _actrl, Util.Emode mode)
+	{
+		this._actrl = _actrl;
+		this.articulo = articulo;
+		this.mode = mode;
+		initGui();
+	}
+
 	public ArticleWindow(Articulo articulo, Comprador comp, CompradorController _cctrl) {
 
-		setModal(true);
-
-		this.mainWindow = mainWindow;
-
 		this.articulo = articulo;
-
 		this.comp = comp;
-
 		this._cctrl = _cctrl;
-		//setBounds(100, 100, 500, 400);
+		mode = Util.Emode.Consultar;
+		initGui();
+	}
+
+	private void initGui(){
+		setModal(true);
 		setLocation(100, 100);
 		setMinimumSize(new Dimension(500, 500));
 		contentPane = new JPanel();
 		contentPane.setBackground(Util._bodyColor);
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
@@ -190,15 +207,36 @@ public class ArticleWindow extends JDialog {
 
 
 
-		idTxtField.setEditable(false);
-		//aceptarButton.setVisible(false);
-		nombreTextField.setEditable(false);
-		descTextField.setEditable(false);
-		valTextField.setEditable(false);
-		precioTxtField.setEditable(false);
-		tipoTextField.setEditable(false);
-		idVendTextField.setEditable(false);
-		stockCheckBox.setEnabled(false);
+		if(mode == Util.Emode.Anadir || mode == Util.Emode.Modificar) {
+			setEditable(true);
+			idTxtField.setBackground(Color.WHITE);
+			idTxtField.setBorder(new LineBorder(Color.BLACK, 1));
+			nombreTextField.setBorder(new LineBorder(Color.BLACK, 1));
+			descTextField.setBorder(new LineBorder(Color.BLACK, 1));
+			valTextField.setBorder(new LineBorder(Color.BLACK, 1));
+			precioTxtField.setBorder(new LineBorder(Color.BLACK, 1));
+			tipoTextField.setBorder(new LineBorder(Color.BLACK, 1));
+			idVendTextField.setBorder(new LineBorder(Color.BLACK, 1));
+			stockCheckBox.setBorder(new LineBorder(Color.BLACK, 1));
+
+			if(mode == Util.Emode.Anadir) {
+
+				JLabel imagenLbl = new JLabel("Imagen:");
+				imagenLbl.setHorizontalAlignment(SwingConstants.CENTER);
+				panel.add(imagenLbl);
+
+				JButton anadirImagen = new JButton("Anadir imagen");
+				anadirImagen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						anadirImagenBD();
+					}
+				});
+
+				panel.add(anadirImagen);
+			}
+		}else {
+			setEditable(false);
+		}
 
 		fillFields();
 
@@ -260,6 +298,39 @@ public class ArticleWindow extends JDialog {
 		dispose();
 	}
 
+	public void setEditable(boolean editable) {
+		if(editable) {
+			nombreTextField.setEditable(true);
+			descTextField.setEditable(true);
+			valTextField.setEditable(true);
+			precioTxtField.setEditable(true);
+			tipoTextField.setEditable(true);
+			idVendTextField.setEditable(false);
+			idTxtField.setEditable(false);
+			stockCheckBox.setEnabled(true);
+		}else {
+			nombreTextField.setEditable(false);
+			descTextField.setEditable(false);
+			valTextField.setEditable(false);
+			precioTxtField.setEditable(false);
+			tipoTextField.setEditable(false);
+			idVendTextField.setEditable(false);
+			stockCheckBox.setEnabled(false);
+		}
+	}
+	private void anadirImagenBD() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.showOpenDialog(null);
+		File f = chooser.getSelectedFile();
+		String filename = f.getAbsolutePath();
+		try {
+			ImageIcon image=new ImageIcon(filename);//get the image from file chooser and scale it to match JLabel size
+			// imageLabel
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
 
 
 }

@@ -97,32 +97,61 @@ public class UserArticulos extends JDialog {
         Total_pay.setBackground(Util._barColor);
 
         JButton anadirButton = new JButton();
-        anadirButton.setBorder(null);
-        anadirButton.setPreferredSize(new Dimension(100,50));
-        anadirButton.setBackground(Util._bodyColor);
+        anadirButton.setBackground(Util._barColor);
         anadirButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         anadirButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(),null, null);
+                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(), _actrl, Util.Emode.Anadir);
                 ventanaArticulo.setVisible(true);
             }
         });
-        anadirButton.setText("Elminar articulo");
-        Total_pay.add(anadirButton);
-
-        JButton volverButton = new JButton();
-        //volverButton.setBorder(null);
-        //volverButton.setPreferredSize(new Dimension(100,50));
-        volverButton.setBackground(Util._barColor);
-        volverButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        volverButton.addActionListener(new ActionListener() {
+        
+        JButton volverButton_1 = new JButton();
+        volverButton_1.setBackground(Util._barColor);
+        volverButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        volverButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
             }
         });
-        volverButton.setText("volver");
-        Total_pay.add(volverButton);
+        volverButton_1.setText("volver");
+        Total_pay.add(volverButton_1);
+
+        anadirButton.setText("A\u00F1adir art\u00EDculo");
+        Total_pay.add(anadirButton);
+
+        JButton eliminarButton = new JButton();
+        eliminarButton.setBackground(Util._barColor);
+        eliminarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        eliminarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                List<Articulo> articulos = v.getArticulos();
+                articulos.remove(list.getSelectedValue());
+                v.setArticulos(articulos);
+                _vctrl.modificarVendedor(v);
+                _actrl.bajaArticulo(list.getSelectedValue().getId());
+            }
+        });
+        
+                JButton editarButton = new JButton();
+                editarButton.setBackground(Util._barColor);
+                editarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                editarButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+
+                        ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(),_actrl, Util.Emode.Modificar);
+                        ventanaArticulo.setVisible(true);
+                        crearModeloJlist(v.getArticulos());
+                        list.setModel(modeloJLista);
+                        list.setCellRenderer(new UserArticulos.CellRenderer());
+                        scrollPane.setViewportView(list);
+                    }
+                });
+                editarButton.setText("Editar art\u00EDculo");
+                Total_pay.add(editarButton);
+        eliminarButton.setText("Elminar art\u00EDculo");
+        Total_pay.add(eliminarButton);
 
         JLabel Total_lbl = new JLabel("Total:");
         Total_lbl.setFont(new Font("Arial", Font.PLAIN, 14));

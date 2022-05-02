@@ -90,7 +90,7 @@ public class Articulo{
         return idVendedor;
     }
 
-    public ImageIcon getImage(double scale){return Util.scaleImage(_image, scale);}
+    public ImageIcon getImage(double scale){return (_image == null) ? null : Util.scaleImage(_image, scale);}
 
     public ImageIcon getImage(){return _image;}
 

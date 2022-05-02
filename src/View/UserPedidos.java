@@ -94,7 +94,9 @@ public class UserPedidos extends JDialog {
         Total_pay.setBackground(Util._barColor);
 
         JButton volverButton = new JButton();
-        volverButton.setBackground(Util._barColor);
+        volverButton.setBorder(null);
+        volverButton.setPreferredSize(new Dimension(100,50));
+        volverButton.setBackground(Util._bodyColor);
         volverButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         volverButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
