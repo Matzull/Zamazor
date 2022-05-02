@@ -107,10 +107,10 @@ public class DAOvendedor implements IDAOAVendedor
         boolean correct = true;
         try
         {
-            if (consultarVendedor(v.getNombre()).getNombre() == "")
-            {
-                throw new Exception("");
-            }
+            //if (consultarVendedor(v.getNombre()).getNombre() == "")
+            //{
+              //  throw new Exception("");
+           // }
             QUERY = "UPDATE Vendedores SET   _Nombre = " + "'" + v.getNombre() + "'" +
                     ", _Email = " + "'" + v.getEmail() + "'" +
                     ", _Telefono = " + "'" + v.getTelefono() + "'" +
