@@ -54,6 +54,7 @@ public class UserInfoWindow extends JFrame {
     public UserInfoWindow(Vendedor vendedor, VendedorController _vctrl, ArticuloController _actrl) {
         this.vendedor = vendedor;
         this._actrl = _actrl;
+        this._vctrl = _vctrl;
         loadIcon();
         this.setVisible(true);
         initGUI();
@@ -216,13 +217,12 @@ public class UserInfoWindow extends JFrame {
         emailText.setEditable(false);
         infoPanel.add(emailText);
         emailText.setColumns(10);
+        userText = new JTextField();
         if(comprador != null) {
             JLabel cuentaLabel = new JLabel("Nombre de usuario:");
             cuentaLabel.setBounds(21, 280, 179, 53);
             cuentaLabel.setHorizontalAlignment(SwingConstants.CENTER);
             infoPanel.add(cuentaLabel);
-
-            userText = new JTextField();
             userText.setBounds(171, 280, 384, 53);
             userText.setEditable(false);
             userText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -307,8 +307,9 @@ public class UserInfoWindow extends JFrame {
             idText.setEditable(false);
             userText.setEditable(true);
             passwordField.setEditable(false);
+            telefonoText.setEditable(true);
             editable = true;
-            passwordField.setEchoChar((char) 0);
+            //passwordField.setEchoChar((char) 0);
             cartButtton.setEnabled(false);
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
@@ -320,6 +321,8 @@ public class UserInfoWindow extends JFrame {
             emailText.setEditable(false);
             idText.setEditable(false);
             userText.setEditable(false);
+            telefonoText.setEditable(false);
+            telefonoText.setEditable(false);
             passwordField.setEditable(false);
             editable = false;
             passwordField.setEchoChar('*');

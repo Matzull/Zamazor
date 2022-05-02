@@ -134,6 +134,11 @@ public class Articulo{
         else return null;
     }
 
+    public ImageIcon getIcon()
+    {
+        return _image;
+    }
+
     public String toString()
     {
         return Integer.toString(this.id);

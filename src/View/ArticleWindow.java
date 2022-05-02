@@ -4,6 +4,7 @@ import Misc.Util;
 import ModeloDominio.Articulo;
 import ModeloDominio.Comprador;
 import ModeloDominio.Pedido;
+import ModeloDominio.Vendedor;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.PedidoController;
@@ -19,8 +20,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import Misc.Util;
+import View.Controllers.VendedorController;
 
 public class ArticleWindow extends JDialog {
 
@@ -37,20 +40,25 @@ public class ArticleWindow extends JDialog {
 	private ImageIcon _image;
 	private CompradorController _cctrl;
 	private ArticuloController _actrl;
+	private VendedorController _vctrl;
 	private Util.Emode mode;//0 modif, 1 add
 
 	private Articulo articulo;
+	private Vendedor vendedor;
 
 	private Comprador comp;
+	JLabel imageLabel;
 
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public ArticleWindow(Articulo articulo, ArticuloController _actrl, Util.Emode mode)
+	public ArticleWindow(Articulo articulo, ArticuloController _actrl, Util.Emode mode, VendedorController _vctrl, Vendedor vend)
 	{
 		this._actrl = _actrl;
 		this.articulo = articulo;
 		this.mode = mode;
+		this._vctrl = _vctrl;
+		this.vendedor = vend;
 		initGui();
 	}
 
@@ -75,16 +83,16 @@ public class ArticleWindow extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBackground(Util._bodyColor);
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		panel.setLayout(new GridLayout(0, 2, 0, 10));
 
 		JLabel idLabel = new JLabel("Id:");
 		idLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(idLabel);
 
 		idTxtField = new JTextField();
-		idTxtField.setHorizontalAlignment(SwingConstants.LEFT);
+		idTxtField.setHorizontalAlignment(SwingConstants.CENTER);
 		idTxtField.setBackground(Util._bodyColor);
-		idTxtField.setBorder(new EmptyBorder(0,0,0,0));
+		idTxtField.setBorder(new EmptyBorder(0, 5, 0, 0));
 		panel.add(idTxtField);
 		idTxtField.setColumns(10);
 		idTxtField.addKeyListener(new KeyAdapter() {
@@ -99,7 +107,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(nombrelbl);
 
 		nombreTextField = new JTextField();
-		nombreTextField.setHorizontalAlignment(SwingConstants.LEFT);
+		nombreTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		nombreTextField.setBackground(Util._bodyColor);
 		nombreTextField.setColumns(10);
 		nombreTextField.setBorder(new EmptyBorder(0,0,0,0));
@@ -110,7 +118,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(precioLbl);
 
 		precioTxtField = new JTextField();
-		precioTxtField.setHorizontalAlignment(SwingConstants.LEFT);
+		precioTxtField.setHorizontalAlignment(SwingConstants.CENTER);
 		precioTxtField.setBackground(Util._bodyColor);
 		precioTxtField.setBorder(new EmptyBorder(0,0,0,0));
 		panel.add(precioTxtField);
@@ -130,6 +138,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(desclabel);
 
 		descTextField = new JTextField();
+		descTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		descTextField.setBackground(Util._bodyColor);
 		descTextField.setColumns(10);
 		descTextField.setBorder(new EmptyBorder(0,0,0,0));
@@ -140,6 +149,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(valLbl);
 
 		valTextField = new JTextField();
+		valTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		valTextField.setBackground(Util._bodyColor);
 		valTextField.setColumns(10);
 		valTextField.setBorder(new EmptyBorder(0,0,0,0));
@@ -150,6 +160,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(tipoLbl);
 
 		tipoTextField = new JTextField();
+		tipoTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		tipoTextField.setBackground(Util._bodyColor);
 		tipoTextField.setColumns(10);
 		tipoTextField.setBorder(new EmptyBorder(0,0,0,0));
@@ -160,6 +171,7 @@ public class ArticleWindow extends JDialog {
 		panel.add(lblVendedor);
 
 		idVendTextField = new JTextField();
+		idVendTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		idVendTextField.setBackground(Util._bodyColor);
 		panel.add(idVendTextField);
 		idVendTextField.setBorder(new EmptyBorder(0,0,0,0));
@@ -186,6 +198,14 @@ public class ArticleWindow extends JDialog {
 		aceptarButton.setBackground(Util._barColor);
 		aceptarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (mode == Util.Emode.Anadir)
+				{
+					anadir();
+				}
+				else if(mode == Util.Emode.Modificar)
+				{
+					modificar();
+				}
 				aceptar();
 			}
 		});
@@ -205,11 +225,8 @@ public class ArticleWindow extends JDialog {
 		}
 		panel_2.add(aceptarButton);
 
-
-
 		if(mode == Util.Emode.Anadir || mode == Util.Emode.Modificar) {
 			setEditable(true);
-			idTxtField.setBackground(Color.WHITE);
 			idTxtField.setBorder(new LineBorder(Color.BLACK, 1));
 			nombreTextField.setBorder(new LineBorder(Color.BLACK, 1));
 			descTextField.setBorder(new LineBorder(Color.BLACK, 1));
@@ -226,6 +243,8 @@ public class ArticleWindow extends JDialog {
 				panel.add(imagenLbl);
 
 				JButton anadirImagen = new JButton("Anadir imagen");
+				anadirImagen.setBackground(Util._bodyColor
+				);
 				anadirImagen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						anadirImagenBD();
@@ -238,13 +257,16 @@ public class ArticleWindow extends JDialog {
 			setEditable(false);
 		}
 
-		fillFields();
+		if (mode != Util.Emode.Anadir)
+		{
+			fillFields();
+		}
 
 		JPanel panelImage = new JPanel();
 		panelImage.setBackground(Util._bodyColor);
 		panelImage.setLayout(new BorderLayout());
 		contentPane.add(panelImage, BorderLayout.EAST);
-		JLabel imageLabel = new JLabel(_image);
+		imageLabel = new JLabel(_image);
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.WEST);
 		panelImage.add(Box.createRigidArea(new Dimension(50, 0)), BorderLayout.EAST);
 		panelImage.add(imageLabel, BorderLayout.CENTER);
@@ -253,8 +275,6 @@ public class ArticleWindow extends JDialog {
 		flowLayout_1.setAlignment(FlowLayout.RIGHT);
 		fcpPanel.setBackground(Util._bodyColor);
 		panelImage.add(fcpPanel, BorderLayout.SOUTH);
-
-
 
 	}
 
@@ -324,12 +344,31 @@ public class ArticleWindow extends JDialog {
 		File f = chooser.getSelectedFile();
 		String filename = f.getAbsolutePath();
 		try {
-			ImageIcon image=new ImageIcon(filename);//get the image from file chooser and scale it to match JLabel size
-			// imageLabel
+			_image = new ImageIcon(filename);//get the image from file chooser and scale it to match JLabel size
+			imageLabel.setIcon(Util.scaleImage(_image, 125, 125));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
+	}
+
+	private void anadir()
+	{
+		Articulo a = new Articulo(null, Double.parseDouble((valTextField.getText() == "" ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == "" ? "0" : precioTxtField.getText())),
+		vendedor.getId(), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);
+		_actrl.altaArticulo(a);
+		vendedor.getArticulos().add(_actrl.buscarArticulo("_" + a.getNombre()).get(0));
+		_vctrl.modificarVendedor(vendedor);
+	}
+
+	private void modificar()
+	{
+		Articulo a = new Articulo(Integer.parseInt(idTxtField.getText()), Double.parseDouble((valTextField.getText() == "" ? "0" : valTextField.getText())), Double.parseDouble((precioTxtField.getText() == "" ? "0" : precioTxtField.getText())),
+		Integer.parseInt(idVendTextField.getText()), nombreTextField.getText(), descTextField.getText(), tipoTextField.getText(), stockCheckBox.isSelected(), _image);;
+		articulo = a;
+		vendedor.getArticulos().remove(_actrl.consultarArticulo(a.getId()));
+		_actrl.modificarArticulo(a);
+		vendedor.getArticulos().add(a);
 	}
 
 

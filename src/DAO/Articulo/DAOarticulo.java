@@ -3,10 +3,7 @@ package DAO.Articulo;
 import Misc.Util;
 import ModeloDominio.Articulo;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +61,7 @@ public class DAOarticulo implements IDAOArticulo
                 stmt.executeUpdate(QUERY);
                 correct = true;
             } catch (Exception e) {
+                e.printStackTrace();
                 correct = false;
             }
             return correct;
@@ -137,6 +135,10 @@ public class DAOarticulo implements IDAOArticulo
         if (nombre == "")
         {
             QUERY = "SELECT * FROM Articulos";
+        }
+        else if(nombre.startsWith("_"))
+        {
+            QUERY = "SELECT * FROM Articulos WHERE _Nombre =" + "'" + nombre.substring(1, nombre.length()) + "'" ;
         }
         else
         {

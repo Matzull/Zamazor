@@ -1,13 +1,16 @@
 package Misc;
 
 import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -46,6 +49,13 @@ public class Util {
         }
 
         return new ImageIcon(icon.getImage().getScaledInstance(nw, nh, Image.SCALE_SMOOTH));
+    }
+
+    public static ImageIcon scaleImage(ImageIcon icon, int w, int h)
+    {
+        int maxSize = (icon.getIconWidth() < icon.getIconHeight()) ? icon.getIconHeight() : icon.getIconWidth();
+        Double scale = ((w < h) ? h : w) / (maxSize + 0.0);
+        return scaleImage(icon, scale);
     }
     //TODO JAVADOC blob to image
     /**
@@ -119,6 +129,24 @@ public class Util {
         {
             e.printStackTrace();
         }
+    }
+
+    public static Blob image2Blob(ImageIcon icon)
+    {
+        Image image = icon.getImage();
+        BufferedImage b_img = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+        b_img.getGraphics().drawImage(image, 0, 0, null);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(b_img, "jpg", bos );
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(bos.toByteArray());
+            return blob;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 

@@ -91,7 +91,7 @@ public class UserArticulos extends JDialog {
         list.setFixedCellWidth(250);
 
         JPanel Total_pay = new JPanel();
-        Total_pay.setLayout(new FlowLayout(FlowLayout.RIGHT, 25, 0));
+        Total_pay.setLayout(new FlowLayout(FlowLayout.CENTER, 55, 0));
         Total_pay.setBorder(new EmptyBorder(5, 0, 5, 0));
         contentPane.add(Total_pay, BorderLayout.SOUTH);
         Total_pay.setBackground(Util._barColor);
@@ -102,7 +102,7 @@ public class UserArticulos extends JDialog {
         anadirButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(), _actrl, Util.Emode.Anadir);
+                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(), _actrl, Util.Emode.Anadir, _vctrl, v);
                 ventanaArticulo.setVisible(true);
             }
         });
@@ -134,37 +134,24 @@ public class UserArticulos extends JDialog {
             }
         });
         
-                JButton editarButton = new JButton();
-                editarButton.setBackground(Util._barColor);
-                editarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                editarButton.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
+        JButton editarButton = new JButton();
+        editarButton.setBackground(Util._barColor);
+        editarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        editarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-                        ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(),_actrl, Util.Emode.Modificar);
-                        ventanaArticulo.setVisible(true);
-                        crearModeloJlist(v.getArticulos());
-                        list.setModel(modeloJLista);
-                        list.setCellRenderer(new UserArticulos.CellRenderer());
-                        scrollPane.setViewportView(list);
-                    }
-                });
-                editarButton.setText("Editar art\u00EDculo");
-                Total_pay.add(editarButton);
+                ArticleWindow ventanaArticulo = new ArticleWindow(list.getSelectedValue(),_actrl, Util.Emode.Modificar, _vctrl, v);
+                ventanaArticulo.setVisible(true);
+                crearModeloJlist(v.getArticulos());
+                list.setModel(modeloJLista);
+                list.setCellRenderer(new UserArticulos.CellRenderer());
+                scrollPane.setViewportView(list);
+            }
+        });
+        editarButton.setText("Editar art\u00EDculo");
+        Total_pay.add(editarButton);
         eliminarButton.setText("Elminar art\u00EDculo");
         Total_pay.add(eliminarButton);
-
-        JLabel Total_lbl = new JLabel("Total:");
-        Total_lbl.setFont(new Font("Arial", Font.PLAIN, 14));
-        Total_pay.add(Total_lbl);
-
-
-        Double Total = 0.0;
-        for (Articulo art : v.getArticulos()) {
-            Total += art.getPrecio();
-        }
-        JLabel Precio = new JLabel(Double.toString(Total) + "\u20AC");
-        Precio.setFont(new Font("Arial", Font.BOLD, 23));
-        Total_pay.add(Precio);
 
     }
 
