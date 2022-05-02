@@ -125,21 +125,29 @@ public class UserInfoWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if(!editable) {
-                    int i = JOptionPane.showConfirmDialog(null, "¿Esta seguro de querer modificar su cuenta?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int i = JOptionPane.showConfirmDialog(null, "Â¿Esta seguro de querer modificar su cuenta?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Habilitado modo edicion de cuenta", "Modificar cuenta", 0 , edit);
                         enableEdit();
                     }
                 }
                 else {
-                    int i = JOptionPane.showConfirmDialog(null, "¿Esta seguro de los datos modificados?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    int i = JOptionPane.showConfirmDialog(null, "Â¿Esta seguro de los datos modificados?", "Modificar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(i == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Datos actualizados. Desactivado modo edicion de cuenta", "Modificar cuenta", 0 , save);
                         enableEdit();
-                        comprador.setNombre(nombreText.getText());
-                        comprador.setEmail(emailText.getText());
-                        comprador.setCuenta(userText.getText());
-                        _cctrl.modificarComprador(comprador);
+                        
+                        if(vendedor != null) {
+                        	vendedor.setNombre(nombreText.getText());
+                        	vendedor.setEmail(emailText.getText());
+                        	vendedor.setTelefono(Long.parseLong(telefonoText.getText()));
+                            _vctrl.modificarVendedor(vendedor);
+                        }else {
+                        	comprador.setNombre(nombreText.getText());
+                            comprador.setEmail(emailText.getText());
+                            comprador.setCuenta(userText.getText());
+                            _cctrl.modificarComprador(comprador);
+                        }
                     }
                 }
 
@@ -157,9 +165,9 @@ public class UserInfoWindow extends JFrame {
         eliminarButton.setBackground(Util._barColor);
         eliminarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int i = JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                int i = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro de que quieres borrar tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                 if(i == JOptionPane.YES_OPTION) {
-                    int j = JOptionPane.showConfirmDialog(null, "¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+                    int j = JOptionPane.showConfirmDialog(null, "Â¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
                         dispose();
@@ -310,7 +318,7 @@ public class UserInfoWindow extends JFrame {
             telefonoText.setEditable(true);
             editable = true;
             //passwordField.setEchoChar((char) 0);
-            cartButtton.setEnabled(false);
+            //cartButtton.setEnabled(false);
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
             returnButton.setEnabled(false);
@@ -326,7 +334,7 @@ public class UserInfoWindow extends JFrame {
             passwordField.setEditable(false);
             editable = false;
             passwordField.setEchoChar('*');
-            cartButtton.setEnabled(true);
+            //cartButtton.setEnabled(true);
             eliminarButton.setEnabled(true);
             pedidosButton.setEnabled(true);
             returnButton.setEnabled(true);
