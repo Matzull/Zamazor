@@ -105,10 +105,10 @@ public class DAOcomprador implements IDAOAComprador
         boolean correct = true;
         try
         {
-            if (consultarComprador(c.getCuenta()).getNombre() == "")
-            {
-                throw new Exception("");
-            }
+            //if (consultarComprador(c.getCuenta()).getNombre() == "")
+           // {
+            //    throw new Exception("");
+           // }
             QUERY = "UPDATE Comprador SET   _Nombre = " + "'" + c.getNombre() + "'" +
                                             ", _Email = " + "'" + c.getEmail() + "'" +
                                             ", _Cuenta = " + "'" + c.getCuenta() + "'" +
