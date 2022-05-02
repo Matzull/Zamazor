@@ -73,7 +73,6 @@ public class DAOarticulo implements IDAOArticulo
      * esta funcion se encarga de eliminar un articulo de la base de datos, para ello hacemos
      *      una consulta DELETE para eliminar el articulo de la base de datos cuyo id sea el mismo que el
      *      de la consulta, y actualizamos esa consulta en la base de datos.
-     *      en la base de datos.
      * @param id es el id del articulo a eliminar ya que es el identificador unico de este
      * @return devuelve un booleano que indica si se ha borrado correctamente de la base de datos(true) o si no
      */

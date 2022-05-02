@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vendedor {
-
+    /**
+     * dicho Pedido tiene como atributos un identificador id, un nombre, un email,
+     * un telefono, una lista de Articulos y una contraseña.
+     */
     private Integer id;
     private String nombre;
     private String email;
     private Long telefono;
     private List<Articulo> Articulos;
     private String password;
-
+    /**
+     * este constructor vacio se usa para valores por defecto
+     */
     public Vendedor() {
         id = 0;
         nombre = "";
@@ -20,7 +25,9 @@ public class Vendedor {
         Articulos = new ArrayList<Articulo>();
         password = "";
     }
-
+    /**
+     * este constructor se usa para coger los valores de la base de datos
+     */
     public Vendedor(Integer id, String nombre, String email, Long telefono, List<Articulo> Articulos, String password) {
         this.id = id;
         this.nombre = nombre;
@@ -30,7 +37,9 @@ public class Vendedor {
         this.password = password;
     }
 
-    //region Getters y setters
+    /**
+     * creamos todos los getters y los setters de los atributos de la clase
+     */
 
     public Integer getId() {
         return id;

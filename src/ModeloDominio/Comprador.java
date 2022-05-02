@@ -2,8 +2,14 @@ package ModeloDominio;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * esta clase representa un comprador seleccionable de la lista de compradores
+ */
 public class Comprador {
+    /**
+     * dicho Comprador tiene como atributos un identificador id, un nombre, un email, una cuenta,
+     * una direccion, una lista de pedidos y una contraseña.
+     */
     private Integer id;
     private String nombre;
     private String email;
@@ -11,8 +17,9 @@ public class Comprador {
     private String direccion;
     private List<Pedido> pedidos;
     private String password;
-
-    //Constructor vacio para valores por defecto
+    /**
+     * este constructor vacio se usa para valores por defecto
+     */
     public Comprador(){
         id = 0;
         nombre = "";
@@ -21,7 +28,9 @@ public class Comprador {
         pedidos = new ArrayList<Pedido>();
         password = "";
     }
-
+    /**
+     * este constructor se usa para coger los valores de la base de datos
+     */
     //Contructor con parametros. Lo mas seguro que se use este para coger los valores de la BBDD
     public Comprador(Integer id, String nombre, String email, String cuenta, String direccion, List<Pedido> pedidos, String password){
         this.id = id;
@@ -32,7 +41,9 @@ public class Comprador {
         this.pedidos = pedidos;
         this.password = password;
     }
-
+    /**
+     * creamos todos los getters y los setters de los atributos de la clase
+     */
     public Integer getId() {
         return id;
     }

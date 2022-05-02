@@ -13,7 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Misc.Util.hash256;
-
+/**
+ * Esta es la clase DAOvendedor que se encarga de recopilar
+ * los datos de la tabla Vendedores de la base de datos y conectarlos con la logica del programa
+ *
+ * @author Marcos Alonso, Andres Espejo, Sergio Dominguez, Juan Jerez, Alex, Norberto, Miguel
+ */
 public class DAOvendedor implements IDAOAVendedor
 {
 
@@ -23,7 +28,12 @@ public class DAOvendedor implements IDAOAVendedor
     private Connection conn;
     private Statement stmt;
     private ResultSet rs;
-
+    /**
+     * En la constructora inicializamos la conexion a la base de datos para no llamarla cada vez que
+     * se llame a una funcion y tener el codigo redundante
+     *
+     * conectamos con la base de datos con conn y creamos una consulta con stmt
+     */
     public DAOvendedor(Connection conn){
         try
         {
@@ -36,7 +46,15 @@ public class DAOvendedor implements IDAOAVendedor
             e.printStackTrace();
         }
     }
-
+    /**
+     * esta funcion se encarga de insertar un vendedor en la base de datos, para ello hacemos
+     * una consulta INSERT para insertar todos los atributos de la clase Vendedor, y actualizamos esa consulta
+     * en la base de datos.
+     *
+     * @param a es el vendedor a insertar, con el cogemos cada uno de los atributos de
+     *          su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha insertado correctamente en la base de datos(true) o si no
+     */
     public boolean altaVendedor(Vendedor a) {
         boolean correct = false;
 
@@ -53,7 +71,13 @@ public class DAOvendedor implements IDAOAVendedor
         return correct;
     }
 
-
+    /**
+     * esta funcion se encarga de eliminar un articulo de la base de datos, para ello hacemos
+     *      una consulta DELETE para eliminar el articulo de la base de datos cuyo id sea el mismo que el
+     *      de la consulta, y actualizamos esa consulta en la base de datos.
+     * @param id es el id del articulo a eliminar ya que es el identificador unico de este
+     * @return devuelve un booleano que indica si se ha borrado correctamente de la base de datos(true) o si no
+     */
     @Override
     public boolean bajaVendedor(int id) {
         boolean correct = false;
@@ -70,7 +94,14 @@ public class DAOvendedor implements IDAOAVendedor
         }
         return correct;
     }
-
+    /**
+     * esta funcion se encarga de modificar un vendedor en la base de datos, para ello hacemos
+     *      una consulta UPDATE para modificar el vendedor de la base de datos con el del parametro,
+     *      y actualizamos esa consulta en la base de datos.
+     * @param v es el vendedor a modificar, con el cogemos cada uno de los parametros de
+     *          su clase y los registramos en la base de datos,
+     * @return devuelve un booleano que indica si se ha modificado correctamente en la base de datos(true) o si no
+     */
     @Override
     public boolean modificarVendedor(Vendedor v) {
         boolean correct = true;
@@ -97,7 +128,15 @@ public class DAOvendedor implements IDAOAVendedor
         return correct;
     }
 
-
+    /**
+     * esta funcion se encarga de buscar un vendedor en la base de datos, para ello hacemos
+     *      una consulta SELECT y usamos como condicion LIKE para que recoga nombres que
+     *      empiezen por los caracteres insertados para modificar el vendedor de la base de datos con el del parametro.
+     * @param username es el nombre del vendedor a modificar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha realizado la busqueda correctamente
+     *         en la base de datos(true) o si no
+     */
 
     @Override
     public List<Vendedor> buscarVendedor(String username) {
@@ -136,7 +175,15 @@ public class DAOvendedor implements IDAOAVendedor
         }
         return c;
     }
-
+    /**
+     * esta funcion se encarga de consultar un vendedor en la base de datos, para ello hacemos
+     *      *      una consulta SELECT para consultar el vendedor de la base de datos cuyo id sea el mismo que el
+     *      *      de la consulta.
+     * @param username es el id del vendedor a consultar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha realizado la consulta correctamente
+     *         en la base de datos(true) o si no
+     */
     @Override
     public Vendedor consultarVendedor(String username) {
         Vendedor vend = new Vendedor();

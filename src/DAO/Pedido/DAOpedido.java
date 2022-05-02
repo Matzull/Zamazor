@@ -17,7 +17,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Esta es la clase DAOpedido que se encarga de recopilar
+ * los datos de la tabla Pedidos de la base de datos y conectarlos con la logica del programa
+ *
+ * @author Marcos Alonso, Andres Espejo, Sergio Dominguez, Juan Jerez, Alex, Norberto, Miguel
+ */
 public class DAOpedido implements IDAOPedido
 {
     static final String DB_URL = "jdbc:sqlite:resources/Zamazor.db";
@@ -26,7 +31,12 @@ public class DAOpedido implements IDAOPedido
     private Connection conn;
     private Statement stmt;
     private ResultSet rs;
-
+    /**
+     * En la constructora inicializamos la conexion a la base de datos para no llamarla cada vez que
+     * se llame a una funcion y tener el codigo redundante
+     *
+     * conectamos con la base de datos con conn y creamos una consulta con stmt
+     */
     public DAOpedido(Connection conn){
         try
         {
@@ -39,7 +49,15 @@ public class DAOpedido implements IDAOPedido
             e.printStackTrace();
         }
     }
-
+    /**
+     * esta funcion se encarga de insertar un pedido en la base de datos, para ello hacemos
+     * una consulta INSERT para insertar todos los atributos de la clase pedido, y actualizamos esa consulta
+     * en la base de datos.
+     *
+     * @param p es el pedido a insertar, con el cogemos cada uno de los atributos de
+     *          su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha insertado correctamente en la base de datos(true) o si no
+     */
     public boolean altaPedido(Pedido p) {
         boolean correct = false;
 
@@ -55,7 +73,13 @@ public class DAOpedido implements IDAOPedido
             }
             return correct;
     }
-
+    /**
+     * esta funcion se encarga de eliminar un pedido de la base de datos, para ello hacemos
+     *      una consulta DELETE para eliminar el pedido de la base de datos cuyo id sea el mismo que el
+     *      de la consulta, y actualizamos esa consulta en la base de datos.
+     * @param id es el id del pedido a eliminar ya que es el identificador unico de este
+     * @return devuelve un booleano que indica si se ha borrado correctamente de la base de datos(true) o si no
+     */
     public boolean bajaPedido (int id){
         boolean correct = false;
 
@@ -71,7 +95,14 @@ public class DAOpedido implements IDAOPedido
         }
         return correct;
     }
-
+    /**
+     * esta funcion se encarga de modificar un pedido en la base de datos, para ello hacemos
+     *      una consulta UPDATE para modificar el pedido de la base de datos con el del parametro,
+     *      y actualizamos esa consulta en la base de datos.
+     * @param p es el pedido a modificar, con el cogemos cada uno de los parametros de
+     *          su clase y los registramos en la base de datos,
+     * @return devuelve un booleano que indica si se ha modificado correctamente en la base de datos(true) o si no
+     */
     public boolean modificarPedido (Pedido p) {
         boolean correct = true;
         try
@@ -88,7 +119,15 @@ public class DAOpedido implements IDAOPedido
         }
         return correct;
     }
-
+    /**
+     * esta funcion se encarga de buscar un pedido en la base de datos, para ello hacemos
+     *      una consulta SELECT y usamos como condicion LIKE para que recoga nombres que
+     *      empiezen por los caracteres insertados para modificar el pedido de la base de datos con el del parametro.
+     * @param id es el nombre del pedido a modificar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @return devuelve un booleano que indica si se ha realizado la busqueda correctamente
+     *         en la base de datos(true) o si no
+     */
     public List<Pedido> buscarPedido (String id){
         List<Pedido> l = new ArrayList<>();
         boolean correct = false;
@@ -127,7 +166,16 @@ public class DAOpedido implements IDAOPedido
         }
         return l;
     }
-
+    /**
+     * esta funcion se encarga de consultar un pedido en la base de datos, para ello hacemos
+     *      una consulta SELECT para consultar el pedido de la base de datos cuyo id sea el mismo que el
+     *      de la consulta.
+     * @param id es el id del pedido a consultar, con el cogemos cada uno
+     *               de los parametros de su clase y los registramos en la base de datos
+     * @param mode TODO
+     * @return devuelve un booleano que indica si se ha realizado la consulta correctamente
+     *         en la base de datos(true) o si no
+     */
     public Pedido consultarPedido(int id, boolean mode)//mode = false -> modo normal; mode = true -> modo comprador_id
     {
 

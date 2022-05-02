@@ -2,8 +2,14 @@ package ModeloDominio;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * esta clase representa un pedido seleccionable de la lista de compradores
+ */
 public class Pedido {
+    /**
+     * dicho Pedido tiene como atributos un identificador id, un comprador_id, un repartidor_id,
+     * un booleano para ver si esta entregado, una direccion, una lista de pedidos y una contraseña.
+     */
     private Integer id;
     private Integer comprador_id;
     private Integer repartidor_id;
@@ -12,7 +18,9 @@ public class Pedido {
     private String entrega;
     private String pedido;
     private List<Articulo> articulos;
-
+    /**
+     * este constructor vacio se usa para valores por defecto
+     */
     public Pedido(){
         id = 0;
         comprador_id = 0;
@@ -23,7 +31,9 @@ public class Pedido {
         pedido = "";
         articulos = new ArrayList<Articulo>();
     }
-
+    /**
+     * este constructor se usa para coger los valores de la base de datos
+     */
     public Pedido(Integer id, Integer comprador_id, Integer repartidor_id, String direccion,
                   Boolean entregado, String entrega, String pedido, List<Articulo> articulos){
         this.id = id;
@@ -35,7 +45,9 @@ public class Pedido {
         this.pedido = pedido;
         this.articulos = articulos;
     }
-
+    /**
+     * creamos todos los getters y los setters de los atributos de la clase
+     */
     public Integer getId() {
         return id;
     }
