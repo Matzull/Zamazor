@@ -3,6 +3,7 @@ package View;
 import Misc.Util;
 import ModeloDominio.Comprador;
 import ModeloDominio.Vendedor;
+import ModeloDominio.Articulo;
 import View.Controllers.ArticuloController;
 import View.Controllers.CompradorController;
 import View.Controllers.VendedorController;
