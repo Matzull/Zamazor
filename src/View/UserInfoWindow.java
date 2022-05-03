@@ -351,7 +351,7 @@ public class UserInfoWindow extends JFrame {
             eliminarButton.setEnabled(true);
             pedidosButton.setEnabled(true);
             returnButton.setEnabled(true);
-            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         }
     }
 
