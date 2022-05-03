@@ -167,18 +167,15 @@ public class Login extends JDialog {
 		panel_2.setBackground(Util._barColor);
 		contentPane.add(panel_2, BorderLayout.NORTH);
 
-		JLabel lblNewLabel = new JLabel("");
-		panel_2.add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setForeground(Util._bodyColor);
-		panel_2.add(lblNewLabel_1);
-
 		JLabel lblNewLabel_2 = new JLabel("");
 		iconLogo = new ImageIcon("resources/zamazor.png");
 		lblNewLabel_2.setIcon(iconLogo);
 		panel_2.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("Iniciar sesi\u00F3n");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setForeground(Util._bodyColor);
+		panel_2.add(lblNewLabel_1);
 	}
 
 

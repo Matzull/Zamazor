@@ -91,22 +91,15 @@ public class MainWindow {
         JPanel panel = new JPanel();
         panel.setBackground(Util._barColor);
         frame.getContentPane().add(panel, BorderLayout.NORTH);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
-        JPanel panel_1 = new JPanel();
-        panel_1.setBackground(Util._barColor);
-        FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
-        flowLayout.setAlignment(FlowLayout.LEFT);
-        panel.add(panel_1, BorderLayout.CENTER);
 
-        JLabel fotoZamazor = new JLabel();
+        JLabel fotoZamazor = new JLabel("");
         ImageIcon iconLogo = new ImageIcon("resources/zamazor.png");
-        fotoZamazor.setIcon(Util.scaleImage(iconLogo, 3));
-        panel_1.add(fotoZamazor);
-
-        JPanel panel_2 = new JPanel();
-        panel_2.setBackground(Util._barColor);
-        panel.add(panel_2);
+        fotoZamazor.setIcon(Util.scaleImage(iconLogo, 500, 500));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(Box.createRigidArea(new Dimension(10, 0)));
+        panel.add(fotoZamazor);
+        panel.add(Box.createRigidArea(new Dimension(300, 0)));
 
         buscadorTXT = new JTextField();
         buscadorTXT.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -119,7 +112,7 @@ public class MainWindow {
                 }
             }
         });
-        panel_2.add(buscadorTXT);
+        panel.add(buscadorTXT);
         buscadorTXT.setColumns(40);
 
         JButton botonBuscar = new JButton("");
@@ -134,15 +127,11 @@ public class MainWindow {
                 filter(texto);
             }
         });
-        panel_2.add(botonBuscar);
-
-
-        JPanel panel_3 = new JPanel();
-        panel_3.setBackground(Util._barColor);
-        FlowLayout flowLayout_1 = (FlowLayout) panel_3.getLayout();
-        flowLayout_1.setAlignment(FlowLayout.RIGHT);
-        panel.add(panel_3);
-
+        panel.add(botonBuscar);
+        panel.add(Box.createRigidArea(new Dimension(300, 0)));
+        
+        panel.add(Box.createRigidArea(new Dimension(5, 0)));
+        panel.add(Box.createGlue());
         JLabel logoutIcon = new JLabel();
         logoutIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         logoutIcon.addMouseListener(new MouseAdapter() {
@@ -159,7 +148,7 @@ public class MainWindow {
         });
         logoutIcon.setIcon(Util.scaleImage(new ImageIcon("resources/Log-out.png"), 0.04));
 
-        panel_3.add(logoutIcon);
+        panel.add(logoutIcon);
         
         loginIcon = new JLabel();
         loginIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -198,7 +187,7 @@ public class MainWindow {
         });
         iconLogo = Util.scaleImage(new ImageIcon("resources/user.png"), 0.04);
         loginIcon.setIcon(iconLogo);
-        panel_3.add(loginIcon);
+        panel.add(loginIcon);
 
 
         JPanel panel_4 = new JPanel();
@@ -357,4 +346,5 @@ public class MainWindow {
         
     	
     }
+
 }

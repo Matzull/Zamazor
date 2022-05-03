@@ -171,7 +171,17 @@ public class UserInfoWindow extends JFrame {
                     int j = JOptionPane.showConfirmDialog(null, "¿Estas REALMENTE seguro de que quieres BORRAR tu cuenta?", "Borrar cuenta", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
                     if(j == JOptionPane.YES_OPTION) {
                         JOptionPane.showMessageDialog(null, "Cuenta eliminada de Zamazor", "CUENTA BORRADA", 0 ,sad);
-                        _cctrl.bajaComprador(comprador.getId());
+                        if (comprador != null)
+                        {
+                            _cctrl.bajaComprador(comprador.getId());
+                            comprador = null;
+                        }
+                        else
+                        {
+                            _vctrl.bajaVendedor(vendedor.getId());
+                            vendedor = null;
+                        }
+
                         dispose();
                     }
                 }
