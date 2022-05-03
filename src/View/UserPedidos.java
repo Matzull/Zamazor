@@ -125,7 +125,7 @@ public class UserPedidos extends JDialog {
                 scrollPane.setViewportView(list);
             }
         });
-        eliminarButton.setText("Eliminar articutlo");
+        eliminarButton.setText("Eliminar articulo");
         Total_pay.add(eliminarButton);
         
         JButton volverButton = new JButton();
