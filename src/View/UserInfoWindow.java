@@ -330,7 +330,7 @@ public class UserInfoWindow extends JFrame {
             userText.setEditable(true);
             if(vendedor != null) telefonoText.setEditable(true);
             editable = true;
-            passwordField.setEchoChar((char) 0);
+            //passwordField.setEchoChar((char) 0);
             cartButtton.setEnabled(false);
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
