@@ -60,6 +60,7 @@ public class UserInfoWindow extends JFrame {
         this._vctrl = _vctrl;
         loadIcon();
         this.setVisible(true);
+        editable = false;
         initGUI();
         fillVendor();
     }
@@ -73,6 +74,7 @@ public class UserInfoWindow extends JFrame {
         loadIcon();
         this._cctrl = _cctrl;
         this.setVisible(true);
+        editable = false;
         initGUI();
         fillBuyer();
     }
@@ -325,12 +327,10 @@ public class UserInfoWindow extends JFrame {
         if(!editable) {
             nombreText.setEditable(true);
             emailText.setEditable(true);
-            idText.setEditable(false);
             userText.setEditable(true);
-            passwordField.setEditable(false);
-            telefonoText.setEditable(true);
+            if(vendedor != null) telefonoText.setEditable(true);
             editable = true;
-            //passwordField.setEchoChar((char) 0);
+            passwordField.setEchoChar((char) 0);
             cartButtton.setEnabled(false);
             eliminarButton.setEnabled(false);
             pedidosButton.setEnabled(false);
@@ -340,11 +340,8 @@ public class UserInfoWindow extends JFrame {
         else {
             nombreText.setEditable(false);
             emailText.setEditable(false);
-            idText.setEditable(false);
             userText.setEditable(false);
-            telefonoText.setEditable(false);
-            telefonoText.setEditable(false);
-            passwordField.setEditable(false);
+            if(vendedor != null) telefonoText.setEditable(false);
             editable = false;
             passwordField.setEchoChar('*');
             cartButtton.setEnabled(true);
@@ -383,5 +380,13 @@ public class UserInfoWindow extends JFrame {
         emailText.setText(comprador.getEmail());
         userText.setText(comprador.getCuenta());
         passwordField.setText(comprador.getPassword());
+    }
+    
+    private void reset() {
+    	_cctrl = null;
+    	_vctrl = null;
+    	_actrl = null;
+    	vendedor = null;
+    	comprador = null;
     }
 }
