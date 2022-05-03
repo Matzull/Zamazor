@@ -195,8 +195,8 @@ public class DAOvendedor implements IDAOAVendedor
             vend.setNombre(rs.getString("_Nombre"));
             vend.setEmail(rs.getString("_Email"));
             vend.setTelefono(rs.getLong("_Telefono"));
-            vend.setArticulos(vendedorParser(rs.getString("_Articulos")));
             vend.setPassword(rs.getString("_Password"));
+            vend.setArticulos(vendedorParser(rs.getString("_Articulos")));
         }
         catch (Exception e)
         {

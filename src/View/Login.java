@@ -211,6 +211,8 @@ public class Login extends JDialog {
 			Vendedor buffer = _vctrl.consultarVendedor(username);
 			if (buffer.getNombre() != null)
 			{
+				String real = buffer.getPassword().toLowerCase();
+				String notreal = hash256(new String(password)).toLowerCase();
 				if(buffer.getPassword().toLowerCase().equals(hash256(new String(password)).toLowerCase()))
 				{
 					vendedor = buffer;
