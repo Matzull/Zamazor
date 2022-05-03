@@ -107,6 +107,27 @@ public class UserPedidos extends JDialog {
         contentPane.add(Total_pay, BorderLayout.SOUTH);
         Total_pay.setBackground(Util._barColor);
 
+        JButton eliminarButton = new JButton();
+        eliminarButton.setBorder(null);
+        eliminarButton.setPreferredSize(new Dimension(100,50));
+        eliminarButton.setBackground(Util._bodyColor);
+        eliminarButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        eliminarButton.addActionListener(new ActionListener() {
+            
+			public void actionPerformed(ActionEvent e) {
+            	
+            	for(Pedido x: comp.getPedidos()) {           		
+            		if(!x.getEntregado())
+            		x.getArticulos().remove(list.getSelectedValue());
+            	}
+                
+               
+                scrollPane.setViewportView(list);
+            }
+        });
+        eliminarButton.setText("Eliminar articutlo");
+        Total_pay.add(eliminarButton);
+        
         JButton volverButton = new JButton();
         volverButton.setBorder(null);
         volverButton.setPreferredSize(new Dimension(100,50));
