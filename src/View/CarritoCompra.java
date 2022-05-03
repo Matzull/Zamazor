@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * esta clase del carrito de la compra es una clase que muestra los articulos del ultimo pedido del usuario
+ * en la base de datos que esta registrado como sin pagar
+ */
 
 public class CarritoCompra extends JFrame {
 
@@ -34,7 +38,12 @@ public class CarritoCompra extends JFrame {
     private CompradorController _cctrl;
     private Comprador comp;
 
-
+    /**
+     * se inicia initialize para ejecutar el jPanel principal y guardamos como atributo _pedido
+     * que se encarga de guardar el ultimo pedido de la lsita de pedidos del comprador
+     * @param comp registramos comprador como atributo de la clase
+     * @param _cctrl registramos el controlador como atributo de la clase
+     */
     public CarritoCompra(Comprador comp, CompradorController _cctrl) {
         this._pedido = comp.getPedidos().get(comp.getPedidos().size() - 1);
         this.comp = comp;
@@ -52,6 +61,11 @@ public class CarritoCompra extends JFrame {
         return map;
     }
 
+    /**
+     * inicia un jPanel en el Jdialog que contendra los articulos, en el se inserta un scrollpane
+     * y en jpanel puesto abajo esta el boton de pagar y para que aparezca en pedidos del comrpador
+     * y el precio total de todos los productos
+     */
     private void initialize() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 700, 601);

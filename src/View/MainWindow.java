@@ -22,7 +22,6 @@ import java.util.Map;
  * esta clase es la ventana principal de la interfaz donde estan listados por defecto todos los productos
  * y con la barra de busqueda puedes buscar los productos que tengan un nombre similar a lo escrito.
  * Tambien hay un boton de login que sirve tambien para registrarse.
- * TODO PONER MAS INFORMACION DE LAS CLASES SI ES QUE FALTAN
  */
 public class MainWindow {
 

@@ -6,7 +6,7 @@ import ModeloDominio.Vendedor;
 import java.util.List;
 
 /**
- * esta clase representa la fachada de la clase SAarticulos
+ * esta clase representa la fachada de la clase SAVendedor
  * que se encarga de llamar a las funciones del SA según el cliente quiera
  */
 

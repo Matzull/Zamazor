@@ -25,6 +25,9 @@ import java.util.List;
 import Misc.Util;
 import View.Controllers.VendedorController;
 
+/**
+ * esta es la clase que muestra la informacion del articulo al pulsar con el raton sobre el
+ */
 public class ArticleWindow extends JDialog {
 
 	private JPanel contentPane;
@@ -50,6 +53,7 @@ public class ArticleWindow extends JDialog {
 	JLabel imageLabel;
 
 	/**
+	 * inicializa la gui
 	 * @wbp.parser.constructor
 	 */
 	public ArticleWindow(Articulo articulo, ArticuloController _actrl, Util.Emode mode, VendedorController _vctrl, Vendedor vend)
@@ -62,6 +66,12 @@ public class ArticleWindow extends JDialog {
 		initGui();
 	}
 
+	/**
+	 * inicializa la gui
+	 * @param articulo es el articulo a mostrar
+	 * @param comp el comprador que en su pedido tiene ese articulo
+	 * @param _cctrl el controlador del comprador
+	 */
 	public ArticleWindow(Articulo articulo, Comprador comp, CompradorController _cctrl) {
 
 		this.articulo = articulo;
@@ -71,6 +81,11 @@ public class ArticleWindow extends JDialog {
 		initGui();
 	}
 
+	/**
+	 *  crea el jPanel con los campos inmodificalbles de id, nombre, precio,stock,descripcion
+	 * valoracion tipo e id vendedor, despues podemos aniadir el articulo al carrito
+	 * y salir con aceptar
+	 */
 	private void initGui(){
 		setModal(true);
 		setLocation(100, 100);

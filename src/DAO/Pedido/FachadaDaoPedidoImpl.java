@@ -49,7 +49,8 @@ public class FachadaDaoPedidoImpl implements IFachadaDaoPedido {
     public List<Pedido> buscarPedido(String id) {return Dao.buscarPedido(id);}
     /**
      * @param id este parametro es el id del pedido seleccionado por el cliente
-     * @param mode TODO
+     * @param mode si mode es false coge el id del Pedido y si es true coge el id del comprador
+     *             para ver cual es el ultimo pedido de este
      * @return llama a la funcion consultarPedido del DAO y devuelve el pedido a mostrar
      */
     @Override

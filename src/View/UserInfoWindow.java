@@ -14,6 +14,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * esta es la clase que controla lo que pasa cuando un usuario hace login tambien llamando a la clase Login
+ */
 
 public class UserInfoWindow extends JFrame {
 
@@ -36,7 +39,7 @@ public class UserInfoWindow extends JFrame {
 
 
     /**
-     * En esta constructora se activa cuando no se ha
+     * En esta constructora se activa cuando no se ha logeado ningun usuario
      */
     public UserInfoWindow() {
         this.setTitle("Informacion de usuario");
@@ -75,7 +78,8 @@ public class UserInfoWindow extends JFrame {
     }
 
     /**
-     * se encarga de iniciar la ventana de informacion de usuario
+     * se encarga de iniciar la ventana de informacion de usuario mostrando el id, el nombre,
+     * el nombre de usuario o el telefono, el mail,
      */
     private void initGUI() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * la clase userPedidos ejecuta una lista que muestra los articulos de todos los pedidos que tenga un usuario
+ * que no esten en el carrito de la compra
+ */
 public class UserPedidos extends JDialog {
 
     private JPanel contentPane;
@@ -33,6 +37,12 @@ public class UserPedidos extends JDialog {
     private Comprador comp;
     private JButton volverButton;
 
+    /**
+     * iniciamos la gui en el constructor
+     * @param c con este parametro lo metemos como atributo y cogemos los pedidos del comprador parameterlos como
+     *          stributo en una arraylist
+     * @param _cctrl pasamos el controlador y lo ponemos en la clase como atributo
+     */
     public UserPedidos(Comprador c, CompradorController _cctrl){
         setModal(true);
         this.comp = c;
@@ -51,6 +61,10 @@ public class UserPedidos extends JDialog {
         return map;
     }
 
+    /**
+     * inicia un jPanel en el Jdialog que contendra los articulos, en el se inserta un scrollpane
+     * y en jpanel puesto abajo esta la flecha de ir atras mas el precio total de todos los productos
+     */
     private void initGUI() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 700, 601);

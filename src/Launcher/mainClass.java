@@ -6,8 +6,11 @@ import View.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
-//TODO JAVADOC MAIN
-public class mainClass {     //El main sera la clase Amazon del diagrama de clases?
+
+/**
+ * el main se encarga de ejecutar la ventana principal de la interfaz y ejecuta la hebra principal
+ */
+public class mainClass {
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -25,16 +28,7 @@ public class mainClass {     //El main sera la clase Amazon del diagrama de clas
 				}
 			}
 		});
-		//debug();
 
 	}
-	private static void debug()
-	{
-		SAPedido sa = new SAPedido();
-		SAArticulos sa2 = new SAArticulos();
-		int id2;
-		id2 = sa.consultarPedido(2, false).getArticulos().get(1).getId();
-		System.out.println(sa2.consultarArticulo(id2));
 
-	}
 }

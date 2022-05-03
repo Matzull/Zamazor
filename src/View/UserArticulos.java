@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * esta clase muestra todos los articulos que tiene un vendedor para vender
+ */
 public class UserArticulos extends JDialog {
     private JPanel contentPane;
     private DefaultListModel<Articulo> modeloJLista;
@@ -35,7 +38,12 @@ public class UserArticulos extends JDialog {
     private Vendedor v;
     private JButton volverButton;
 
-
+    /**
+     * iniciamos la gui en el constructor
+     * @param v pasamos el vendedor y lo ponemos en la clase como atributo
+     * @param _vctrl pasamos el controlador y lo ponemos en la clase como atributo
+     * @param _actrl pasamos el controlador y lo ponemos en la clase como atributo
+     */
     public UserArticulos(Vendedor v, VendedorController _vctrl, ArticuloController _actrl){
         setModal(true);
         this.v = v;
@@ -54,6 +62,11 @@ public class UserArticulos extends JDialog {
         return map;
     }
 
+    /**
+     * inicia un jPanel en el Jdialog que contendra los articulos, en el se inserta un scrollpane
+     *       y en jpanel puesto abajo esta el boton de volver mas el boton de aniadir un articulo,  editar articulo y
+     *       eliminar articulo
+     */
     private void initGUI() {
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setBounds(100, 100, 700, 601);

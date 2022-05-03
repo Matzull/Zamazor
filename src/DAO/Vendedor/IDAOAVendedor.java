@@ -3,7 +3,10 @@ package DAO.Vendedor;
 import ModeloDominio.Vendedor;
 
 import java.util.List;
-
+/**
+ * Esta es la interfaz de la clase DAOvendedor que se encarga de recopilar
+ * los datos de la tabla Vendedores de la base de datos y conectarlos con la logica del programa
+ */
 public interface IDAOAVendedor {
      /**
       * @param v este parametro es el vendedor seleccionado por el cliente

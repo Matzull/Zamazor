@@ -172,7 +172,8 @@ public class DAOpedido implements IDAOPedido
      *      de la consulta.
      * @param id es el id del pedido a consultar, con el cogemos cada uno
      *               de los parametros de su clase y los registramos en la base de datos
-     * @param mode TODO
+     * @param mode si mode es false coge el id del Pedido y si es true coge el id del comprador
+     *             para ver cual es el ultimo pedido de este
      * @return devuelve un booleano que indica si se ha realizado la consulta correctamente
      *         en la base de datos(true) o si no
      */
